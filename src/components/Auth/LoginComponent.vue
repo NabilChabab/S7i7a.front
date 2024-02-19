@@ -1,99 +1,116 @@
 <template>
-  <div class="container">
-    <div class="col-lg-6 mb-lg-0 position-relative mt-5">
-      <div
-        id="radius-shape-1"
-        class="position-absolute rounded-circle shadow-5-strong"
-      ></div>
-      <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
-      <div class="card1 bg-glass">
-        <div class="card-body px-4 py-5 px-md-5">
-          <div class="form-outline mb-4" :class="{ error: errors.email }">
-            <input
-              type="email"
-              id="email"
-              class="form-control p-2"
-              placeholder="Email"
-              aria-describedby="emailHelp"
-              v-model="email"
-            />
-            <span v-if="errors.email" class="text-danger">{{
-              errors.email
-            }}</span>
-          </div>
-
-          <div class="form-outline mb-4">
-            <input
-              type="password"
-              id="password"
-              class="form-control p-2"
-              placeholder="Password"
-              name="password"
-              v-model="password"
-            />
-            <span v-if="errors.password" class="text-danger">{{
-              errors.password
-            }}</span>
-          </div>
-
-          <div class="div">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                name="remember"
-                id="remember"
-              />
-
-              <label class="form-check-label text-dark" for="remember">
-                Remember me
-              </label>
+<div class="container position-sticky z-index-sticky top-0">
+    <div class="row">
+      <div class="col-12">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
+          <div class="container-fluid">
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
+              Argon Dashboard 2
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.html">
+                    <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="../pages/profile.html">
+                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
+                    Profile
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="../pages/sign-up.html">
+                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
+                    Sign Up
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="../pages/sign-in.html">
+                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
+                    Sign In
+                  </a>
+                </li>
+              </ul>
+              <ul class="navbar-nav d-lg-block d-none">
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 btn-primary">Go Home</a>
+                </li>
+              </ul>
             </div>
-            <router-link
-              to="#forgotPasswordModal"
-              class="btn btn-link text-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#forgotPasswordModal"
-              >Forgot Password?</router-link
-            >
           </div>
-          <button
-            type="submit"
-            class="btn btn-dark btn-block mb-4 col-12 p-2"
-            @click="loginUser"
-          >
-            Login
-          </button>
-
-          <span class="d-flex justify-content-center gap-2"
-            >Dont have an account
-            <router-link :to="{ path: 'register' }">Register</router-link></span
-          >
-
-          <!-- Register buttons -->
-          <div class="text-center mt-4">
-            <button type="button" class="btn btn-link btn-floating mx-1">
-              <i class="bx bxl-meta"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
-              <i class="bx bxl-google"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
-              <i class="bx bxl-linkedin"></i>
-            </button>
-
-            <button type="button" class="btn btn-link btn-floating mx-1">
-              <i class="bx bxl-github"></i>
-            </button>
+        </nav>
+        <!-- End Navbar -->
+      </div>
+    </div>
+  </div>
+  <main class="main-content  mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+              <div class="card card-plain">
+                <div class="card-header pb-0 text-start">
+                  <h4 class="font-weight-bolder">Sign In</h4>
+                  <p class="mb-0">Enter your email and password to sign in</p>
+                </div>
+                <div class="card-body">
+                  <form role="form" @submit.prevent="loginUser">
+                    <div class="mb-3" :class="{ error: errors.email }">
+                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="email">
+                      <span v-if="errors.email" class="text-danger">{{errors.email}}</span>
+                    </div>
+                    <div class="mb-3" :class="{ error: errors.password }">
+                      <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" v-model="password">
+                      <span v-if="errors.password" class="text-danger">{{errors.password}}</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="form-check form-switch ">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                      </div>
+                      <router-link to="#forgotPasswordModal" class="btn btn-link text-primary mt-3" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</router-link>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                  <p class="mb-4 text-sm mx-auto">
+                    Don't have an account?
+                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
+              style="background-image: url('../../assets/images/carousel-1.jpg');">
+                <span class="mask bg-gradient-primary opacity-6" ></span>
+              
+                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
+                <p class="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div
+    </section>
+  </main>
+  <div
       class="modal fade"
       id="forgotPasswordModal"
       tabindex="-1"
@@ -115,7 +132,7 @@
           </div>
           <form @submit.prevent="sendResetLink">
             <div class="modal-body">
-              <div class="form-group">
+              <div class="form-group" :class="{ error: errors.forgotPasswordEmail }">
                 <input
                   type="email"
                   id="forgotPasswordEmail"
@@ -146,7 +163,7 @@
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -172,7 +189,7 @@ export default {
           password: this.password,
         });
         console.log(response.data);
-        const { message, redirect, token } = response.data;
+        const { message, redirect, token , role , name} = response.data;
         if (
           [
             "Admin login successful",
@@ -181,6 +198,8 @@ export default {
           ].includes(message)
         ) {
           localStorage.setItem("token", token);
+          localStorage.setItem("role", role);
+          localStorage.setItem("name", name);
           Swal.fire({
             icon: "success",
             title: "Success",
@@ -249,91 +268,5 @@ export default {
 </script>
 
 <style>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10% 0px;
-}
-.bg-glass {
-  background-color: hsla(0, 0%, 100%, 0.788) !important;
-  backdrop-filter: saturate(200%) blur(25px);
-}
 
-.div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  vertical-align: middle;
-  margin-bottom: 20px;
-}
-
-.error input {
-  border: 3px solid red;
-}
-
-.success input {
-  border: 3px solid green;
-}
-
-form {
-  padding: 20px;
-}
-
-form a {
-  text-decoration: none;
-}
-
-.card {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card img {
-  width: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: auto;
-}
-
-.card label {
-  margin-top: 30px;
-  text-align: center;
-  height: 40px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.card input {
-  display: none;
-}
-body {
-  height: 100vh;
-}
-#app {
-  width: 100%;
-  height: 100vh;
-  background-position: center;
-  background-size: cover;
-  object-fit: cover;
-}
-
-.reset {
-  width: 200px;
-  padding: 10px;
-  border-radius: 15px;
-  margin-left: 26%;
-}
-.spinner-border {
-  margin-top: 20px;
-  width: 3rem;
-  height: 3rem;
-  color: rgb(0, 0, 0);
-}
 </style>

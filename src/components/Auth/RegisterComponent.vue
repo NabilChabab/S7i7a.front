@@ -12,7 +12,7 @@
 
         <div class="card1 bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-4" :class="{ error: errors.name }">
               <input
                 type="text"
                 id="name"
@@ -26,7 +26,7 @@
               }}</span>
             </div>
 
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-4" :class="{ error: errors.email }">
               <input
                 type="email"
                 id="email"
@@ -40,7 +40,7 @@
               }}</span>
             </div>
 
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-4" :class="{ error: errors.password }">
               <input
                 type="password"
                 id="password"
@@ -53,7 +53,7 @@
               }}</span>
             </div>
 
-            <div class="form-outline mb-4">
+            <div class="form-outline mb-4" :class="{ error: errors.confirmPassword }">
               <input
                 type="password"
                 id="password"
