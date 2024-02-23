@@ -1,11 +1,10 @@
 <template>
-      <div>
-        <div class="min-height-300 bg-primary position-absolute w-100"></div>
-        <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
-      <div class="sidenav-header">
-        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="" class="navbar-brand-img h-100" alt="main_logo">
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../../assets/img/icons/logo/medical-check.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">S7I7A.ma</span>
       </a>
     </div>
@@ -13,71 +12,67 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="./pages/dashboard.html">
+          <a class="nav-link active" href="../pages/dashboard.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="bx bx-home-alt text-primary text-sm opacity-10"></i>
+              <i class='bx bx-home-alt text-primary text-sm opacity-10'></i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/tables.html">
+          <a class="nav-link " href="../pages/tables.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class='bx bx-plus-medical text-warning text-sm opacity-10'></i>
+              <i class="bx bx-plus-medical calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Doctors</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/billing.html">
+          <a class="nav-link " href="../pages/billing.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="bx bxs-user text-success text-sm opacity-10"></i>
+              <i class="bx bx-user text-success text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Patients</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/virtual-reality.html">
+          <a class="nav-link " href="../pages/virtual-reality.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class='bx bx-check-circle text-info text-sm opacity-10'></i>
+              <i class="bx bx-check-double text-info text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Apointments</span>
+            <span class="nav-link-text ms-1">Appointments</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/rtl.html">
+          <a class="nav-link " href="../pages/virtual-reality.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="bx bxs-note text-danger text-sm opacity-10"></i>
+              <i class="bx bxs-notepad text-info text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Articles</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/rtl.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="bx bxs-credit-card text-danger text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Payments</span>
           </a>
         </li>
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./pages/profile.html">
+          <a class="nav-link " href="../pages/profile.html">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+              <i class="bx bxs-face text-primary text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
       </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
-      <div class="card card-plain shadow-none" id="sidenavCard">
-        <img class="w-50 mx-auto" src="g" alt="sidebar_illustration">
-        <div class="card-body text-center p-3 w-100 pt-0">
-          <div class="docs-info">
-            <h6 class="mb-0">Need help?</h6>
-            <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-          </div>
-        </div>
-      </div>
-      <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-      <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
-    </div>
+ 
   </aside>
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
@@ -99,9 +94,9 @@
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="#" class="nav-link text-white font-weight-bold px-0" @click="logoutUser">
+              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Logout</span>
+                <span class="d-sm-inline d-none">{{ userName }}</span>
               </a>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -114,20 +109,15 @@
               </a>
             </li>
             <li class="nav-item px-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white p-0">
-                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
-              </a>
-            </li>
-            <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bell cursor-pointer"></i>
+                <i class="fa fa-bell fixed-plugin-button-nav cursor-pointer"></i>
               </a>
               <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                 <li class="mb-2">
                   <a class="dropdown-item border-radius-md" href="javascript:;">
                     <div class="d-flex py-1">
                       <div class="my-auto">
-                        <img src="" class="avatar avatar-sm  me-3 ">
+                        <img src="../../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="text-sm font-weight-normal mb-1">
@@ -145,7 +135,7 @@
                   <a class="dropdown-item border-radius-md" href="javascript:;">
                     <div class="d-flex py-1">
                       <div class="my-auto">
-                        <img src="" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                        <img src="../../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="text-sm font-weight-normal mb-1">
@@ -185,6 +175,50 @@
                           <i class="fa fa-clock me-1"></i>
                           2 days
                         </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-cog cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">profile</span>
+                        </h6>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" @click="logoutUser">
+                    <div class="d-flex py-1">
+                     
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">logout</span> 
+                        </h6>
+                        
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                     
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">Settings</span> 
+                        </h6>
+                        
                       </div>
                     </div>
                   </a>
@@ -319,7 +353,7 @@
           <div class="card card-carousel overflow-hidden h-100 p-0">
             <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
               <div class="carousel-inner border-radius-lg h-100">
-                <div class="carousel-item h-100 active" style="background-image: url('');
+                <div class="carousel-item h-100 active" style="background-image: url('../../assets/img/carousel-1.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -329,7 +363,7 @@
                     <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
                   </div>
                 </div>
-                <div class="carousel-item h-100" style="background-image: url('');
+                <div class="carousel-item h-100" style="background-image: url('../../assets/img/carousel-2.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -339,7 +373,7 @@
                     <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
                   </div>
                 </div>
-                <div class="carousel-item h-100" style="background-image: url('');
+                <div class="carousel-item h-100" style="background-image: url('../../assets/img/carousel-3.jpg');
       background-size: cover;">
                   <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -377,7 +411,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="" alt="Country flag">
+                          <img src="../../assets/img/icons/flags/US.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -408,7 +442,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="" alt="Country flag">
+                          <img src="../../assets/img/icons/flags/DE.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -439,7 +473,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="" alt="Country flag">
+                          <img src="../../assets/img/icons/flags/GB.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -470,7 +504,7 @@
                     <td class="w-30">
                       <div class="d-flex px-2 py-1 align-items-center">
                         <div>
-                          <img src="" alt="Country flag">
+                          <img src="../../assets/img/icons/flags/AU.png" alt="Country flag">
                         </div>
                         <div class="ms-4">
                           <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -575,7 +609,7 @@
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
               <div class="copyright text-center text-sm text-muted text-lg-start">
-                © 
+                © ,
                 made with <i class="fa fa-heart"></i> by
                 <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
                 for a better web.
@@ -604,7 +638,7 @@
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-      <i class='bx bxs-cog'></i>
+      <i class="fa fa-cog py-2"> </i>
     </a>
     <div class="card shadow-lg">
       <div class="card-header pb-0 pt-3 ">
@@ -674,16 +708,15 @@
       </div>
     </div>
   </div>
-      </div>
-
 </template>
 
 <script>
 export default {
   data() {
     return{
-      userName: ''
+      userName: '',
     }
+    
   },
   created(){
     this.userName = localStorage.getItem('name');
@@ -693,10 +726,9 @@ export default {
       localStorage.removeItem("token");
       this.$router.push("/login");
     },
-  }
+  },
 };
 </script>
 
 <style>
-@import '../../assets/css/argon-dashboard.css';
 </style>

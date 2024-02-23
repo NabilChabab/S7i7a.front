@@ -7,7 +7,7 @@
         <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
           <div class="container-fluid">
             <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
-              Argon Dashboard 2
+              S7I7A.ma
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
@@ -18,34 +18,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navigation">
               <ul class="navbar-nav mx-auto">
+                
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="../pages/dashboard.html">
-                    <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-                    Dashboard
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/profile.html">
-                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                    Profile
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.html">
+                  <router-link class="nav-link me-2" :to="{path:'register'}">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Sign Up
-                  </a>
+                  </router-link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-in.html">
+                  <router-link class="nav-link me-2" :to="{path:'login'}">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                     Sign In
-                  </a>
+                  </router-link>
                 </li>
               </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                  <a href="https://www.creative-tim.com/product/argon-dashboard" class="btn btn-sm mb-0 me-1 btn-primary">Go Home</a>
+                  <router-link :to="{path:'/'}" class="btn btn-sm mb-0 me-1 btn-primary">Go Home</router-link>
                 </li>
               </ul>
             </div>
@@ -68,12 +57,12 @@
                 </div>
                 <div class="card-body">
                   <form role="form" @submit.prevent="loginUser">
-                    <div class="mb-3" :class="{ error: errors.email }">
+                    <div class="mb-3 form-outline" :class="{ error: errors.email }">
                       <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="email">
                       <span v-if="errors.email" class="text-danger">{{errors.email}}</span>
                     </div>
                     <div class="mb-3" :class="{ error: errors.password }">
-                      <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" v-model="password">
+                      <input type="password" class="form-control form-control-lg " placeholder="Password" aria-label="Password" v-model="password">
                       <span v-if="errors.password" class="text-danger">{{errors.password}}</span>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
@@ -81,7 +70,7 @@
                         <input class="form-check-input" type="checkbox" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
-                      <router-link to="#forgotPasswordModal" class="btn btn-link text-primary mt-3" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</router-link>
+                      <router-link to="#forgotPasswordModal" class="btn btn-link text-dark mt-3" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</router-link>
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
@@ -91,14 +80,13 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <router-link :to="{path : '/register'}" class="text-dark text-gradient font-weight-bold">Sign up</router-link>
                   </p>
                 </div>
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-              style="background-image: url('../../assets/images/carousel-1.jpg');">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
                 <span class="mask bg-gradient-primary opacity-6" ></span>
               
                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
@@ -114,9 +102,7 @@
       class="modal fade"
       id="forgotPasswordModal"
       tabindex="-1"
-      aria-labelledby="forgotPasswordModalLabel"
-      aria-hidden="true"
-    >
+      aria-labelledby="forgotPasswordModalLabel" aria-hidden="true" >
       <div class="modal-dialog">
         <div class="modal-content bg-glass">
           <div class="modal-header">
@@ -130,36 +116,25 @@
               aria-label="Close"
             ></button>
           </div>
+          <div class="modal-body">
           <form @submit.prevent="sendResetLink">
-            <div class="modal-body">
-              <div class="form-group" :class="{ error: errors.forgotPasswordEmail }">
-                <input
-                  type="email"
-                  id="forgotPasswordEmail"
-                  class="form-control p-2"
-                  placeholder="Email"
-                  aria-describedby="emailHelp"
-                  v-model="forgotPasswordEmail"
-                />
-              </div>
+              <div class="mb-3 form-outline" :class="{ error: errors.forgotPasswordEmail }">
+                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="forgotPasswordEmail">
+                      <span class="text-danger">{{ forgotPasswordErrors.email }}</span>
 
-              <span class="text-danger">{{ forgotPasswordErrors.email }}</span>
+                    </div>
+
               <div v-if="loading" class="text-center">
                 <div class="spinner-border" role="status">
                   <span class="visually-hidden">Loading...</span>
                 </div>
               </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-3 mb-3" :disabled="loading">Send Reset Link</button>
             </div>
-            <div>
-              <button
-                type="submit"
-                class="btn btn-dark mb-4 col-12 reset"
-                :disabled="loading"
-              >
-                Send Reset Link
-              </button>
-            </div>
+            
           </form>
+        </div>
         </div>
       </div>
     </div>

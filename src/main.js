@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import "boxicons/css/boxicons.min.css";
 import { createRouter, createWebHistory } from 'vue-router';
+import './assets/css/argon-dashboard.css';
 
 import RegisterComponent from '@/components/Auth/RegisterComponent.vue';
 import LoginComponent from '@/components/Auth/LoginComponent.vue';
