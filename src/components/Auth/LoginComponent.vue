@@ -58,7 +58,7 @@
                 <div class="card-body">
                   <form role="form" @submit.prevent="loginUser">
                     <div class="mb-3 form-outline" :class="{ error: errors.email }">
-                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="email">
+                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="email" >
                       <span v-if="errors.email" class="text-danger">{{errors.email}}</span>
                     </div>
                     <div class="mb-3" :class="{ error: errors.password }">
@@ -179,6 +179,9 @@ export default {
             icon: "success",
             title: "Success",
             text: "Welcome " + response.data.role,
+            customClass: {
+              popup: 'popup', // Define your custom class here
+            }
           });
           this.$router.push(redirect);
         } else {

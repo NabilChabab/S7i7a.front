@@ -114,6 +114,10 @@
                     <input type="text" class="form-control" placeholder="FullName" aria-label="Name" aria-describedby="email-addon" v-model="name">
                     <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
                   </div>
+                  <div class="mb-3" :class="{ error: errors.phone }">
+                    <input type="text" class="form-control" placeholder="PhoneNumber" aria-label="Name" aria-describedby="email-addon" v-model="phone">
+                    <span v-if="errors.phone" class="text-danger">{{errors.phone}}</span>
+                  </div>
                   <div class="mb-3" :class="{error : errors.email}">
                     <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" v-model="email">
                     <span v-if="errors.email" class="text-danger">{{errors.email}}</span>
@@ -209,6 +213,7 @@ export default {
     return {
       name: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
       acceptTerms: false,
@@ -221,6 +226,7 @@ export default {
         const response = await api.post("/register", {
           name: this.name,
           email: this.email,
+          phone: this.phone,
           password: this.password,
           confirmPassword: this.confirmPassword,
           acceptTerms: this.acceptTerms,
@@ -232,7 +238,7 @@ export default {
           text:
             "Your account has been created successfully! Welcome " + this.name,
         });
-        this.$router.push("/login");
+        this.$router.push(response.data.redirect);
       } catch (error) {
         console.error(error);
         if (

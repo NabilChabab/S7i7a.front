@@ -6,6 +6,7 @@ import "boxicons/css/boxicons.min.css";
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/css/argon-dashboard.css';
 
+//necesary
 import RegisterComponent from '@/components/Auth/RegisterComponent.vue';
 import LoginComponent from '@/components/Auth/LoginComponent.vue';
 import ResetPasswordComponent from '@/components/Auth/ResetPasswordComponent.vue';
@@ -13,6 +14,12 @@ import DashboardComponent from '@/components/admin/DashboardComponent.vue';
 import DoctorComponent from '@/components/doctor/DoctorComponent.vue';
 import PatientComponent from '@/components/patient/PatientComponent.vue';
 import TheWelcomeVue from './components/TheWelcome.vue';
+
+//semi
+
+import DoctorsComponent from './components/admin/DoctorsComponent.vue';
+import CreateDoctorsComponent from './components/admin/create/CreateDoctorComponent.vue';
+import UpdateDoctorsComponent from './components/admin/update/UpdateDoctorComponent.vue';
 
 const isAuthenticated = () => {
 
@@ -32,6 +39,9 @@ const routes = [
   { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/patient/dashboard', component: PatientComponent, meta: { requiresAuth: true, roles: ['Patient'] }},
   { path: '/', component: TheWelcomeVue},
+  { path: '/admin/doctors', component: DoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/doctors/create', component: CreateDoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/doctors/edit/:id', name: 'edit_doctor' , component: UpdateDoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
 ];
 
 const router = createRouter({
