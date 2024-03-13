@@ -164,7 +164,7 @@ export default {
           password: this.password,
         });
         console.log(response.data);
-        const { message, redirect, token , role , name} = response.data;
+        const { message, redirect, token , role , name , userId} = response.data;
         if (
           [
             "Admin login successful",
@@ -175,6 +175,7 @@ export default {
           localStorage.setItem("token", token);
           localStorage.setItem("role", role);
           localStorage.setItem("name", name);
+          localStorage.setItem("userId", userId);
           Swal.fire({
             icon: "success",
             title: "Success",

@@ -53,11 +53,11 @@
               </div>
             </td>
             <td>
-              <p class="text-xs font-weight-bold mb-0">Manager</p>
-              <p class="text-xs text-secondary mb-0">Organization</p>
+              <p class="text-xs font-weight-bold mb-0">- - - -  -</p>
+              <p class="text-xs text-secondary mb-0">- - - - - - - - - - -</p>
             </td>
             <td class="align-middle text-center text-sm">
-              <span class="badge badge-sm bg-gradient-success">Online</span>
+              <span class="badge badge-sm bg-gradient-success">Null</span>
             </td>
             <td class="align-middle text-center">
               <span class="text-secondary text-xs font-weight-bold"

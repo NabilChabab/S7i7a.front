@@ -2,26 +2,26 @@
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
   <SideNav :links="navigationLinks" style="z-index: 999" />
   <main class="main-content position-relative border-radius-lg">
-    <!-- Navbar -->
     <NavbarComponent />
-    <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
-          <form @submit.prevent="addDoctor" enctype="multipart/form-data">
+          <form @submit.prevent="updateDoctor" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PATCH" />
             <div class="card mb-4">
               <div
                 class="card-header pb-0 d-flex justify-content-between align-items-center"
               >
-                <h6>Add New Doctors</h6>
+                <h6>Edit Doctor</h6>
                 <button class="btn btn-primary" type="submit">
-                  Add Doctor
+                  Save Changes
                 </button>
               </div>
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
                   <div class="cards">
                     <img
+                      v-if="previewImage || doctor.profile"
                       :src="previewImage || doctor.profile"
                       id="image"
                       alt="Preview Image"
@@ -38,77 +38,59 @@
                     />
                   </div>
                   <div class="form-outline mb-4">
-                    <label for="">FullName</label>
+                    <label for="name">Full Name</label>
                     <input
-                      type="text"
-                      id="fullname"
-                      class="form-control text-dark fullname"
-                      placeholder="Company Name"
-                      name="name"
                       v-model="doctor.name"
-                      value="{{ doctor.name }}"
-                    />
-                    <p class="fname-error text-danger"></p>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label for="">Email</label>
-                    <input
-                      type="email"
-                      id="fullname"
-                      class="form-control text-dark fullname"
-                      placeholder="Company Name"
-                      name="name"
-                      v-model="email"
-                    />
-                    <p class="fname-error text-danger"></p>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label for="">Phone Number</label>
-                    <input
                       type="text"
-                      id="fullname"
+                      id="name"
+                      class="form-control text-dark fullname"
+                      :disabled="isLoading || !doctor"
+                    />
+                    <p class="fname-error text-danger">
+                      {{ errors.name ? errors.name[0] : "" }}
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label for="email">Email</label>
+                    <input
+                      v-model="doctor.email"
+                      type="email"
+                      id="email"
+                      class="form-control text-dark fullname"
+                      :disabled="isLoading"
+                    />
+                    <p class="fname-error text-danger">
+                      {{ errors.email ? errors.email[0] : "" }}
+                    </p>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label for="phone">Phone Number</label>
+                    <input
+                      v-model="doctor.phone"
+                      type="text"
+                      id="phone"
                       class="form-control text-dark fullname"
                       placeholder="Phone Number"
-                      name="name"
-                      v-model="phone"
+                      :disabled="isLoading"
                     />
-                    <p class="fname-error text-danger"></p>
+                    <p class="fname-error text-danger">
+                      {{ errors.phone ? errors.phone[0] : "" }}
+                    </p>
                   </div>
-
                   <div class="form-outline mb-4">
-                    <label for="">CIN</label>
+                    <label for="cin">CIN</label>
                     <input
+                      v-model="doctor.cin"
                       type="text"
-                      id="fullname"
+                      id="cin"
                       class="form-control text-dark fullname"
                       placeholder="CIN"
-                      name="name"
-                      v-model="cin"
+                      name="cin"
+                      :disabled="isLoading"
                     />
-                    <p class="fname-error text-danger"></p>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label for="">Password</label>
-                    <input
-                      type="password"
-                      id="fullname"
-                      class="form-control text-dark fullname"
-                      placeholder="Password"
-                      name="name"
-                      v-model="password"
-                    />
-                    <p class="fname-error text-danger"></p>
-                  </div>
-                  <div class="form-outline mb-4">
-                    <label for="">confirmPassword</label>
-                    <input
-                      type="password"
-                      id="fullname"
-                      class="form-control text-dark fullname"
-                      placeholder="Confirm Password"
-                      name="name"
-                    />
-                    <p class="fname-error text-danger"></p>
+                    <p class="fname-error text-danger">
+                      {{ errors.cin ? errors.cin[0] : "" }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -169,20 +151,73 @@ export default {
           active: "nav-link ",
         },
       ],
+      doctor: {
+        id: "", // Assuming you have the doctor ID available
+        name: "",
+        email: "",
+        phone: "",
+        cin: "",
+      },
       previewImage: "",
       defaultImage: require("@/assets/img/team-1.jpg"),
-      errorMessage: "",
-      profile: null,
-      name: "",
-      email: "",
-      phone: "",
-      cin: "",
-      password: "",
-      errors: [],
-      doctor: null,
+      errors: {},
+      isLoading: false, // Added to track loading state
     };
   },
+  created() {
+    const doctorId = this.$route.params.id;
+    this.fetchDoctor(doctorId);
+  },
   methods: {
+    async fetchDoctor(doctorId) {
+      const response = await api.get(`/admin/doctors/${doctorId}`);
+      this.doctor = response.data.doctor;
+      console.log(this.doctor);
+    },
+    async updateDoctor() {
+      if (this.isLoading) return;
+
+      this.isLoading = true;
+
+      try {
+        const formData = new FormData();
+        formData.append("name", this.doctor.name);
+        formData.append("email", this.doctor.email);
+        formData.append("phone", this.doctor.phone);
+        formData.append("cin", this.doctor.cin);
+        formData.append("_method", "PATCH");
+        if (this.profile instanceof File) {
+          formData.append("profile", this.profile);
+        }
+
+        const response = await api.post(
+          `/admin/doctors/${this.doctor.id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        this.doctor = response.data.doctor;
+        console.log("Doctor updated successfully!");
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Doctor Updated Successfully",
+        });
+        this.$router.push("/admin/doctors");
+      } catch (error) {
+        console.error("Error updating doctor:", error);
+        if (error.response) {
+          this.errors = error.response.data.errors || {};
+        }
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
     handleImageChange(event) {
       this.profile = event.target.files[0]; // Store the selected file
       if (this.profile) {
@@ -195,61 +230,6 @@ export default {
         this.previewImage = ""; // Clear preview if no file selected
       }
     },
-    async addDoctor() {
-      try {
-        const formData = new FormData();
-        formData.append("name", this.name);
-        formData.append("email", this.email);
-        formData.append("phone", this.phone);
-        formData.append("CIN", this.cin);
-        formData.append("password", this.password);
-
-        // Ensure profile is included only if a file is selected
-        if (this.profile) {
-          formData.append("profile", this.profile);
-        }
-
-        const response = await api.post("admin/doctors", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        console.log(response.data);
-
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Doctor Created Successfully",
-        });
-
-        this.$router.push("/admin/doctors");
-      } catch (error) {
-        console.error(error);
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.errors
-        ) {
-          this.errors = error.response.data.errors;
-        } else {
-          alert("Error occurred while registering user.");
-        }
-      }
-    },
-    async fetchDoctor(doctorId) {
-      try {
-        const response = await api.get(`/admin/doctors/${doctorId}`);
-        this.doctor = response.data;
-      } catch (error) {
-        console.error(error.message);
-        // Handle the error appropriately, e.g., display an error message or redirect
-      }
-    },
-  },
-  created() {
-    const doctorId = this.$route.params.id; // Assuming the ID is passed as a route parameter
-    this.fetchDoctor(doctorId);
   },
   components: {
     NavbarComponent,
@@ -260,58 +240,5 @@ export default {
 </script>
 
 <style>
-.cards {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.cards img {
-  width: 250px;
-  height: 250px;
-  border-radius: 30px;
-  object-fit: cover;
-}
-
-.cards label {
-  margin-top: 30px;
-  text-align: center;
-  height: 40px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 2%;
-}
-
-.cards input {
-  display: none;
-}
-
-.table-responsive {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.form-outline .fullname {
-  background-color: rgb(231, 231, 231);
-  border: none;
-  width: 700px;
-  padding: 15px;
-  color: black;
-}
-
-.form-outline textarea {
-  background-color: rgb(231, 231, 231);
-  border: none;
-  width: 700px;
-  padding: 15px;
-}
+@import "@/assets/css/form-card.css";
 </style>

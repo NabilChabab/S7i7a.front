@@ -20,6 +20,9 @@ import TheWelcomeVue from './components/TheWelcome.vue';
 import DoctorsComponent from './components/admin/DoctorsComponent.vue';
 import CreateDoctorsComponent from './components/admin/create/CreateDoctorComponent.vue';
 import UpdateDoctorsComponent from './components/admin/update/UpdateDoctorComponent.vue';
+import PatientsComponent from './components/admin/PatientsComponent.vue';
+import ProfileComponent from './components/admin/ProfileComponent.vue';
+
 
 const isAuthenticated = () => {
 
@@ -42,6 +45,9 @@ const routes = [
   { path: '/admin/doctors', component: DoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/doctors/create', component: CreateDoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/doctors/edit/:id', name: 'edit_doctor' , component: UpdateDoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/patients', component: PatientsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/profile', component: ProfileComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+
 ];
 
 const router = createRouter({
