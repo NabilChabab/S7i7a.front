@@ -177,7 +177,7 @@ export default {
         },
       ],
       previewImage: "",
-      defaultImage: require("@/assets/img/team-1.jpg"),
+      defaultImage: require("@/assets/img/avatar.png"),
       errorMessage: "",
       profile: null,
       name: "",

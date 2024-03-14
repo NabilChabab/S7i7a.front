@@ -12,19 +12,15 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row mt-4">
-        <div class="col-lg-12 mb-lg-0 mb-4">
+        <AllCategoriesComponent />
+        <div class="col-lg-6 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-header pb-0 p-3 mb-3">
               <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Latest Doctors</h6>
-                <router-link
-                  class="btn btn-primary"
-                  :to="{ path: '/admin/doctors/create' }"
-                  >Add a Doctor</router-link
-                >
+                <h6 class="mb-2">Deleted Patients</h6>
               </div>
             </div>
-            <AllDoctorsComponent />
+            <DeletedCategoriesComponent />
           </div>
         </div>
       </div>
@@ -180,7 +176,8 @@
 <script>
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
-import AllDoctorsComponent from "@/components/layouts/cards/AllDoctorsComponent.vue";
+import AllCategoriesComponent from "@/components/layouts/cards/AllCategoriesComponent.vue";
+import DeletedCategoriesComponent from "@/components/layouts/cards/DeletedCategoriesComponent.vue";
 
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 export default {
@@ -198,13 +195,13 @@ export default {
           text: "Doctors",
           iconClass:
             "bx bx-plus-medical calendar-grid-58 text-warning text-sm opacity-10",
-          active: "nav-link active",
+          active: "nav-link ",
         },
         {
           url: "/admin/patients",
           text: "Patients",
           iconClass: "bx bx-user text-success text-sm opacity-10",
-          active: "nav-link ",
+          active: "nav-link",
         },
         {
           url: "/admin/appointments",
@@ -212,15 +209,18 @@ export default {
           iconClass: "bx bx-check-double text-info text-sm opacity-10",
           active: "nav-link ",
         },
-        { url: "/admin/categories", text: "Categories", iconClass: "bx bxs-category-alt text-success text-sm opacity-10" ,active:"nav-link "},
-
+        {
+          url: "/admin/categories",
+          text: "Categories",
+          iconClass: "bx bxs-category-alt text-success text-sm opacity-10",
+          active: "nav-link active",
+        },
         {
           url: "/admin/articles",
           text: "Articles",
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link ",
         },
-
         {
           url: "/admin/payments",
           text: "Payments",
@@ -241,14 +241,14 @@ export default {
   computed: {
     allLinks() {
       return this.navigationLinks.concat(this.accountLinks);
-    }
-
+    },
   },
   components: {
     NavbarComponent,
     SideNav,
     FooterComponent,
-    AllDoctorsComponent,
+    AllCategoriesComponent,
+    DeletedCategoriesComponent,
   },
 };
 </script>

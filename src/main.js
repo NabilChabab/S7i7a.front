@@ -22,6 +22,8 @@ import CreateDoctorsComponent from './components/admin/create/CreateDoctorCompon
 import UpdateDoctorsComponent from './components/admin/update/UpdateDoctorComponent.vue';
 import PatientsComponent from './components/admin/PatientsComponent.vue';
 import ProfileComponent from './components/admin/ProfileComponent.vue';
+import CategoryComponent from './components/admin/CategoryComponent.vue';
+
 
 
 const isAuthenticated = () => {
@@ -46,6 +48,7 @@ const routes = [
   { path: '/admin/doctors/create', component: CreateDoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/doctors/edit/:id', name: 'edit_doctor' , component: UpdateDoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/patients', component: PatientsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/categories', component: CategoryComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/profile', component: ProfileComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
 
 ];

@@ -1,6 +1,7 @@
 <template>
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
-  <SideNav :links="navigationLinks" style="z-index: 999" />
+  <SideNav :navigationLinks="navigationLinks" :accountLinks="accountLinks" style="z-index: 999" />
+
   <main class="main-content position-relative border-radius-lg">
     <NavbarComponent />
     <div class="container-fluid py-4">
@@ -117,7 +118,7 @@ export default {
           url: "/admin/dashboard",
           text: "Dashboard",
           iconClass: "bx bx-home-alt text-primary text-sm opacity-10",
-          active: "nav-link",
+          active: "nav-link ",
         },
         {
           url: "/admin/doctors",
@@ -127,28 +128,36 @@ export default {
           active: "nav-link active",
         },
         {
-          url: "/doctors",
+          url: "/admin/patients",
           text: "Patients",
           iconClass: "bx bx-user text-success text-sm opacity-10",
           active: "nav-link ",
         },
         {
-          url: "/doctors",
+          url: "/admin/appointments",
           text: "Appointments",
           iconClass: "bx bx-check-double text-info text-sm opacity-10",
           active: "nav-link ",
         },
         {
-          url: "/doctors",
+          url: "/admin/articles",
           text: "Articles",
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link ",
         },
         {
-          url: "/doctors",
+          url: "/admin/payments",
           text: "Payments",
           iconClass: "bx bxs-credit-card text-danger text-sm opacity-10",
           active: "nav-link ",
+        },
+      ],
+      accountLinks: [
+        {
+          p_url: "/admin/profile",
+          p_text: "Profile",
+          p_iconClass: "bx bx-user text-success text-sm opacity-10",
+          p_active: "nav-link ",
         },
       ],
       doctor: {
