@@ -180,7 +180,7 @@
 <script>
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
-import AllDoctorsComponent from "@/components/layouts/cards/AllDoctorsComponent.vue";
+import AllDoctorsComponent from "@/components/layouts/cards/admin/AllDoctorsComponent.vue";
 
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 export default {

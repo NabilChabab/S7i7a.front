@@ -11,5 +11,8 @@ export default {
 </script>
 
 <style scoped>
-  
+  #app{
+    margin: 0;
+    padding: 0;
+  }
 </style>

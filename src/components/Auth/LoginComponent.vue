@@ -1,55 +1,21 @@
 <template>
-
-<div class="container position-sticky z-index-sticky top-0">
+  <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
-          <div class="container-fluid">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
-              S7I7A.ma
-            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon mt-2">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navigation">
-              <ul class="navbar-nav mx-auto">
-                
-                <li class="nav-item">
-                  <router-link class="nav-link me-2" :to="{path:'register'}">
-                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                    Sign Up
-                  </router-link>
-                </li>
-                <li class="nav-item">
-                  <router-link class="nav-link me-2" :to="{path:'login'}">
-                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                    Sign In
-                  </router-link>
-                </li>
-              </ul>
-              <ul class="navbar-nav d-lg-block d-none">
-                <li class="nav-item">
-                  <router-link :to="{path:'/'}" class="btn btn-sm mb-0 me-1 btn-primary">Go Home</router-link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <NavbarDefault :sticky="true" />
         <!-- End Navbar -->
       </div>
     </div>
   </div>
-  <main class="main-content  mt-0">
+  <main class="main-content mt-0">
     <section>
       <div class="page-header min-vh-100">
         <div class="container">
           <div class="row">
-            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+            <div
+              class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto"
+            >
               <div class="card card-plain">
                 <div class="card-header pb-0 text-start">
                   <h4 class="font-weight-bolder">Sign In</h4>
@@ -57,40 +23,100 @@
                 </div>
                 <div class="card-body">
                   <form role="form" @submit.prevent="loginUser">
-                    <div class="mb-3 form-outline" :class="{ error: errors.email }">
-                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="email" >
-                      <span v-if="errors.email" class="text-danger">{{errors.email}}</span>
+                    <div
+                      class="mb-3 form-outline"
+                      :class="{ error: errors.email }"
+                    >
+                      <input
+                        type="email"
+                        class="form-control form-control-lg"
+                        placeholder="Email"
+                        aria-label="Email"
+                        aria-describedby="emailHelp"
+                        v-model="email"
+                      />
+                      <span v-if="errors.email" class="text-danger">{{
+                        errors.email
+                      }}</span>
                     </div>
                     <div class="mb-3" :class="{ error: errors.password }">
-                      <input type="password" class="form-control form-control-lg " placeholder="Password" aria-label="Password" v-model="password">
-                      <span v-if="errors.password" class="text-danger">{{errors.password}}</span>
+                      <input
+                        type="password"
+                        class="form-control form-control-lg"
+                        placeholder="Password"
+                        aria-label="Password"
+                        v-model="password"
+                      />
+                      <span v-if="errors.password" class="text-danger">{{
+                        errors.password
+                      }}</span>
                     </div>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div class="form-check form-switch ">
-                        <input class="form-check-input" type="checkbox" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    <div
+                      class="d-flex align-items-center justify-content-between"
+                    >
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="rememberMe"
+                        />
+                        <label class="form-check-label" for="rememberMe"
+                          >Remember me</label
+                        >
                       </div>
-                      <router-link to="#forgotPasswordModal" class="btn btn-link text-dark mt-3" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</router-link>
+                      <router-link
+                        to="#forgotPasswordModal"
+                        class="btn btn-link text-dark mt-3"
+                        data-bs-toggle="modal"
+                        data-bs-target="#forgotPasswordModal"
+                        >Forgot Password?</router-link
+                      >
+                    </div>
+                    <div v-if="loading_log" class="text-center">
+                      <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                      <button
+                        type="submit"
+                        class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0"
+                        :disabled="loading_log"
+                      >
+                        Sign in
+                      </button>
                     </div>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <router-link :to="{path : '/register'}" class="text-dark text-gradient font-weight-bold">Sign up</router-link>
+                    <router-link
+                      :to="{ path: '/register' }"
+                      class="text-dark text-gradient font-weight-bold"
+                      >Sign up</router-link
+                    >
                   </p>
                 </div>
               </div>
             </div>
-            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden">
-                <span class="mask bg-gradient-primary opacity-6" ></span>
-              
-                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
-                <p class="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+            <div
+              class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column"
+            >
+              <div
+                class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
+              >
+                <span class="mask bg-gradient-primary opacity-6"></span>
+
+                <h4
+                  class="mt-5 text-white font-weight-bolder position-relative"
+                >
+                  "Attention is the new currency"
+                </h4>
+                <p class="text-white position-relative">
+                  The more effortless the writing looks, the more effort the
+                  writer actually put into the process.
+                </p>
               </div>
             </div>
           </div>
@@ -99,51 +125,68 @@
     </section>
   </main>
   <div
-      class="modal fade"
-      id="forgotPasswordModal"
-      tabindex="-1"
-      aria-labelledby="forgotPasswordModalLabel" aria-hidden="true" >
-      <div class="modal-dialog">
-        <div class="modal-content bg-glass">
-          <div class="modal-header">
-            <h5 class="modal-title" id="forgotPasswordModalLabel">
-              Forgot Password
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-          <form @submit.prevent="sendResetLink">
-              <div class="mb-3 form-outline" :class="{ error: errors.forgotPasswordEmail }">
-                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="emailHelp" v-model="forgotPasswordEmail">
-                      <span class="text-danger">{{ forgotPasswordErrors.email }}</span>
-
-                    </div>
-
-              <div v-if="loading" class="text-center">
-                <div class="spinner-border" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-3 mb-3" :disabled="loading">Send Reset Link</button>
-            </div>
-            
-          </form>
+    class="modal fade"
+    id="forgotPasswordModal"
+    tabindex="-1"
+    aria-labelledby="forgotPasswordModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content bg-glass">
+        <div class="modal-header">
+          <h5 class="modal-title" id="forgotPasswordModalLabel">
+            Forgot Password
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
+        <div class="modal-body">
+          <form @submit.prevent="sendResetLink">
+            <div
+              class="mb-3 form-outline"
+              :class="{ error: errors.forgotPasswordEmail }"
+            >
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                placeholder="Email"
+                aria-label="Email"
+                aria-describedby="emailHelp"
+                v-model="forgotPasswordEmail"
+              />
+              <span class="text-danger">{{ forgotPasswordErrors.email }}</span>
+            </div>
+
+            <div v-if="loading" class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                class="btn btn-lg btn-primary btn-lg w-100 mt-3 mb-3"
+                :disabled="loading"
+              >
+                Send Reset Link
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
+  </div>
 </template>
 
 <script>
 import api from "@/services/api";
 import Swal from "sweetalert2";
+import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
+
 
 export default {
   data() {
@@ -154,17 +197,29 @@ export default {
       forgotPasswordEmail: "",
       forgotPasswordErrors: {},
       loading: false,
+      loading_log: false,
     };
   },
   methods: {
     async loginUser() {
       try {
+        this.loading_log = true
         const response = await api.post("/login", {
           email: this.email,
           password: this.password,
         });
         console.log(response.data);
-        const { message, redirect, token , role , name , userId} = response.data;
+        const {
+          message,
+          redirect,
+          token,
+          role,
+          name,
+          userId,
+          profile,
+          email,
+          phone,
+        } = response.data;
         if (
           [
             "Admin login successful",
@@ -175,15 +230,20 @@ export default {
           localStorage.setItem("token", token);
           localStorage.setItem("role", role);
           localStorage.setItem("name", name);
+          localStorage.setItem("email", email);
+          localStorage.setItem("phone", phone);
           localStorage.setItem("userId", userId);
+          localStorage.setItem("profile", profile);
           Swal.fire({
             icon: "success",
             title: "Success",
             text: "Welcome " + response.data.role,
+            timer: 1500,
             customClass: {
-              popup: 'popup', // Define your custom class here
-            }
+              popup: "popup", // Define your custom class here
+            },
           });
+          this.loading_log = false
           this.$router.push(redirect);
         } else {
           alert("Unknown role.");
@@ -200,6 +260,7 @@ export default {
           for (const key in responseErrors) {
             this.errors[key] = responseErrors[key][0];
           }
+          this.loading_log = false
         } else {
           alert("Error occurred while logging in.");
         }
@@ -243,9 +304,10 @@ export default {
       }
     },
   },
+  components: {
+    NavbarDefault,
+  },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -181,8 +181,8 @@
 <script>
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
-import AllPatientsComponent from "@/components/layouts/cards/AllPatientsComponent.vue";
-import DeletedPatientsComponent from "@/components/layouts/cards/DeletedPatientsComponent.vue";
+import AllPatientsComponent from "@/components/layouts/cards/admin/AllPatientsComponent.vue";
+import DeletedPatientsComponent from "@/components/layouts/cards/admin/DeletedPatientsComponent.vue";
 
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 export default {

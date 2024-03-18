@@ -277,7 +277,7 @@
 <script>
 import SideNav from '@/components/layouts/bars/Aside.vue';
 import NavbarComponent from '@/components/layouts/bars/Navbar.vue';
-import CardsComponent from '@/components/layouts/cards/LatestComponent.vue';
+import CardsComponent from '@/components/layouts/cards/admin/LatestComponent.vue';
 
 import FooterComponent from '@/components/layouts/footer/FooterComponent.vue';
 export default {

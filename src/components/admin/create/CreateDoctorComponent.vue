@@ -223,6 +223,7 @@ export default {
           icon: "success",
           title: "Success",
           text: "Doctor Created Successfully",
+          timer: 1500
         });
 
         this.$router.push("/admin/doctors");

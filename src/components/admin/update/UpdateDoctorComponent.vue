@@ -215,6 +215,7 @@ export default {
           icon: "success",
           title: "Success",
           text: "Doctor Updated Successfully",
+          timer: 1500
         });
         this.$router.push("/admin/doctors");
       } catch (error) {

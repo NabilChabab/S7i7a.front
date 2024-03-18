@@ -14,7 +14,7 @@
 import SideNav from "@/components/layouts/bars/Aside.vue";
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
-import AdminProfile from "@/components/layouts/cards/AdminProfile.vue"
+import AdminProfile from "@/components/layouts/cards/admin/AdminProfile.vue"
 export default {
   data() {
     return {

@@ -42,12 +42,12 @@
               class="nav-link text-white font-weight-bold px-0"
             >
               <img
-                :src="user.profile"
+                :src="userProfile"
                 alt=""
                 style="width: 40px; height: 40px; object-fit: cover"
                 class="rounded-circle me-3"
               />
-              <span class="d-sm-inline d-none"> {{ user.name }}</span>
+              <span class="d-sm-inline d-none"> {{ userName }}</span>
             </a>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -245,13 +245,13 @@ export default {
   },
   created() {
     this.userName = localStorage.getItem("name");
+    this.userProfile = localStorage.getItem("profile")
     this.fetchAuthenticate()
+    
   },
   methods: {
     logoutUser() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("name");
-      localStorage.removeItem("role");
+      localStorage.clear();
       this.$router.push("/login");
     },
     async fetchAuthenticate() {

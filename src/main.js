@@ -6,23 +6,40 @@ import "boxicons/css/boxicons.min.css";
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/css/argon-dashboard.css';
 
+//user
+import "./assets/user/css/nucleo-icons.css";
+import "./assets/user/css/nucleo-svg.css";
+
+// import materialKit from "material-kit";
+
+
 //necesary
 import RegisterComponent from '@/components/Auth/RegisterComponent.vue';
 import LoginComponent from '@/components/Auth/LoginComponent.vue';
 import ResetPasswordComponent from '@/components/Auth/ResetPasswordComponent.vue';
 import DashboardComponent from '@/components/admin/DashboardComponent.vue';
-import DoctorComponent from '@/components/doctor/DoctorComponent.vue';
 import PatientComponent from '@/components/patient/PatientComponent.vue';
 import TheWelcomeVue from './components/TheWelcome.vue';
 
-//semi
-
+//Admin
 import DoctorsComponent from './components/admin/DoctorsComponent.vue';
 import CreateDoctorsComponent from './components/admin/create/CreateDoctorComponent.vue';
 import UpdateDoctorsComponent from './components/admin/update/UpdateDoctorComponent.vue';
 import PatientsComponent from './components/admin/PatientsComponent.vue';
 import ProfileComponent from './components/admin/ProfileComponent.vue';
 import CategoryComponent from './components/admin/CategoryComponent.vue';
+
+
+//Doctor
+import DoctorComponent from '@/components/doctor/DashboardComponent.vue';
+import ArticlesComponent from '@/components/doctor/ArticlesComponent.vue';
+import CreateArticleComponent from './components/doctor/create/CreateArticleComponent.vue';
+import UpdateArticleComponent from './components/doctor/update/UpdateArticleComponent.vue';
+
+//unauthorized
+
+import ErrorComponent from '@/components/error/ErrorComponent.vue';
+
 
 
 
@@ -41,7 +58,6 @@ const routes = [
   { path: '/login', component: LoginComponent, meta: { requiresGuest: true }},
   { path: '/reset-password', component: ResetPasswordComponent },
   { path: '/admin/dashboard', component: DashboardComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
-  { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/patient/dashboard', component: PatientComponent, meta: { requiresAuth: true, roles: ['Patient'] }},
   { path: '/', component: TheWelcomeVue},
   { path: '/admin/doctors', component: DoctorsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
@@ -50,6 +66,16 @@ const routes = [
   { path: '/admin/patients', component: PatientsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/categories', component: CategoryComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/profile', component: ProfileComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+
+  //Doctor
+  { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+  { path: '/doctor/articles', component: ArticlesComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+  { path: '/doctor/articles/create', component: CreateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+  { path: '/doctor/articles/edit/:id', name: 'edit_article' , component: UpdateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+
+
+  //unauthorized
+  { path: '/unauthorized', component: ErrorComponent},
 
 ];
 

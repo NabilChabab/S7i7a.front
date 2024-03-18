@@ -176,8 +176,8 @@
 <script>
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
-import AllCategoriesComponent from "@/components/layouts/cards/AllCategoriesComponent.vue";
-import DeletedCategoriesComponent from "@/components/layouts/cards/DeletedCategoriesComponent.vue";
+import AllCategoriesComponent from "@/components/layouts/cards/admin/AllCategoriesComponent.vue";
+import DeletedCategoriesComponent from "@/components/layouts/cards/admin/DeletedCategoriesComponent.vue";
 
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 export default {
