@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted, onUnmounted } from "vue";
-import Header from "@/components/layouts/bars/Header.vue";
+import HeaderLayout from "@/components/layouts/bars/HeaderComponent.vue";
 import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
-import PresentationCounter from "./Sections/PresentationCounter.vue";
+import PresentationCounter from "@/components/Sections/PresentationCounter.vue";
 import BuiltByDevelopers from "@/components/layouts/cards/categories/CategoryCard.vue";
 import Categories from "@/components/layouts/cards/categories/CategoriesComponent.vue";
 
@@ -25,7 +25,7 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
-  <Header>
+  <HeaderLayout>
     <div
       class="container-fluid page-header min-vh-75 w-100 bg-gradient-primary"
       loading="lazy"
@@ -52,7 +52,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
-  </Header>
+  </HeaderLayout>
   <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
     <PresentationCounter />
     <BuiltByDevelopers />

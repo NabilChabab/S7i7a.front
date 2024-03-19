@@ -45,6 +45,10 @@ export default {
     accountLinks: {
       type: Array,
       default: () => []
+    },
+    showAside: {
+      type: Boolean,
+      required: true
     }
   }
 };

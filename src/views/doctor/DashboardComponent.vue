@@ -290,7 +290,7 @@ export default {
         { url: "/doctor/chat", text: "Chat", iconClass: "bx bx-message-rounded-dots text-success text-sm opacity-10" ,active:"nav-link "},
       ],
       accountLinks : [
-        { p_url: "/admin/profile", p_text: "Profile", p_iconClass: "bx bx-user text-success text-sm opacity-10" ,p_active:"nav-link "},
+        { p_url: "/doctor/profile", p_text: "Profile", p_iconClass: "bx bx-user text-success text-sm opacity-10" ,p_active:"nav-link "},
 
       ],
     }

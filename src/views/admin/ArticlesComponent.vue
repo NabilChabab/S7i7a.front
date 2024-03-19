@@ -38,34 +38,52 @@ import SideNav from "@/components/layouts/bars/Aside.vue";
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 
-import AllArticlesComponent from "@/components/layouts/cards/doctor/AllArticlesComponent.vue";
+import AllArticlesComponent from "@/components/layouts/cards/admin/AllArticlesComponent.vue";
 export default {
   data() {
     return {
       navigationLinks: [
         {
-          url: "/doctor/dashboard",
+          url: "/admin/dashboard",
           text: "Dashboard",
           iconClass: "bx bx-home-alt text-primary text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/doctors",
+          text: "Doctors",
+          iconClass:
+            "bx bx-plus-medical calendar-grid-58 text-warning text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/patients",
+          text: "Patients",
+          iconClass: "bx bx-user text-success text-sm opacity-10",
           active: "nav-link",
         },
         {
-          url: "/doctor/articles",
+          url: "/admin/appointments",
+          text: "Appointments",
+          iconClass: "bx bx-check-double text-info text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/categories",
+          text: "Categories",
+          iconClass: "bx bxs-category-alt text-success text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/articles",
           text: "Articles",
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link active",
         },
         {
-          url: "/doctor/appointments",
-          text: "Appointments",
-          iconClass: "bx bx-check-double text-info text-sm opacity-10",
-          active: "nav-link",
-        },
-        {
-          url: "/doctor/chat",
-          text: "Chat",
-          iconClass:
-            "bx bx-message-rounded-dots text-success text-sm opacity-10",
+          url: "/admin/payments",
+          text: "Payments",
+          iconClass: "bx bxs-credit-card text-danger text-sm opacity-10",
           active: "nav-link ",
         },
       ],

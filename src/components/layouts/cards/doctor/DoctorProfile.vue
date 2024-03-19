@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid py-4">
-    <form @submit.prevent="updateProfileAdmin">
-      <input type="hidden" name="_method" value="PATCH">
+    <form @submit.prevent="updateProfileDoctor">
+      <input type="hidden" name="_method" value="PATCH" />
       <div class="row">
         <div class="col-md-8">
           <div class="card">
@@ -24,7 +24,7 @@
                     <input
                       class="form-control"
                       type="text"
-                      v-model="user.name"
+                      v-model="doctor.name"
                     />
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                     <input
                       class="form-control"
                       type="email"
-                      v-model="user.email"
+                      v-model="doctor.email"
                     />
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                     <input
                       class="form-control"
                       type="text"
-                      v-model="user.phone"
+                      v-model="doctor.phone"
                     />
                   </div>
                 </div>
@@ -64,7 +64,8 @@
                     <input
                       class="form-control"
                       type="text"
-                      value="Morocco Casablanca 04 25"
+                      placeholder="Morocco Casablanca 04 25"
+                      v-model="doctor.address"
                     />
                   </div>
                 </div>
@@ -72,15 +73,42 @@
               <hr class="horizontal dark" />
               <p class="text-uppercase text-sm">About me</p>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label"
-                      >About me</label
+                      >Experience</label
                     >
                     <input
                       class="form-control"
                       type="text"
-                      value="A beautiful Dashboard for Bootstrap 5. It is Free and Open Source."
+                      placeholder="Enter Your Experience"
+                      v-model="doctor.experience"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label"
+                      >Qualification</label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Enter Your Qualification"
+                      v-model="doctor.qualification"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label"
+                      >Description</label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Enter Your Description"
+                      v-model="doctor.description"
                     />
                   </div>
                 </div>
@@ -101,7 +129,7 @@
                   <a href="javascript:;">
                     <img
                       style="width: 150px; height: 150px; object-fit: cover"
-                      :src="previewImage || user.profile"
+                      :src="previewImage || doctor.profile"
                       class="rounded-circle img-fluid border border-2 border-white"
                     />
                   </a>
@@ -131,14 +159,19 @@
             </div>
             <div class="card-body pt-0">
               <div class="text-center mt-4">
-                <h5>{{ user.name }}<span class="font-weight-light"></span></h5>
+                <h5>
+                  {{ doctor.name }}<span class="font-weight-light"></span>
+                </h5>
                 <div class="h6 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>{{ user.email }}
+                  <i class="ni location_pin mr-2"></i>{{ doctor.email }}
                 </div>
                 <div class="h6 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Admin - S7I7A.ma
+                  <i class="ni business_briefcase-24 mr-2"></i>Doctor At -
+                  S7I7A.ma
                 </div>
-                <div><i class="ni education_hat mr-2"></i>{{ user.phone }}</div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>{{ doctor.phone }}
+                </div>
               </div>
             </div>
           </div>
@@ -160,17 +193,19 @@ export default {
       defaultImage: require("@/assets/img/avatar.png"),
       errorMessage: "",
       profile: null,
-      user: {
+      doctor: {
         name: "",
         email: "",
         phone: "",
         address: "",
         aboutMe: "",
+        experience: "",
+        qualification: "",
       },
     };
   },
   created() {
-    this.fetchAdminInfos();
+    this.fetchDoctorInfos();
   },
 
   methods: {
@@ -187,61 +222,50 @@ export default {
       }
     },
 
-    async fetchAdminInfos() {
+    async fetchDoctorInfos() {
       try {
         const userId = this.$route.params.id || localStorage.getItem("userId");
-        const response = await api.get(`/admin/dashboard/${userId}`);
-        this.user = response.data.user;
-        console.log(this.user);
+        const response = await api.get(`/doctor/home/${userId}`);
+        this.doctor = response.data.doctor;
+        console.log(this.doctor);
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
     },
-    async updateProfileAdmin() {
-      if (this.isLoading) return;
-
-      this.isLoading = true;
-      this.errorMessage = "";
-
+    async updateProfileDoctor() {
       try {
         const formData = new FormData();
-        formData.append("name", this.user.name);
-        formData.append("email", this.user.email);
-        formData.append("phone", this.user.phone);
-        formData.append("_method", "PATCH");
         if (this.profile instanceof File) {
           formData.append("profile", this.profile);
         }
+        formData.append("name", this.doctor.name);
+        formData.append("email", this.doctor.email);
+        formData.append("phone", this.doctor.phone);
+        formData.append("address", this.doctor.address);
+        formData.append("description", this.doctor.description);
+        formData.append("experience", this.doctor.experience);
+        formData.append("qualification", this.doctor.qualification);
+        formData.append("_method", "PATCH");
 
         const response = await api.post(
-      `/admin/profile/${this.user.id}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-        this.user = response.data.user;
-        localStorage.setItem("name", this.user.name)
+          `/doctor/home/${this.doctor.id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        this.doctor = response.data.doctor;
+        localStorage.setItem("name", this.doctor.name);
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: "Profile Updated Successfully",
-          timer: 1500
+          text: response.data.message,
+          timer: 1500,
         });
-        this.$router.push("/admin/profile");
       } catch (error) {
-        console.error("Error updating user:", error);
-        if (error.response) {
-          this.errorMessage =
-            error.response.data.message ||
-            "An error occurred while updating the user.";
-        } else {
-          this.errorMessage = "An error occurred while updating the user.";
-        }
-      } finally {
-        this.isLoading = false;
+        console.error("Error updating user information:", error);
       }
     },
   },

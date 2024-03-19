@@ -14,7 +14,7 @@
             Content
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
             CreatedBy
           </th>
@@ -63,14 +63,17 @@
           <td>
             <p class="text-xs text-secondary mb-0">{{ article.createdBy }}</p>
           </td>
-          <td class="align-middle text-center text-sm" v-if="article.status === 'pending'">
-            <span class="badge badge-sm bg-gradient-warning">{{article.status}}</span>
-          </td>
-          <td class="align-middle text-center text-sm" v-else-if="article.status === 'accepted'">
-            <span class="badge badge-sm bg-gradient-success">{{article.status}}</span>
-          </td>
-          <td class="align-middle text-center text-sm" v-else>
-            <span class="badge badge-sm bg-gradient-danger">{{article.status}}</span>
+          <td class="align-middle text-center text-sm">
+            <span
+              :class="`badge badge-sm ${
+                article.status === 'pending'
+                  ? 'bg-gradient-warning'
+                  : article.status === 'accepted'
+                  ? 'bg-gradient-success'
+                  : 'bg-gradient-danger'
+              }`"
+              >{{ article.status }}</span
+            >
           </td>
           <td class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">{{
