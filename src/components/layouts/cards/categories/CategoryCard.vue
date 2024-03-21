@@ -1,6 +1,7 @@
-<script setup></script>
+
 <template>
-  <div class="container mt-sm-5">
+  <div class="container mt-sm-5" data-aos="fade-up"
+     data-aos-anchor-placement="bottom-bottom">
     <div
       class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
       :style="{
@@ -33,3 +34,11 @@
     </div>
   </div>
 </template>
+<script>
+import AOS from 'aos';
+export default {
+  mounted() {
+    AOS.init();
+  }
+}
+</script>

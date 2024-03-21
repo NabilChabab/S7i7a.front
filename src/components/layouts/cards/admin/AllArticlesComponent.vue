@@ -58,7 +58,10 @@
           <td>
             <p class="text-xs text-secondary mb-0">{{ article.createdBy }}</p>
           </td>
-          <td class="align-middle text-center text-sm">
+          <td
+            class="align-middle text-center text-sm"
+            @click="onStatusClick($event)"
+          >
             <span
               :class="`badge badge-sm ${
                 article.status === 'pending'
@@ -70,8 +73,10 @@
               data-bs-toggle="modal"
               data-bs-target="#statusUpdateModal"
               :data-bs-status="article.status"
-              >{{ article.status }}</span
+              :data-bs-article="article.id"
             >
+              {{ article.status }}
+            </span>
           </td>
 
           <td class="align-middle text-center">
@@ -102,12 +107,14 @@
           <!-- Form for updating status -->
           <form @submit.prevent="updateStatus">
             <div class="form-group">
+              <input type="hidden" name="_method" value="PATCH" />
+              <input type="hidden" v-model="articleId" />
               <label for="statusSelect">Select Status</label>
               <select
                 class="form-control"
                 id="statusSelect"
-                v-model="selectedStatus">
-                <option selected>azedf</option>
+                v-model="clickedStatus"
+              >
                 <option value="pending">Pending</option>
                 <option value="accepted">Accepted</option>
                 <option value="refused">Rejected</option>
@@ -125,21 +132,29 @@
 import api from "@/services/api";
 import moment from "moment";
 import "moment-timezone";
-import $ from "jquery"
 import Swal from "sweetalert2";
+
 export default {
   name: "AllArticlesComponent",
   data() {
     return {
       allArticles: [],
       isLoading: true,
-      selectedStatus: "", // Initialize selectedStatus
+      clickedStatus: "",
+      articleId: "",
     };
   },
   created() {
     this.fetchArticles();
   },
   methods: {
+    onStatusClick(event) {
+      const clickedTd = event.target;
+      const clickedStatus = clickedTd.dataset.bsStatus;
+      const articleId = clickedTd.dataset.bsArticle;
+      this.clickedStatus = clickedStatus;
+      this.articleId = articleId;
+    },
     getFormattedDate(date) {
       return moment(date).fromNow();
     },
@@ -158,6 +173,28 @@ export default {
         console.log(error);
       }
     },
+    async updateStatus() {
+      try {
+        const formData = new FormData();
+        formData.append("status", this.clickedStatus);
+        formData.append("_method", "PATCH");
+        await api.post(`/admin/article/${this.articleId}`, formData);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Article status updated successfully",
+          timer: 1500,
+        });
+        await this.fetchArticles();
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while updating article status",
+        });
+      }
+    },
     async deleteArticles(id) {
       try {
         await api.delete(`/doctor/articles/${id}`);
@@ -173,14 +210,5 @@ export default {
       }
     },
   },
-  mounted() {
-    // Add event listener for modal shown event
-    $('#statusUpdateModal').on('show.bs.modal', (event) => {
-      const button = $(event.relatedTarget); // Button that triggered the modal
-      const status = button.data('bs-status'); // Extract info from data-bs-status attribute
-      this.selectedStatus = status; // Set the selected status when modal is shown
-    });
-  },
-  
 };
 </script>

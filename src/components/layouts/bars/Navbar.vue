@@ -56,7 +56,7 @@
               class="nav-link text-white p-0"
               id="iconNavbarSidenav"
             >
-              <div class="sidenav-toggler-inner" @click="$emit('toggle-aside')">
+              <div class="sidenav-toggler-inner" @click="$emit('toggle-sidenav')">
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
@@ -67,9 +67,11 @@
             <a
               href="javascript:;"
               class="nav-link text-white p-0"
+              id="dropdownMenuButton"
             >
               <i class="fa fa-bell fixed-plugin-button-nav cursor-pointer"></i>
             </a>
+     
       
           </li>
           <li class="nav-item dropdown pe-2 d-flex align-items-center">
@@ -134,7 +136,7 @@ export default {
 
   data() {
     return {
-      user:[]
+      user:[],
     };
   },
   created() {
@@ -146,7 +148,7 @@ export default {
   methods: {
     logoutUser() {
       localStorage.clear();
-      this.$router.push("/login");
+      this.$router.push("/");
     },
     async fetchAuthenticate() {
       try {

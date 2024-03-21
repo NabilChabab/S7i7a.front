@@ -306,6 +306,7 @@ export default {
 
         this.loading = false;
         console.log(responseData);
+        await this.getCategories()
 
         Swal.fire({
           icon: "success",
@@ -364,7 +365,7 @@ export default {
     async deleteCategory(categoryId) {
       try {
         await api.delete(`admin/categories/${categoryId}`);
-        this.getCategories();
+        await this.getCategories()
         Swal.fire({
           icon: "success",
           title: "Success",

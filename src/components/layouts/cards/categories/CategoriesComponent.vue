@@ -4,7 +4,7 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <div class="col-lg-4" v-for="category in categories" :key="category.id">
+  <div class="col-lg-4" v-for="category in categories" :key="category.id" data-aos="fade-up">
     <div
       class="info-horizontal border-radius-xl d-flex flex-column text-center align-items-center justify-content-center d-md-flex"
       :class="[color.background]"
@@ -20,6 +20,8 @@
 
 <script>
 import api from "@/services/api";
+import AOS from 'aos';
+
 export default {
   data() {
     return {
@@ -41,6 +43,11 @@ export default {
       type: String,
       required: true,
     },
+  },
+  mounted() {
+    AOS.init({
+      duration: 1000,
+    });
   },
   created() {
     this.fetchCategories();

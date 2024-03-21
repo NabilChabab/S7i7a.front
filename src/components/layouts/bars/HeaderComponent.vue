@@ -1,5 +1,7 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps  , onMounted , onUnmounted} from "vue";
+// import bg0 from "@/assets/img/bg9.jpeg";
+
 defineProps({
   image: {
     type: String,
@@ -42,41 +44,75 @@ defineProps({
     default: false,
   },
 });
+import Typed from "typed.js";
+
+
+const body = document.getElementsByTagName("body")[0];
+onMounted(() => {
+  body.classList.add("about-us");
+  body.classList.add("bg-gray-200");
+
+  if (document.getElementById("typed")) {
+    // eslint-disable-next-line no-unused-vars
+    var typed = new Typed("#typed", {
+      stringsElement: "#typed-strings",
+      typeSpeed: 90,
+      backSpeed: 90,
+      backDelay: 200,
+      startDelay: 500,
+      loop: true,
+    });
+  }
+});
+
+onUnmounted(() => {
+  body.classList.remove("about-us");
+  body.classList.remove("bg-gray-200");
+});
 </script>
 <template>
-  <header class="header-2">
+ <header class="bg-gradient-dark">
     <div
-      class="page-header"
-      :class="minHeight"
-      :style="`background-image: url(${image})`"
-      loading="lazy"
-      v-if="title"
+      class="page-header min-vh-75"
+      :style="{ backgroundImage: `url(https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` }"
     >
-      <span :class="mask"></span>
-      <div :class="fullWidth ? 'w-100' : 'container'">
-        <div class="row">
-          <div
-            :class="`${$attrs.class ?? 'col-lg-7'} ${
-              center ? 'text-center mx-auto' : ''
-            }`"
-          >
-            <component
-              :is="title.variant ? title.variant : 'h1'"
-              class="text-white"
-              :class="title.class"
-            >
-              {{ typeof title == "object" ? title.text : title }}
-            </component>
-            <p class="lead text-white" :class="description.class">
-              {{
-                typeof description == "object" ? description.text : description
-              }}
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mx-auto my-auto">
+            <h1 class="text-white">
+              Work with an amazing <span class="text-white" id="typed"></span>
+            </h1>
+            <div id="typed-strings">
+              <h1>team</h1>
+              <h1>design</h1>
+              <h1>tool</h1>
+            </div>
+            <p class="lead mb-4 text-white opacity-8">
+              We’re constantly trying to express ourselves and actualize our
+              dreams. If you have the opportunity to play this game
             </p>
-            <slot />
+            <router-link :to="{path:'/register'}"  class="btn bg-white text-dark">
+              Create Account
+            </router-link>
+            <h6 class="text-white mb-2 mt-5">Find us on</h6>
+            <div class="d-flex justify-content-center">
+              <a href="javascript:;"
+                ><i class="fab fa-facebook text-lg text-white me-4"></i
+              ></a>
+              <a href="javascript:;"
+                ><i class="fab fa-instagram text-lg text-white me-4"></i
+              ></a>
+              <a href="javascript:;"
+                ><i class="fab fa-twitter text-lg text-white me-4"></i
+              ></a>
+              <a href="javascript:;"
+                ><i class="fab fa-google-plus text-lg text-white"></i
+              ></a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <slot v-else />
   </header>
 </template>

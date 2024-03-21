@@ -5,6 +5,9 @@ import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
 import PresentationCounter from "@/components/Sections/PresentationCounter.vue";
 import BuiltByDevelopers from "@/components/layouts/cards/categories/CategoryCard.vue";
 import Categories from "@/components/layouts/cards/categories/CategoriesComponent.vue";
+import TopDoctors from "@/components/Sections/TopDoctors.vue";
+import Posts from "@/components/Sections/TopArticles.vue";
+
 
 const body = document.getElementsByTagName("body")[0];
 onMounted(() => {
@@ -18,60 +21,41 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="container position-sticky z-index-sticky top-0">
+  <div class="bg-gray-200">
+    <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
         <NavbarDefault :sticky="true" />
       </div>
     </div>
   </div>
-  <HeaderLayout>
-    <div
-      class="container-fluid page-header min-vh-75 w-100 bg-gradient-primary"
-      loading="lazy"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 text-center mx-auto position-relative">
-            <h1
-              class="text-white pt-3 mt-n5 me-2"
-              :style="{ display: 'inline-block ' }"
-            >
-              <img
-                src="@/assets/img/icons/logo/medical-check.png"
-                class="navbar-brand-img h-100 w-15 mb-4"
-                alt="main_logo"
-              />
-              S 7 I 7 A
-            </h1>
-            <p class="lead text-white px-5 mt-3" :style="{ fontWeight: '500' }">
-              Welcome to <span class="">S7I7A.ma</span> - Your Trusted Online
-              Medical Consultation Platform
-            </p>
-          </div>
+  <HeaderLayout/>
+  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+    <PresentationCounter/>
+    <BuiltByDevelopers />
+   
+    <div class="container mt-5 mb-5">
+      <div class="row mb-5">
+        <div class="col-md-8 text-start mb-5 mt-5">
+          <h3 class="text-dark z-index-1 position-relative">
+            Our Categories
+          </h3>
+          <p class="text-dark opacity-8 mb-0">
+            There’s nothing I really wanted to do in life that I wasn’t able to
+            get good at. That’s my skill.
+          </p>
         </div>
       </div>
-    </div>
-  </HeaderLayout>
-  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
-    <PresentationCounter />
-    <BuiltByDevelopers />
-    <div class="container">
       <div class="row">
           <Categories
             class="p-4"
-            :color="{ text: 'white', background: 'bg-gradient-primary' }"
-            :icon="{ component: '@/assets/img/cat-1.png'}"
-            title="Getting Started"
-            description="Check the possible ways of working with our product and the necessary files"
-            :action="{
-              route:
-                'https://www.creative-tim.com/learning-lab/vue/overview/material-kit/',
-              label: { text: 'Let\'s start', color: 'white' },
-            }"
-          />
+            :color="{ text: 'dark', background: '' }"
+            description="Check the possible ways of working with our product and the necessary files"/>
       </div>
     </div>
+    <TopDoctors />
+    <Posts />
+  </div>
   </div>
 </template>
 

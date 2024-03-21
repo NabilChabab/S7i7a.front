@@ -1,6 +1,6 @@
 <template>
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
-  <SideNav :navigationLinks="navigationLinks" :accountLinks="accountLinks" style="z-index: 999" />
+  <SideNav :navigationLinks="navigationLinks" :accountLinks="accountLinks" style="z-index:1000;" />
 
   <main class="main-content position-relative border-radius-lg">
     <!-- Navbar -->

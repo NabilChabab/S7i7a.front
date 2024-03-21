@@ -2,10 +2,6 @@
 import { RouterLink } from "vue-router";
 import { ref, watch } from "vue";
 import { useWindowsWidth } from "@/assets/user/js/useWindowsWidth";
-
-// // images
-// import ArrDark from "@/assets/img/down-arrow-dark.svg";
-// import DownArrWhite from "@/assets/img/down-arrow-white.svg";
 import { defineProps } from "vue";
 
 const props = defineProps({
@@ -68,12 +64,12 @@ watch(
     class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4"
   >
     <div class="container-fluid">
-      <a
+      <router-link
         class="navbar-brand font-weight-bolder ms-lg-0 ms-3"
-        href="../pages/dashboard.html"
+        :to="{ path: '/' }"
       >
       <img src="@/assets/img/icons/logo/medical-check.png" class="navbar-brand-img mb-1" alt="main_logo" style="width: 22px;height:22px;">  S7I7A.ma
-      </a>
+      </router-link>
       <button
         class="navbar-toggler shadow-none ms-2"
         type="button"
@@ -91,26 +87,99 @@ watch(
       </button>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: 'register' }">
+          <li class="nav-item" v-if="user.id">
+            <router-link class="nav-link me-2" :to="{ path: '' }">
+              Home
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="user.id">
+            <router-link class="nav-link me-2" :to="{ path: '' }">
+              Doctors
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="user.id">
+            <router-link class="nav-link me-2" :to="{ path: '' }">
+              Advices
+            </router-link>
+          </li>
+
+          <li class="nav-item" v-if="user.id">
+            <router-link class="nav-link me-2" :to="{ path: '' }">
+              About us
+            </router-link>
+          </li>
+
+          <li class="nav-item" v-if="user.id">
+            <router-link class="nav-link me-2" :to="{ path: '' }">
+              Contact us
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="!user.id">
+            <router-link class="nav-link me-2" :to="{ path: '/register' }">
               <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
               Sign Up
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: 'login' }">
+          <li class="nav-item" v-if="!user.id">
+            <router-link class="nav-link me-2" :to="{ path: '/login' }">
               <i class="fas fa-key opacity-6 text-dark me-1"></i>
               Sign In
             </router-link>
           </li>
         </ul>
         <ul class="navbar-nav d-lg-block d-none">
-          <li class="nav-item">
-            <router-link
-              :to="{ path: '/' }"
-              class="btn btn-sm mb-0 me-1 btn-primary"
-              >Go Home</router-link
+          <li class="nav-item d-flex justify-content-center align-items-center" v-if="user.id">
+            <router-link :to="{ path: '/' }" class="nav-link text-center"><img :src="user.profile || require('@/assets/img/avatar.png')" alt="" style="width: 35px; height: 35px;" class="rounded-circle me-2"> {{ user.name }}</router-link>
+            <a
+              href="javascript:;"
+              class="nav-link text-white p-0"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
+              <i class="fa fa-cog cursor-pointer text-dark mb-2 ms-3"></i>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <li class="mb-2">
+                <router-link :to="{path:'/doctor/profile'}" class="dropdown-item border-radius-md">
+                  <div class="d-flex py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="text-sm font-weight-normal mb-1">
+                        <span class="font-weight-bold">profile</span>
+                      </h6>
+                    </div>
+                  </div>
+                </router-link>
+              </li>
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md cursor-pointer" @click="logoutUser">
+                  <div class="d-flex py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="text-sm font-weight-normal mb-1">
+                        <span class="font-weight-bold">logout</span>
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="dropdown-item border-radius-md" href="javascript:;">
+                  <div class="d-flex py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="text-sm font-weight-normal mb-1">
+                        <span class="font-weight-bold">Settings</span>
+                      </h6>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" v-else>
+            <router-link :to="{path:'register'}" class="btn btn-sm mb-0 me-1 btn-primary">Subscribe</router-link>
           </li>
         </ul>
       </div>
@@ -118,3 +187,32 @@ watch(
   </nav>
   <!-- End Navbar -->
 </template>
+
+
+
+<script>
+
+export default {
+  data(){
+    return{
+      user:{
+        id : '',
+        name:'',
+        profile:'',
+        default: require('@/assets/img/avatar.png')
+      },
+    }
+  },
+  created(){
+    this.user.name = localStorage.getItem('name')
+    this.user.profile = localStorage.getItem('profile')
+    this.user.id = localStorage.getItem('userId')
+  },
+  methods:{
+    logoutUser() {
+      localStorage.clear();
+      window.location.reload();
+    },
+  }
+}
+</script>

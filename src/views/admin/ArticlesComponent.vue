@@ -16,12 +16,7 @@
           <div class="card">
             <div class="card-header pb-0 p-3 mb-3">
               <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Latest Doctors</h6>
-                <router-link
-                  class="btn btn-primary"
-                  :to="{ path: '/doctor/articles/create' }"
-                  >Add a new Article</router-link
-                >
+                <h6 class="mb-2">Latest Articles</h6>
               </div>
             </div>
             <AllArticlesComponent />

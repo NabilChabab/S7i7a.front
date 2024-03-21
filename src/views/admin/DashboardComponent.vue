@@ -3,7 +3,7 @@
   <SideNav
     :navigationLinks="navigationLinks"
     :accountLinks="accountLinks"
-    style="z-index: 9999"
+    style="z-index:1000;"
   />
   <main class="main-content position-relative border-radius-lg">
     <!-- Navbar -->
