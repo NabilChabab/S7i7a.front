@@ -38,7 +38,6 @@ const props = defineProps({
   },
 });
 
-
 let textDark = ref(props.darkText);
 const { type } = useWindowsWidth();
 
@@ -68,7 +67,13 @@ watch(
         class="navbar-brand font-weight-bolder ms-lg-0 ms-3"
         :to="{ path: '/' }"
       >
-      <img src="@/assets/img/icons/logo/medical-check.png" class="navbar-brand-img mb-1" alt="main_logo" style="width: 22px;height:22px;">  S7I7A.ma
+        <img
+          src="@/assets/img/icons/logo/medical-check.png"
+          class="navbar-brand-img mb-1"
+          alt="main_logo"
+          style="width: 22px; height: 22px"
+        />
+        S7I7A.ma
       </router-link>
       <button
         class="navbar-toggler shadow-none ms-2"
@@ -85,51 +90,66 @@ watch(
           <span class="navbar-toggler-bar bar3"></span>
         </span>
       </button>
-      <div class="collapse navbar-collapse" id="navigation">
+      <div class="collapse navbar-collapse" id="navigation" v-if="user.role">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item" v-if="user.id">
-            <router-link class="nav-link me-2" :to="{ path: '' }">
-              Home
+          <li class="nav-item" v-if="user.role === 'Patient'">
+            <router-link
+              class="nav-link me-2 font-weight-bold"
+              :to="{ path: '/patient/dashboard' }"
+            >
+              Go to Dashboard
             </router-link>
           </li>
-          <li class="nav-item" v-if="user.id">
+          <li class="nav-item" v-if="user.role === 'Doctor'">
+            <router-link
+              class="nav-link me-2 font-weight-bold"
+              :to="{ path: '/doctor/dashboard' }"
+            >
+              Go to Dashboard
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="user.role === 'Admin'">
+            <router-link
+              class="nav-link me-2 font-weight-bold"
+              :to="{ path: '/admin/dashboard' }"
+            >
+              Go to Dashboard
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link me-2" :to="{ path: '' }">
               Doctors
             </router-link>
           </li>
-          <li class="nav-item" v-if="user.id">
+          <li class="nav-item">
             <router-link class="nav-link me-2" :to="{ path: '' }">
               Advices
             </router-link>
           </li>
 
-          <li class="nav-item" v-if="user.id">
+          <li class="nav-item">
             <router-link class="nav-link me-2" :to="{ path: '' }">
               About us
             </router-link>
           </li>
 
-          <li class="nav-item" v-if="user.id">
+          <li class="nav-item">
             <router-link class="nav-link me-2" :to="{ path: '' }">
               Contact us
             </router-link>
           </li>
-          <li class="nav-item" v-if="!user.id">
-            <router-link class="nav-link me-2" :to="{ path: '/register' }">
-              <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-              Sign Up
-            </router-link>
-          </li>
-          <li class="nav-item" v-if="!user.id">
-            <router-link class="nav-link me-2" :to="{ path: '/login' }">
-              <i class="fas fa-key opacity-6 text-dark me-1"></i>
-              Sign In
-            </router-link>
-          </li>
         </ul>
         <ul class="navbar-nav d-lg-block d-none">
-          <li class="nav-item d-flex justify-content-center align-items-center" v-if="user.id">
-            <router-link :to="{ path: '/' }" class="nav-link text-center"><img :src="user.profile || require('@/assets/img/avatar.png')" alt="" style="width: 35px; height: 35px;" class="rounded-circle me-2"> {{ user.name }}</router-link>
+          <li class="nav-item d-flex justify-content-center align-items-center">
+            <router-link :to="{ path: '/' }" class="nav-link text-center"
+              ><img
+                :src="user.profile || require('@/assets/img/avatar.png')"
+                alt=""
+                style="width: 35px; height: 35px"
+                class="rounded-circle me-2"
+              />
+              {{ user.name }}</router-link
+            >
             <a
               href="javascript:;"
               class="nav-link text-white p-0"
@@ -143,19 +163,32 @@ watch(
               class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
               aria-labelledby="dropdownMenuButton"
             >
-              <li class="mb-2">
-                <router-link :to="{path:'/doctor/profile'}" class="dropdown-item border-radius-md">
+              <li
+                class="mb-2"
+                v-if="
+                  user.role === 'Patient' ||
+                  user.role === 'Doctor' ||
+                  user.role === 'Admin'
+                "
+              >
+                <router-link
+                  :to="profilePath"
+                  class="dropdown-item border-radius-md"
+                >
                   <div class="d-flex py-1">
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
-                        <span class="font-weight-bold">profile</span>
+                        <span class="font-weight-bold">Profile</span>
                       </h6>
                     </div>
                   </div>
                 </router-link>
               </li>
               <li class="mb-2">
-                <a class="dropdown-item border-radius-md cursor-pointer" @click="logoutUser">
+                <a
+                  class="dropdown-item border-radius-md cursor-pointer"
+                  @click="logoutUser"
+                >
                   <div class="d-flex py-1">
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
@@ -178,8 +211,30 @@ watch(
               </li>
             </ul>
           </li>
-          <li class="nav-item" v-else>
-            <router-link :to="{path:'register'}" class="btn btn-sm mb-0 me-1 btn-primary">Subscribe</router-link>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" v-else>
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <router-link class="nav-link me-2" :to="{ path: '/register' }">
+              <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
+              Sign Up
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link me-2" :to="{ path: '/login' }">
+              <i class="fas fa-key opacity-6 text-dark me-1"></i>
+              Sign In
+            </router-link>
+          </li>
+        </ul>
+        <ul class="navbar-nav d-lg-block d-none">
+          <li class="nav-item">
+            <router-link
+              :to="{ path: 'register' }"
+              class="btn btn-sm mb-0 me-1 btn-primary"
+              >Subscribe</router-link
+            >
           </li>
         </ul>
       </div>
@@ -188,31 +243,42 @@ watch(
   <!-- End Navbar -->
 </template>
 
-
-
 <script>
-
 export default {
-  data(){
-    return{
-      user:{
-        id : '',
-        name:'',
-        profile:'',
-        default: require('@/assets/img/avatar.png')
+  data() {
+    return {
+      user: {
+        role: "",
+        name: "",
+        profile: "",
+        default: require("@/assets/img/avatar.png"),
       },
-    }
+    };
   },
-  created(){
-    this.user.name = localStorage.getItem('name')
-    this.user.profile = localStorage.getItem('profile')
-    this.user.id = localStorage.getItem('userId')
+  computed: {
+    profilePath() {
+      switch (this.user.role) {
+        case "Patient":
+          return { path: "/patient/profile" };
+        case "Doctor":
+          return { path: "/doctor/profile" };
+        case "Admin":
+          return { path: "/admin/profile" };
+        default:
+          return {};
+      }
+    },
   },
-  methods:{
+  created() {
+    this.user.name = localStorage.getItem("name");
+    this.user.profile = localStorage.getItem("profile");
+    this.user.role = localStorage.getItem("role");
+  },
+  methods: {
     logoutUser() {
       localStorage.clear();
       window.location.reload();
     },
-  }
-}
+  },
+};
 </script>

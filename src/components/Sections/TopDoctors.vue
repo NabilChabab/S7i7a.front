@@ -5,14 +5,14 @@ import TopDoctors from "@/components/layouts/cards/doctor/TopDoctors.vue";
 </script>
 
 <template>
-  <section class="pb-5 position-relative mx-n3 bg-gradient-dark">
+  <section class="pb-5 position-relative mx-n3 mt-5">
     <div class="container">
-      <div class="row">
-        <div class="col-md-8 text-start mb-5 mt-5">
-          <h3 class="text-white z-index-1 position-relative">
+      <div class="row mb-5">
+        <div class="col-md-8 text-center mb-5 mt-5 w-100">
+          <h3 class="text-dark z-index-1 position-relative">
             The Executive Team
           </h3>
-          <p class="text-white opacity-8 mb-0">
+          <p class="text-dark opacity-8 mb-0">
             There’s nothing I really wanted to do in life that I wasn’t able to
             get good at. That’s my skill.
           </p>
@@ -20,8 +20,7 @@ import TopDoctors from "@/components/layouts/cards/doctor/TopDoctors.vue";
       </div>
       <div class="row">
         
-          <TopDoctors
-          />
+          <TopDoctors/>
       </div>
     </div>
   </section>

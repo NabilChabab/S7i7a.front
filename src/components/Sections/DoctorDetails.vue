@@ -9,7 +9,12 @@
                 :src="doctor.profile"
                 class="shadow-xl position-relative z-index-2"
                 alt="Avatar"
-                style="width: 200px; height: 200px; border-radius: 25px"
+                style="
+                  width: 250px;
+                  height: 250px;
+                  border-radius: 25px;
+                  object-fit: cover;
+                "
               />
             </div>
           </div>
@@ -18,8 +23,7 @@
               class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto"
             >
               <div
-                class="d-flex justify-content-between align-items-center mb-2"
-              >
+                class="d-flex justify-content-between align-items-center mb-2">
                 <h3 class="mb-0">{{ doctor.name }}</h3>
                 <div class="d-block">
                   <a
@@ -35,6 +39,7 @@
                   </a>
                 </div>
               </div>
+                <p class="text-dark">Work Time <span class="text-success font-weight-bold" style="font-size: 15px;">9:00 - 17:00</span> </p>
               <div class="row mb-4">
                 <div class="col-auto">
                   <span class="h6 me-1"
@@ -60,32 +65,29 @@
       </div>
     </div>
 
-    <div
-      class="container d-flex justify-content-center align-items-center w-25"
-    >
-      <form
-        @submit.prevent="submitAppointment"
-        :style="{ display: formVisible ? 'block' : 'none' }"
-      >
-        <div class="row">
-          <label>Date:</label>
+    <div class="container booking" :style="{ display: formVisible ? 'block' : 'none' }">
+      <div class="row mb-5">
+        <div class="col-md-8 text-center mb-5 w-100">
+          <h3 class="text-dark z-index-1 position-relative">
+            Let's Make an Appointment
+          </h3>
+          <p class="text-dark opacity-8 mb-0">
+            There’s nothing I really wanted to do in life that I wasn’t able to
+            get good at. That’s my skill.
+          </p>
+        </div>
+      </div>
+      <form @submit.prevent="submitAppointment">
+        <div class="row pad">
           <flat-pickr
-            v-model="selectedDate"
-            :config="dateConfig"
+            v-model="selectedDateTime"
+            :config="dateTimeConfig"
             class="form-control bg-white mb-4"
-            placeholder="Select a date"
+            placeholder="Select date and time"
           ></flat-pickr>
-          <label>Time:</label>
-          <flat-pickr
-            v-model="selectedTime"
-            :config="timeConfig"
-            class="form-control bg-white mb-4"
-            placeholder="Select a time"
-          ></flat-pickr>
-          <div class="row mb-4">
-            <label>Type:</label>
-            <div class="col-4">
-              <div class="form-check">
+          <div class="row mb-4 text-start">
+            <div class="col-6">
+              <div class="form-check radio-group">
                 <input
                   class="form-check-input"
                   type="radio"
@@ -96,8 +98,8 @@
                 <label class="form-check-label" for="onlineType">Online</label>
               </div>
             </div>
-            <div class="col-4">
-              <div class="form-check">
+            <div class="col-6">
+              <div class="form-check radio-group">
                 <input
                   class="form-check-input"
                   type="radio"
@@ -109,7 +111,8 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">
+          <PreLoader :loading="loading" :color="loaderColor" :size="loaderSize" class="mb-4"></PreLoader>
+          <button type="submit" class="btn btn-success">
             Make Appointment
           </button>
         </div>
@@ -117,12 +120,14 @@
     </div>
   </section>
 </template>
-
 <script>
 import api from "@/services/api";
 import FlatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import Swal from "sweetalert2";
+import PreLoader from '@/components/icons/PreLoader.vue'
+
+
 export default {
   data() {
     return {
@@ -137,21 +142,28 @@ export default {
         profile: "",
         qualification: "",
       },
+      loading: false,
+      loaderColor: '#6437e0', 
+      loaderSize: '10px', 
       formVisible: false,
       selectedType: "local",
-      selectedDate: "",
-      selectedTime: "",
-      dateConfig: {
-        enableTime: false,
-        altInput: true,
-        altFormat: "F j, Y",
-        dateFormat: "Y-m-d",
-      },
-      timeConfig: {
+      selectedDateTime: "",
+      dateTimeConfig: {
         enableTime: true,
-        altFormat: "h:i K",
-        dateFormat: "H:i",
-      },
+        altFormat: "F j, Y h:i K",
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+        maxDate: new Date().fp_incr(365),
+        disable: [
+          // Disable weekends (Saturday and Sunday)
+          function(date) {
+            return date.getDay() === 0 || date.getDay() === 6;
+          }
+        ],
+        // Set allowed time range (9:00 to 17:00)
+        minTime: "09:00",
+        maxTime: "17:00"
+      }
     };
   },
   created() {
@@ -172,16 +184,21 @@ export default {
       this.doctor = response.data.doctor;
     },
     async submitAppointment() {
+      this.loading = true;
+      const selectedDate = this.selectedDateTime.split(" ")[0];
+      const selectedTime = this.selectedDateTime.split(" ")[1];
+
       const formData = {
         doctor_id: this.doctor.id,
-        appointment_date: this.selectedDate,
-        appointment_hour: this.selectedTime,
+        appointment_date: selectedDate,
+        appointment_hour: selectedTime,
         type: this.selectedType,
         user_id: localStorage.getItem("userId"),
       };
 
       try {
         await api.post("/patient/appointment", formData);
+        this.loading = false;
         Swal.fire({
           icon: "success",
           title: "Success",
@@ -189,14 +206,52 @@ export default {
           timer: 1500,
         });
       } catch (error) {
-        console.error("Error creating appointment:", error.response.data);
+        this.loading = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.error,
+        });
       }
     },
   },
   components: {
     FlatPickr,
+    PreLoader,
   },
 };
 </script>
 
-<style></style>
+<style>
+.radio-group label{
+  min-width: 100px;
+  min-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid rgb(94, 114, 228);
+}
+
+.radio-group input:checked + .form-check-label{
+  background-color: rgb(94, 114, 228);
+  color: white;
+  font-weight: 600;
+}
+
+.radio-group input{
+  display: none;
+}
+.booking{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.pad{
+  padding: 0px 30%;
+}
+
+</style>

@@ -1,19 +1,12 @@
 <template>
-  <div v-if="loading" class="text-center mt-4 text-primary" >
-    <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-  <div class="col-lg-4" v-for="category in categories" :key="category.id" data-aos="fade-up">
+
+<PreLoader :loading="loading" :color="loaderColor" :size="loaderSize"></PreLoader>
+  <div class="col-lg-3 col-md-4 mt-3" v-for="category in categories" :key="category.id" data-aos="fade-up">
     <div
-      class="info-horizontal border-radius-xl d-flex flex-column text-center align-items-center justify-content-center d-md-flex"
-      :class="[color.background]"
-    >
-      <img :src="category.icon" alt="" class="icon h-100 w-25 mb-3 mt-2" />
-      <div class="ps-0 ps-md-3 mt-3 mt-md-0">
-        <h5 :class="`text-${color.text} text-center`">{{ category.name }}</h5>
-        <p :class="`text-${color.text} text-center`">{{ description }}</p>
-      </div>
+      class="iconbox"
+      :class="[color.background]">
+      <img :src="category.icon" alt=""/>
+        <h3 :class="`text-${color.text}`"><a href="">{{ category.name }}</a></h3>
     </div>
   </div>
 </template>
@@ -21,12 +14,15 @@
 <script>
 import api from "@/services/api";
 import AOS from 'aos';
+import PreLoader from '@/components/icons/PreLoader.vue'
 
 export default {
   data() {
     return {
       categories: [],
-      loading:false
+      loading: false, 
+      loaderColor: '#6437e0', 
+      loaderSize: '15px', 
     };
   },
   props: {
@@ -54,11 +50,42 @@ export default {
   },
   methods: {
     async fetchCategories() {
-      this.loading = true;
-      const response = await api.get("/index");
-      this.categories = response.data.categories;
-      this.loading = false;
+      this.loading = true; // Set loading to true before fetching
+      try {
+        const response = await api.get("/index");
+        this.categories = response.data.categories;
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+      this.loading = false; // Set loading back to false after fetching
     },
+  },
+  components: {
+    PreLoader,
   },
 };
 </script>
+
+<style>
+
+.iconbox{
+  width: 100%;
+  height: 70px;
+  display: flex;
+  background-color: rgba(238, 238, 238, 0.829);
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.iconbox img{
+  width: 45px;
+  height: 45px;
+}
+
+.iconbox h3{
+  font-size:18px
+}
+</style>

@@ -17,9 +17,9 @@
               <div
                 class="card-header pb-0 d-flex justify-content-between align-items-center"
               >
-                <h6>Add New Doctors</h6>
+                <h6>Add New Article</h6>
                 <button class="btn btn-primary" type="submit">
-                  Add Doctor
+                  Add Article
                 </button>
               </div>
               <div class="card-body px-0 pt-0 pb-2">

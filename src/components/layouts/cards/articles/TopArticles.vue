@@ -27,7 +27,12 @@ defineProps({
 });
 </script>
 <template>
-  <div class="col-lg-3 col-sm-6" v-for="article in articles" :key="article.id">
+  <PreLoader
+    :loading="loading"
+    :color="loaderColor"
+    :size="loaderSize"
+  ></PreLoader>
+  <div class="col-lg-3 col-sm-6" v-for="article in articles" :key="article.id" data-aos="fade-right">
     <div class="card card-plain">
       <div class="card-header p-0 position-relative">
         <a class="d-block blur-shadow-image">
@@ -41,15 +46,15 @@ defineProps({
       </div>
       <div class="card-body px-0">
         <h5>
-          <a class="text-dark font-weight-bold">{{
-            article.title
-          }}</a>
+          <a class="text-dark font-weight-bold">{{ article.title }}</a>
         </h5>
         <p>
-          {{ article.content }}
+          {{
+            article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
+            (article.content.trim().split(/\s+/).length > 5 ? " ..." : "")
+          }}
         </p>
-        <a
-          class="text-sm icon-move-right text-primary"
+        <a class="text-sm icon-move-right text-primary"
           >Explore more
           <i class="fas fa-arrow-right text-xs ms-1"></i>
         </a>
@@ -58,26 +63,39 @@ defineProps({
   </div>
 </template>
 
-
 <script>
-import api from '@/services/api'
+import api from "@/services/api";
+import PreLoader from "@/components/icons/PreLoader.vue";
+import AOS from 'aos';
 
 
 export default {
-    data() {
-        return {
-            articles: []
-        }
+  data() {
+    return {
+      articles: [],
+      loading: false,
+      loaderColor: "#6437e0",
+      loaderSize: "15px",
+    };
+  },
+  created() {
+    this.getArticles();
+  },
+  mounted() {
+    AOS.init({
+      duration: 1000,
+    });
+  },
+  methods: {
+    async getArticles() {
+      this.loading = true
+      const response = await api.get("/index");
+      this.articles = response.data.articles;
+      this.loading = false
     },
-    created() {
-        this.getArticles()
-    },
-    methods: {
-        async getArticles() {
-            const response = await api.get('/index')
-            this.articles = response.data.articles
-        }
-    }
-}
-
+  },
+  components: {
+    PreLoader,
+  },
+};
 </script>

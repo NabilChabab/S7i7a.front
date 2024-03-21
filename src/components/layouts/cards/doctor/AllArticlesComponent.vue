@@ -58,7 +58,10 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ article.content }}</p>
+            <p class="text-xs text-secondary mb-0">{{ article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
+                (article.content.trim().split(/\s+/).length > 5
+                  ? " ..."
+                  : "")}}</p>
           </td>
           <td>
             <p class="text-xs text-secondary mb-0">{{ article.createdBy }}</p>

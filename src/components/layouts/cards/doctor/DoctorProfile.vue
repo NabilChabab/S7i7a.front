@@ -100,7 +100,10 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <div class="form-group">
+                  <div
+                    class="form-group"
+                    :class="{ error: errors.description }"
+                  >
                     <label for="example-text-input" class="form-control-label"
                       >Description</label
                     >
@@ -110,6 +113,11 @@
                       placeholder="Enter Your Description"
                       v-model="doctor.description"
                     />
+                    <span
+                      v-if="errors.description"
+                      class="text-danger"
+                      >{{ errors.description }}</span
+                    >
                   </div>
                 </div>
               </div>
@@ -193,12 +201,21 @@ export default {
       defaultImage: require("@/assets/img/avatar.png"),
       errorMessage: "",
       profile: null,
+      errors: {
+        name: "",
+        email: "",
+        phone: "",
+        address: "",
+        experience: "",
+        qualification: "",
+        description: "",
+      },
       doctor: {
         name: "",
         email: "",
         phone: "",
         address: "",
-        aboutMe: "",
+        description: "",
         experience: "",
         qualification: "",
       },
@@ -265,7 +282,21 @@ export default {
           timer: 1500,
         });
       } catch (error) {
-        console.error("Error updating user information:", error);
+        console.error(error);
+        if (
+          error.response &&
+          error.response.status === 422 &&
+          error.response.data.errors
+        ) {
+          const { message, errors: responseErrors } = error.response.data;
+          this.errors.message = message;
+          for (const key in responseErrors) {
+            this.errors[key] = responseErrors[key][0];
+          }
+          this.loading_log = false
+        } else {
+          alert("Error occurred while logging in.");
+        }
       }
     },
   },

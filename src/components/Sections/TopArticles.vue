@@ -1,19 +1,24 @@
 <script setup>
 // example components
 import TopArticles from "@/components/layouts/cards/articles/TopArticles.vue";
+import AOS from 'aos';
+
+
+AOS.init();
 
 </script>
 <template>
   <section class="py-3">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <h3 class="mb-5">Check my latest blogposts</h3>
+      <div class="row mb-5 mt-5">
+        <div class="col-lg-6 text-center w-100 mb-5">
+          <h3 class="mb-2">Check my latest blogposts</h3>
+          <p class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam quasi ipsa magni consequatur, est animi et?</p>
         </div>
       </div>
       <div class="row">
           <TopArticles/>
-        <div class="col-lg-3 col-md-12 col-12">
+        <div class="col-lg-3 col-md-12 col-12" data-aos="fade-up">
           <div class="card card-blog card-background cursor-pointer">
             <div
               class="full-background"

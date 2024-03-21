@@ -36,7 +36,7 @@ onUnmounted(() => {
    
     <div class="container mt-5 mb-5">
       <div class="row mb-5">
-        <div class="col-md-8 text-start mb-5 mt-5">
+        <div class="col-md-8 text-center mb-5 mt-5 w-100">
           <h3 class="text-dark z-index-1 position-relative">
             Our Categories
           </h3>

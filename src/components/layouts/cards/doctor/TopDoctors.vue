@@ -1,21 +1,16 @@
 <template>
-  <div v-if="loading" class="text-center mt-4 text-primary">
-    <div class="spinner-border" role="status" style="width: 3rem; height: 3rem">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
+  <PreLoader :loading="loading" :color="loaderColor" :size="loaderSize"></PreLoader>
   <div
     class="col-lg-6 col-12 mt-5"
     v-for="doctor in topDoctors"
-    :key="doctor.id"
-  >
-    <div class="card card-profile">
+    :key="doctor.id" data-aos="fade-left">
+    <div class="card card-profile" >
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12 mt-n5">
           <a>
-            <div class="p-3 pe-md-0">
+            <div class="p-3 pe-md-0" data-aos="fade-down">
               <img
-                class="w-100 border-radius-md shadow-lg"
+                class="w-100 border-radius-md shadow-lg" style="height:170px;object-fit: cover;"
                 :src="doctor.profile"
               />
             </div>
@@ -51,15 +46,26 @@
 
 <script>
 import api from "@/services/api";
+import PreLoader from '@/components/icons/PreLoader.vue'
+import AOS from 'aos';
+
+
 export default {
   data() {
     return {
       topDoctors: [],
       loading: false,
+      loaderColor: '#6437e0', 
+      loaderSize: '15px', 
     };
   },
   created() {
     this.getDoctors();
+  },
+  mounted() {
+    AOS.init({
+      duration: 1000,
+    });
   },
   methods: {
     async getDoctors() {
@@ -73,6 +79,9 @@ export default {
       });
       this.loading = false;
     },
+  },
+  components: {
+    PreLoader,
   },
 };
 </script>

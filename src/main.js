@@ -6,6 +6,7 @@ import 'bootstrap';
 import "boxicons/css/boxicons.min.css";
 import './assets/css/argon-dashboard.css';
 import './assets/js/argon-dashboard.js';
+import 'vue-spinner/src/PulseLoader.vue'
 
 //user
 import "./assets/user/css/nucleo-icons.css";
