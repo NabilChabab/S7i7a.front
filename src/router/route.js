@@ -22,6 +22,7 @@ import AdminArticles from '@/views/admin/ArticlesComponent.vue';
 //Doctor
 import DoctorComponent from '@/views/doctor/DashboardComponent.vue';
 import ArticlesComponent from '@/views/doctor/ArticlesComponent.vue';
+import AppointmentComponent from '@/views/doctor/AppointmentComponent.vue';
 import CreateArticleComponent from '@/views/doctor/create/CreateArticleComponent.vue';
 import UpdateArticleComponent from '@/views/doctor/update/UpdateArticleComponent.vue';
 import ProfileDoctor from '@/views/doctor/ProfileComponent.vue';
@@ -69,6 +70,7 @@ const routes = [
   //Doctor
   { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles', component: ArticlesComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+  { path: '/doctor/appointments', component: AppointmentComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/create', component: CreateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/edit/:id', name: 'edit_article' , component: UpdateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/profile', component: ProfileDoctor, meta: { requiresAuth: true, roles: ['Doctor'] }},
