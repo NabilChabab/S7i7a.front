@@ -39,7 +39,8 @@
                   </a>
                 </div>
               </div>
-                <p class="text-dark">Work Time <span class="text-success font-weight-bold" style="font-size: 15px;">9:00 - 17:00</span> </p>
+                <p class="text-dark">Work Time <span class="text-danger font-weight-bold" style="font-size: 15px;">9:00 - 17:00</span> </p>
+                <p class="text-dark"><span class="text-success font-weight-bold" style="font-size: 15px;">{{doctor.category}}</span> </p>
               <div class="row mb-4">
                 <div class="col-auto">
                   <span class="h6 me-1"

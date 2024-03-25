@@ -18,9 +18,9 @@
         </div>
         <div class="col-lg-8 col-md-6 col-12 my-auto">
           <div class="card-body ps-lg-0">
-            <h5 class="mb-0">{{ doctor.name }}</h5>
+            <h5 class="mb-0">Dr {{ doctor.name }}</h5>
             <h6 class="text-success" v-for="role in doctor.role" :key="role.id">
-              {{ role }}
+              {{ doctor.category }}
             </h6>
             <p class="mb-0">
               {{

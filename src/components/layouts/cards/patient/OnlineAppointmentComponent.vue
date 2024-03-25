@@ -6,7 +6,7 @@
           <th
             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
-            Patient
+            Doctor
           </th>
           <th
             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
@@ -28,7 +28,7 @@
           >
             Type
           </th>
-
+          
           <th
             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
@@ -39,25 +39,22 @@
       </thead>
 
       <div v-if="isLoading">Loading...</div>
-      <tbody v-else-if="appointments">
+      <tbody v-else>
         <tr v-for="appointment in appointments" :key="appointment.id">
           <td>
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  :src="
-                    appointment.patient_img ||
-                    require('@/assets/img/avatar.png')
-                  "
+                  :src="appointment.doctor_img"
                   class="avatar avatar-sm me-3"
                   style="object-fit: cover"
                   alt="user1"
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.patient }}</h6>
+                <h6 class="mb-0 text-sm">{{ appointment.doctor }}</h6>
                 <p class="text-xs text-success mb-0">
-                  {{ appointment.patient_phone }}
+                  {{ appointment.doctor_phone }}
                 </p>
               </div>
             </div>
@@ -84,8 +81,7 @@
           </td>
           <td class="align-middle text-center text-sm">
             <span
-              class="badge badge-sm bg-gradient-success"
-              style="width: 60px"
+              class="badge badge-sm bg-gradient-success" style="width:60px"
               >{{ appointment.type }}</span
             >
           </td>
@@ -101,13 +97,6 @@
             </button>
           </td>
         </tr>
-      </tbody>
-      <tbody v-else>
-        <td class="align-middle text-center">
-          <p class="text-xs text-danger mb-0 text-center">
-            There is no Online Appointments Associated To You
-          </p>
-        </td>
       </tbody>
     </table>
   </div>
@@ -139,8 +128,8 @@ export default {
   methods: {
     async fetchAppointment() {
       try {
-        const response = await api.get("/doctor/appointments");
-        this.appointments = response.data.online_appointments;
+        const response = await api.get("/patient/appointment");
+        this.appointments = response.data.online_appointments
         this.isLoading = false;
       } catch (error) {
         console.log(error);
@@ -148,7 +137,7 @@ export default {
     },
     async deleteAppointment(id) {
       try {
-        await api.delete(`/doctor/appointments/${id}`);
+        await api.delete(`/patient/appointment/${id}`);
         Swal.fire({
           icon: "success",
           title: "Success",
@@ -163,7 +152,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

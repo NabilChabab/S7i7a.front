@@ -7,6 +7,7 @@ import BuiltByDevelopers from "@/components/layouts/cards/categories/CategoryCar
 import Categories from "@/components/layouts/cards/categories/CategoriesComponent.vue";
 import TopDoctors from "@/components/Sections/TopDoctors.vue";
 import Posts from "@/components/Sections/TopArticles.vue";
+import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
 
 
 const body = document.getElementsByTagName("body")[0];
@@ -56,6 +57,7 @@ onUnmounted(() => {
     <TopDoctors />
     <Posts />
   </div>
+  <DefaultFooter />
   </div>
 </template>
 

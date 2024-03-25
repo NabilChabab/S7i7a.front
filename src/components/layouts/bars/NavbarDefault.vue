@@ -95,9 +95,9 @@ watch(
           <li class="nav-item" v-if="user.role === 'Patient'">
             <router-link
               class="nav-link me-2 font-weight-bold"
-              :to="{ path: '/patient/dashboard' }"
+              :to="{ path: '/patient/appointment' }"
             >
-              Go to Dashboard
+              My Dashboard
             </router-link>
           </li>
           <li class="nav-item" v-if="user.role === 'Doctor'">
@@ -105,7 +105,7 @@ watch(
               class="nav-link me-2 font-weight-bold"
               :to="{ path: '/doctor/dashboard' }"
             >
-              Go to Dashboard
+              My Dashboard
             </router-link>
           </li>
           <li class="nav-item" v-if="user.role === 'Admin'">
@@ -113,7 +113,7 @@ watch(
               class="nav-link me-2 font-weight-bold"
               :to="{ path: '/admin/dashboard' }"
             >
-              Go to Dashboard
+              My Dashboard
             </router-link>
           </li>
           <li class="nav-item">

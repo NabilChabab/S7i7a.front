@@ -4,6 +4,8 @@ import HeaderDetails from "@/components/layouts/bars/HeaderDetails.vue";
 import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
 // sections
 import DoctorDetails from "@/components/Sections/DoctorDetails.vue";
+import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
+
 </script>
 <template>
   <div class="bg-gray-200">
@@ -28,5 +30,6 @@ import DoctorDetails from "@/components/Sections/DoctorDetails.vue";
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
       <DoctorDetails/>
     </div>
+    <DefaultFooter />
   </div>
 </template>

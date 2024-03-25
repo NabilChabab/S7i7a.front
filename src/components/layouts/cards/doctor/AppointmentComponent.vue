@@ -45,7 +45,7 @@
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  :src="require('@/assets/img/avatar.png')"
+                  :src="appointment.patient_img || require('@/assets/img/avatar.png')"
                   class="avatar avatar-sm me-3"
                   style="object-fit: cover"
                   alt="user1"
@@ -60,10 +60,8 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">
-              {{
-                appointment.date
-              }}
+            <p class="text-xs text-secondary mb-0" :class="{ 'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(appointment) }">
+              {{ isToday(appointment) ? "Today" : appointment.date }}
             </p>
           </td>
           <td>
@@ -118,6 +116,14 @@ export default {
   },
   created() {
     this.fetchAppointment();
+  },
+  computed: {
+    isToday() {
+    return appointment => {
+      const today = new Date().toISOString().slice(0, 10);
+      return appointment.date === today;
+    }
+  }
   },
   methods: {
 

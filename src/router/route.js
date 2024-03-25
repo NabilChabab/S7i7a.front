@@ -6,6 +6,7 @@ import LoginComponent from '@/views/Auth/LoginComponent.vue';
 import ResetPasswordComponent from '@/views/Auth/ResetPasswordComponent.vue';
 import TheWelcomeVue from '@/views/TheWelcome.vue';
 import DoctorDetails from '@/views/DoctorDetails.vue';
+import ChatComponent from '@/views/ChatComponent.vue';
 
 //Admin
 import DashboardComponent from '@/views/admin/DashboardComponent.vue';
@@ -30,6 +31,8 @@ import ProfileDoctor from '@/views/doctor/ProfileComponent.vue';
 
 //Patients
 import PatientComponent from '@/views/patient/PatientComponent.vue';
+import PatientProfile from '@/views/patient/ProfileComponent.vue';
+
 
 //unauthorized
 
@@ -55,6 +58,7 @@ const routes = [
   { path: '/login', component: LoginComponent, meta: { requiresGuest: true }},
   { path: '/reset-password', component: ResetPasswordComponent },
   { path: '/doctor-details/:id', name: 'doctor-details',  component: DoctorDetails },
+  { path: '/chat',  component: ChatComponent },
 
 
   //Admin
@@ -76,7 +80,9 @@ const routes = [
   { path: '/doctor/profile', component: ProfileDoctor, meta: { requiresAuth: true, roles: ['Doctor'] }},
   
   //Patients
-  { path: '/patient/dashboard', component: PatientComponent, meta: { requiresAuth: true, roles: ['Patient'] }},
+  { path: '/patient/appointment', component: PatientComponent, meta: { requiresAuth: true, roles: ['Patient'] }},
+  { path: '/patient/profile', component: PatientProfile, meta: { requiresAuth: true, roles: ['Patient'] }},
+
 
   //unauthorized
   { path: '/unauthorized', component: ErrorComponent},

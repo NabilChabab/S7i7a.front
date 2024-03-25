@@ -87,6 +87,22 @@
                     <p class="fname-error text-danger"></p>
                   </div>
                   <div class="form-outline mb-4">
+                    <label for="">Category Name</label>
+                    <select
+                      class="form-control text-dark fullname"
+                      name="category"
+                      v-model="category_id">
+                      <option
+                        v-for="category in categories"
+                        :key="category.id"
+                        :value="category.id"
+                      >
+                        {{ category.name }}
+                      </option>
+                    </select>
+                    <p class="fname-error text-danger"></p>
+                  </div>
+                  <div class="form-outline mb-4">
                     <label for="">Password</label>
                     <input
                       type="password"
@@ -186,7 +202,11 @@ export default {
       cin: "",
       password: "",
       errors: [],
+      categories:[]
     };
+  },
+  created() {
+    this.fetchCategories();
   },
   methods: {
     handleImageChange(event) {
@@ -198,8 +218,13 @@ export default {
         };
         reader.readAsDataURL(this.profile);
       } else {
-        this.previewImage = ""; // Clear preview if no file selected
+        this.previewImage = ""; 
       }
+    },
+    async fetchCategories() {
+      const response = await api.get("/admin/doctors");
+      this.categories = response.data.categories;
+      console.log(this.categories);
     },
     async addDoctor() {
       try {
@@ -208,7 +233,9 @@ export default {
         formData.append("email", this.email);
         formData.append("phone", this.phone);
         formData.append("CIN", this.cin);
+        formData.append("category_id", this.category_id);
         formData.append("password", this.password);
+        
 
         // Ensure profile is included only if a file is selected
         if (this.profile) {
