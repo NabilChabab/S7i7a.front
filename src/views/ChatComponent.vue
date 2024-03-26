@@ -6,6 +6,7 @@
         <div v-for="(user, index) in users" :key="index" class="user">
           <a @click="startChat(user)" class="text-dark cursor-pointer">
             <img :src="user.profile || require('@/assets/img/avatar.png')" class="rounded-circle" style="width: 45px; height: 45px; object-fit: cover;"> {{ user.name }}
+            <span v-if="unreadMessages[user.id]" class="unread-messages">{{ unreadMessages[user.id] }}</span>
           </a>
         </div>
       </div>
@@ -24,6 +25,7 @@
           <img src="@/assets/img/error.png" class="w-25 h-25">
           <h3>Start chat with someone</h3>
         </div>
+        
       </div>
     </div>
   </div>
@@ -40,6 +42,7 @@ export default {
       messages: [],
       newMessage: "",
       userName: localStorage.getItem('name'),
+      unreadMessages: JSON.parse(localStorage.getItem('unreadMessages')) || {}, // Retrieve unread messages from local storage
     };
   },
   created() {
@@ -59,6 +62,12 @@ export default {
       "MessageSent",
       (data) => {
         this.messages.push(data.message);
+        // Increment unread message count if the message is not from the current user
+        if (data.message.sender_id !== this.authUserId) {
+          this.unreadMessages[data.message.sender_id] = (this.unreadMessages[data.message.sender_id] || 0) + 1;
+          // Update local storage
+          localStorage.setItem('unreadMessages', JSON.stringify(this.unreadMessages));
+        }
       }
     );
   },
@@ -87,6 +96,10 @@ export default {
     startChat(user) {
       this.selectedUser = user;
       this.fetchMessages();
+      // Reset unread message count when the user clicks on the user to view the messages
+      this.unreadMessages[user.id] = 0;
+      // Update local storage
+      localStorage.setItem('unreadMessages', JSON.stringify(this.unreadMessages));
     },
     async fetchMessages() {
       try {
@@ -138,10 +151,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .text-red {
     color: red;
   }
-
- 
+  .unread-messages {
+    color: red;
+    font-weight: bold;
+    margin-left: 5px;
+  }
 </style>
