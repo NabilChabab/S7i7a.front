@@ -219,6 +219,7 @@ export default {
           profile,
           email,
           phone,
+          doc
         } = response.data;
         if (
           [
@@ -233,6 +234,7 @@ export default {
           localStorage.setItem("email", email);
           localStorage.setItem("phone", phone);
           localStorage.setItem("userId", userId);
+          localStorage.setItem("doc", doc);
           localStorage.setItem("profile", profile);
           Swal.fire({
             icon: "success",
