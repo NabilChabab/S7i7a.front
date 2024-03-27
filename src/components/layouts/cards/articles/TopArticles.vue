@@ -50,8 +50,8 @@ defineProps({
         </h5>
         <p>
           {{
-            article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
-            (article.content.trim().split(/\s+/).length > 5 ? " ..." : "")
+            article.content ? article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
+            (article.content.trim().split(/\s+/).length > 5 ? " ..." : "") : "..........."
           }}
         </p>
         <a class="text-sm icon-move-right text-primary"

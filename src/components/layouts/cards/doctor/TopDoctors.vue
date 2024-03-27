@@ -24,10 +24,10 @@
             </h6>
             <p class="mb-0">
               {{
-                doctor.description.trim().split(/\s+/).slice(0, 5).join(" ") +
+                doctor.description ? doctor.description.trim().split(/\s+/).slice(0, 5).join(" ") +
                 (doctor.description.trim().split(/\s+/).length > 5
                   ? " ..."
-                  : "")
+                  : "") : "..........."
               }}
             </p>
 

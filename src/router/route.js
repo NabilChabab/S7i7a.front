@@ -58,7 +58,7 @@ const routes = [
   { path: '/login', component: LoginComponent, meta: { requiresGuest: true }},
   { path: '/reset-password', component: ResetPasswordComponent },
   { path: '/doctor-details/:id', name: 'doctor-details',  component: DoctorDetails },
-  { path: '/chat',  component: ChatComponent },
+  { path: '/chat',  component: ChatComponent , meta: { requiresAuth: true } },
 
 
   //Admin

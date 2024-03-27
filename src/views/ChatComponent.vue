@@ -1,20 +1,37 @@
 <template>
   <div>
-    <h1>{{ userName }}</h1>
     <div class="d-flex justify-content-between">
-      <div class="users d-flex flex-wrap flex-column gap-5">
+      <div
+        class="users d-flex flex-wrap flex-column gap-5"
+        v-if="users && users.length > 0" >
         <div v-for="(user, index) in users" :key="index" class="user">
           <a @click="startChat(user)" class="text-dark cursor-pointer">
-            <img :src="user.profile || require('@/assets/img/avatar.png')" class="rounded-circle" style="width: 45px; height: 45px; object-fit: cover;"> {{ user.name }}
-            <span v-if="unreadMessages[user.id]" class="unread-messages">{{ unreadMessages[user.id] }}</span>
+            <img
+              :src="user.profile || require('@/assets/img/avatar.png')"
+              class="rounded-circle"
+              style="width: 45px; height: 45px; object-fit: cover"
+            />
+            {{ user.name }}
+            <span v-if="unreadMessages[user.id]" class="unread-messages">{{
+              unreadMessages[user.id]
+            }}</span>
           </a>
         </div>
       </div>
+      <div v-else class="user">
+        <p class="text-dark">You have no consultations with anyone</p>
+      </div>
+
       <div class="chat-room">
         <div v-if="selectedUser">
           <h2>Chatting with {{ selectedUser.name }}</h2>
           <div v-for="(message, index) in messages" :key="index">
-            <p :class="{ 'text-red': message.sender_id === authUserId, 'text-dark': message.sender_id !== authUserId }">
+            <p
+              :class="{
+                'text-red': message.sender_id === authUserId,
+                'text-dark': message.sender_id !== authUserId,
+              }"
+            >
               {{ message.message }}
             </p>
           </div>
@@ -22,10 +39,9 @@
           <button @click="sendMessage">Send</button>
         </div>
         <div v-else>
-          <img src="@/assets/img/error.png" class="w-25 h-25">
+          <img src="@/assets/img/error.png" class="w-25 h-25" />
           <h3>Start chat with someone</h3>
         </div>
-        
       </div>
     </div>
   </div>
@@ -41,8 +57,8 @@ export default {
       selectedUser: null,
       messages: [],
       newMessage: "",
-      userName: localStorage.getItem('name'),
-      unreadMessages: JSON.parse(localStorage.getItem('unreadMessages')) || {}, // Retrieve unread messages from local storage
+      userName: localStorage.getItem("name"),
+      unreadMessages: JSON.parse(localStorage.getItem("unreadMessages")) || {}, // Retrieve unread messages from local storage
     };
   },
   created() {
@@ -54,7 +70,7 @@ export default {
     }
 
     if (this.users.length > 0) {
-      this.selectedUser = this.users[0]; 
+      this.selectedUser = this.users[0];
       this.fetchMessages();
     }
 
@@ -64,9 +80,13 @@ export default {
         this.messages.push(data.message);
         // Increment unread message count if the message is not from the current user
         if (data.message.sender_id !== this.authUserId) {
-          this.unreadMessages[data.message.sender_id] = (this.unreadMessages[data.message.sender_id] || 0) + 1;
+          this.unreadMessages[data.message.sender_id] =
+            (this.unreadMessages[data.message.sender_id] || 0) + 1;
           // Update local storage
-          localStorage.setItem('unreadMessages', JSON.stringify(this.unreadMessages));
+          localStorage.setItem(
+            "unreadMessages",
+            JSON.stringify(this.unreadMessages)
+          );
         }
       }
     );
@@ -79,7 +99,7 @@ export default {
   methods: {
     async fetchDoctors() {
       try {
-        const response = await api.get("/patient/doctors");
+        const response = await api.get("/doctors");
         this.users = response.data.doctors;
       } catch (error) {
         console.error("Error fetching doctors:", error);
@@ -99,7 +119,10 @@ export default {
       // Reset unread message count when the user clicks on the user to view the messages
       this.unreadMessages[user.id] = 0;
       // Update local storage
-      localStorage.setItem('unreadMessages', JSON.stringify(this.unreadMessages));
+      localStorage.setItem(
+        "unreadMessages",
+        JSON.stringify(this.unreadMessages)
+      );
     },
     async fetchMessages() {
       try {
@@ -152,12 +175,12 @@ export default {
 </script>
 
 <style scoped>
-  .text-red {
-    color: red;
-  }
-  .unread-messages {
-    color: red;
-    font-weight: bold;
-    margin-left: 5px;
-  }
+.text-red {
+  color: red;
+}
+.unread-messages {
+  color: red;
+  font-weight: bold;
+  margin-left: 5px;
+}
 </style>
