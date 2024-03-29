@@ -14,6 +14,23 @@
               </div>
             </div>
             <div class="card-body">
+              <p class="text-uppercase text-sm">Price Section</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label"
+                      >Price ( DH )</label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="250.00 DH"
+                      v-model="doctor.price"
+                    />
+                  </div>
+                </div>
+               
+              </div>
               <p class="text-uppercase text-sm">User Information</p>
               <div class="row">
                 <div class="col-md-6">
@@ -121,6 +138,7 @@
                   </div>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
@@ -218,6 +236,7 @@ export default {
         description: "",
         experience: "",
         qualification: "",
+        price: "",
       },
     };
   },
@@ -262,6 +281,7 @@ export default {
         formData.append("description", this.doctor.description);
         formData.append("experience", this.doctor.experience);
         formData.append("qualification", this.doctor.qualification);
+        formData.append("price", this.doctor.price);
         formData.append("_method", "PATCH");
 
         const response = await api.post(

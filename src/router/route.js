@@ -32,6 +32,7 @@ import ProfileDoctor from '@/views/doctor/ProfileComponent.vue';
 //Patients
 import PatientComponent from '@/views/patient/PatientComponent.vue';
 import PatientProfile from '@/views/patient/ProfileComponent.vue';
+import AllDoctorsComponent from '@/views/patient/DoctorsComponent.vue';
 
 
 //unauthorized
@@ -59,6 +60,7 @@ const routes = [
   { path: '/reset-password', component: ResetPasswordComponent },
   { path: '/doctor-details/:id', name: 'doctor-details',  component: DoctorDetails },
   { path: '/chat',  component: ChatComponent , meta: { requiresAuth: true } },
+  { path: '/doctors',  component: AllDoctorsComponent , meta: { requiresAuth: true } },
 
 
   //Admin

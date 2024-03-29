@@ -117,7 +117,7 @@ watch(
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: '' }">
+            <router-link class="nav-link me-2" :to="{ path: '/doctors' }">
               Doctors
             </router-link>
           </li>

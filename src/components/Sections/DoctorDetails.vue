@@ -40,7 +40,7 @@
                 </div>
               </div>
                 <p class="text-dark">Work Time <span class="text-danger font-weight-bold" style="font-size: 15px;">9:00 - 17:00</span> </p>
-                <p class="text-dark"><span class="text-success font-weight-bold" style="font-size: 15px;">{{doctor.category}}</span> </p>
+                <p class="text-dark"><span class="text-success font-weight-bold" style="font-size: 15px;">{{doctor.category}}</span> <span class="text-success">{{ doctor.price }} DH</span></p>
               <div class="row mb-4">
                 <div class="col-auto">
                   <span class="h6 me-1"
@@ -142,6 +142,7 @@ export default {
         description: "",
         profile: "",
         qualification: "",
+        price : ""
       },
       loading: false,
       loaderColor: '#6437e0', 
@@ -156,12 +157,10 @@ export default {
         minDate: "today",
         maxDate: new Date().fp_incr(365),
         disable: [
-          // Disable weekends (Saturday and Sunday)
           function(date) {
             return date.getDay() === 0 || date.getDay() === 6;
           }
         ],
-        // Set allowed time range (9:00 to 17:00)
         minTime: "09:00",
         maxTime: "17:00"
       }
