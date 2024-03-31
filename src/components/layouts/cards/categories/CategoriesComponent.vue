@@ -2,12 +2,12 @@
 
 <PreLoader :loading="loading" :color="loaderColor" :size="loaderSize"></PreLoader>
   <div class="col-lg-3 col-md-4 mt-3" v-for="category in categories" :key="category.id" data-aos="fade-up">
-    <div
-      class="iconbox"
+    <router-link :to="{name : 'doctor-byCategory' , params : { id : category.id } }"
+      class="iconbox cursor-pointer"
       :class="[color.background]">
       <img :src="category.icon" alt=""/>
         <h3 :class="`text-${color.text}`"><a href="">{{ category.name }}</a></h3>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -78,6 +78,12 @@ export default {
   gap: 20px;
   border-radius: 5px;
   padding-left: 10px;
+  transition: all .4s ease-in-out;
+}
+
+.iconbox:hover{
+  background-color: rgba(107, 78, 240, 0.829);
+  color: white;
 }
 
 .iconbox img{

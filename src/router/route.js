@@ -17,6 +17,7 @@ import PatientsComponent from '@/views/admin/PatientsComponent.vue';
 import ProfileComponent from '@/views/admin/ProfileComponent.vue';
 import CategoryComponent from '@/views/admin/CategoryComponent.vue';
 import AdminArticles from '@/views/admin/ArticlesComponent.vue';
+import AppointmentsComponent from '@/views/admin/AppointmentComponent.vue';
 
 
 
@@ -33,6 +34,8 @@ import ProfileDoctor from '@/views/doctor/ProfileComponent.vue';
 import PatientComponent from '@/views/patient/PatientComponent.vue';
 import PatientProfile from '@/views/patient/ProfileComponent.vue';
 import AllDoctorsComponent from '@/views/patient/DoctorsComponent.vue';
+import DoctorsByCategory from '@/views/patient/DoctorsByCategory.vue';
+import AllArticlesComponent from '@/views/patient/ArticlesComponent.vue';
 
 
 //unauthorized
@@ -59,8 +62,10 @@ const routes = [
   { path: '/login', component: LoginComponent, meta: { requiresGuest: true }},
   { path: '/reset-password', component: ResetPasswordComponent },
   { path: '/doctor-details/:id', name: 'doctor-details',  component: DoctorDetails },
+  { path: '/doctor-category/:id', name: 'doctor-byCategory',  component: DoctorsByCategory },
   { path: '/chat',  component: ChatComponent , meta: { requiresAuth: true } },
   { path: '/doctors',  component: AllDoctorsComponent , meta: { requiresAuth: true } },
+  { path: '/articles',  component: AllArticlesComponent , meta: { requiresAuth: true } },
 
 
   //Admin
@@ -72,6 +77,7 @@ const routes = [
   { path: '/admin/categories', component: CategoryComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/profile', component: ProfileComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/articles', component: AdminArticles, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/appointments', component: AppointmentsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   
   //Doctor
   { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},

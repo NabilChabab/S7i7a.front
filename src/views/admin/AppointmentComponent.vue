@@ -44,45 +44,23 @@ import SideNav from "@/components/layouts/bars/Aside.vue";
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 
-import LocalAppointmentComponent from "@/components/layouts/cards/doctor/AppointmentComponent.vue";
-import OnlineAppointmentComponent from "@/components/layouts/cards/doctor/OnlineAppointmentComponent.vue";
+import LocalAppointmentComponent from "@/components/layouts/cards/admin/AppointmentComponent.vue";
+import OnlineAppointmentComponent from "@/components/layouts/cards/admin/OnlineAppointmentComponent.vue";
 export default {
   data() {
     return {
       navigationLinks: [
-        {
-          url: "/doctor/dashboard",
-          text: "Dashboard",
-          iconClass: "bx bx-home-alt text-primary text-sm opacity-10",
-          active: "nav-link",
-        },
-        {
-          url: "/doctor/articles",
-          text: "Articles",
-          iconClass: "bx bxs-notepad text-info text-sm opacity-10",
-          active: "nav-link",
-        },
-        {
-          url: "/doctor/appointments",
-          text: "Appointments",
-          iconClass: "bx bx-check-double text-info text-sm opacity-10",
-          active: "nav-link active",
-        },
-        {
-          url: "/chat",
-          text: "Chat",
-          iconClass:
-            "bx bx-message-rounded-dots text-success text-sm opacity-10",
-          active: "nav-link ",
-        },
+        { url: "/admin/dashboard", text: "Dashboard", iconClass: "bx bx-home-alt text-primary text-sm opacity-10" , active:"nav-link " },
+        { url: "/admin/doctors", text: "Doctors", iconClass: "bx bx-plus-medical calendar-grid-58 text-warning text-sm opacity-10" ,active:"nav-link "},
+        { url: "/admin/patients", text: "Patients", iconClass: "bx bx-user text-success text-sm opacity-10" ,active:"nav-link "},
+        { url: "/admin/appointments", text: "Appointments", iconClass: "bx bx-check-double text-info text-sm opacity-10" ,active:"nav-link active"},
+        { url: "/admin/categories", text: "Categories", iconClass: "bx bxs-category-alt text-success text-sm opacity-10" ,active:"nav-link "},
+        { url: "/admin/articles", text: "Articles", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
+        { url: "/admin/payments", text: "Payments", iconClass: "bx bxs-credit-card text-danger text-sm opacity-10" ,active:"nav-link "},
       ],
-      accountLinks: [
-        {
-          p_url: "/doctor/profile",
-          p_text: "Profile",
-          p_iconClass: "bx bx-user text-success text-sm opacity-10",
-          p_active: "nav-link ",
-        },
+      accountLinks : [
+        { p_url: "/admin/profile", p_text: "Profile", p_iconClass: "bx bx-user text-success text-sm opacity-10" ,p_active:"nav-link "},
+
       ],
     };
   },

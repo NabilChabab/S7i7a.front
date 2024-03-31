@@ -8,7 +8,8 @@
     class="col-lg-6 col-12 mt-5"
     v-for="doctor in topDoctors"
     :key="doctor.id"
-    data-aos="fade-left">
+    data-aos="fade-left"
+  >
     <div class="card card-profile">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12 mt-n5">
@@ -80,9 +81,10 @@ export default {
   },
   methods: {
     async getDoctors() {
+    const categoryId = this.$route.params.id;
       this.loading = true;
-      const response = await api.get("/index");
-      this.topDoctors = response.data.all_doctors.map((doctor) => {
+      const response = await api.get(`/doctor-byCategory/${categoryId}`);
+      this.topDoctors = response.data.doctorByCategory.map((doctor) => {
         return {
           ...doctor,
           role: doctor.role.map((role) => role.name),
@@ -97,11 +99,8 @@ export default {
 };
 </script>
 
-
 <style>
-
-.docs{
-    margin: 0;
+.docs {
+  margin: 0;
 }
-
 </style>

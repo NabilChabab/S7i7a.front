@@ -62,7 +62,7 @@ export default {
           active: "nav-link",
         },
         {
-          url: "/doctor/chat",
+          url: "/chat",
           text: "Chat",
           iconClass:
             "bx bx-message-rounded-dots text-success text-sm opacity-10",

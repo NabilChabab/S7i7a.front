@@ -116,13 +116,13 @@ watch(
               My Dashboard
             </router-link>
           </li>
-          <li class="nav-item">
+          <li :class="{ 'active': isActive('/doctors') }" class="nav-item">
             <router-link class="nav-link me-2" :to="{ path: '/doctors' }">
               Doctors
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: '' }">
+          <li :class="{ 'active': isActive('/articles') }" class="nav-item">
+            <router-link class="nav-link me-2" :to="{ path: '/articles' }">
               Advices
             </router-link>
           </li>
@@ -279,6 +279,15 @@ export default {
       localStorage.clear();
       window.location.reload();
     },
+    isActive(route) {
+      return this.$route.path.includes(route);
+    },
   },
 };
 </script>
+
+<style>
+.active {
+  font-weight: bold;
+}
+</style>

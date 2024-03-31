@@ -303,6 +303,7 @@ export default {
           receiver_id: receiverId,
           sender_id: senderId,
         });
+        this.showNotification(this.newMessage);
 
         this.newMessage = "";
 
@@ -311,6 +312,27 @@ export default {
         console.error("Error sending message:", error);
       }
     },
+    showNotification(message) {
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  } else {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        const notification = new Notification("New Message", {
+          body: message,
+        });
+        
+        // Handle click on the notification (optional)
+        notification.onclick = () => {
+          console.log("Notification clicked");
+          // Add logic to handle click event (e.g., open a specific page)
+        };
+      } else {
+        console.log("Notification permission denied");
+      }
+    });
+  }
+}
   },
   components: {
     CardsComponent,

@@ -287,7 +287,7 @@ export default {
         { url: "/doctor/dashboard", text: "Dashboard", iconClass: "bx bx-home-alt text-primary text-sm opacity-10" , active:"nav-link active" },
         { url: "/doctor/articles", text: "Articles", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
         { url: "/doctor/appointments", text: "Appointments", iconClass: "bx bx-check-double text-info text-sm opacity-10" ,active:"nav-link "},
-        { url: "/doctor/chat", text: "Chat", iconClass: "bx bx-message-rounded-dots text-success text-sm opacity-10" ,active:"nav-link "},
+        { url: "/chat", text: "Chat", iconClass: "bx bx-message-rounded-dots text-success text-sm opacity-10" ,active:"nav-link "},
       ],
       accountLinks : [
         { p_url: "/doctor/profile", p_text: "Profile", p_iconClass: "bx bx-user text-success text-sm opacity-10" ,p_active:"nav-link "},
