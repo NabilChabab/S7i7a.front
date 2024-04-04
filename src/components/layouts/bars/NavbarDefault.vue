@@ -1,63 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-import { ref, watch } from "vue";
-import { useWindowsWidth } from "@/assets/user/js/useWindowsWidth";
-import { defineProps } from "vue";
-
-const props = defineProps({
-  action: {
-    type: Object,
-    route: String,
-    color: String,
-    label: String,
-    default: () => ({
-      route: "https://www.creative-tim.com/product/vue-material-kit",
-      color: "bg-gradient-success",
-      label: "Free Download",
-    }),
-  },
-  transparent: {
-    type: Boolean,
-    default: false,
-  },
-  light: {
-    type: Boolean,
-    default: false,
-  },
-  dark: {
-    type: Boolean,
-    default: false,
-  },
-  sticky: {
-    type: Boolean,
-    default: false,
-  },
-  darkText: {
-    type: Boolean,
-    default: false,
-  },
-});
-
-let textDark = ref(props.darkText);
-const { type } = useWindowsWidth();
-
-if (type.value === "mobile") {
-  textDark.value = true;
-} else if (type.value === "desktop" && textDark.value == false) {
-  textDark.value = false;
-}
-
-watch(
-  () => type.value,
-  (newValue) => {
-    if (newValue === "mobile") {
-      textDark.value = true;
-    } else {
-      textDark.value = false;
-    }
-  }
-);
-</script>
 <template>
   <nav
     class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4"
@@ -94,7 +34,7 @@ watch(
         <ul class="navbar-nav mx-auto">
           <li class="nav-item" v-if="user.role === 'Patient'">
             <router-link
-              class="nav-link me-2 font-weight-bold"
+              class="nav-link me-2"
               :to="{ path: '/patient/appointment' }"
             >
               My Dashboard
@@ -102,7 +42,7 @@ watch(
           </li>
           <li class="nav-item" v-if="user.role === 'Doctor'">
             <router-link
-              class="nav-link me-2 font-weight-bold"
+              class="nav-link me-2"
               :to="{ path: '/doctor/dashboard' }"
             >
               My Dashboard
@@ -110,31 +50,49 @@ watch(
           </li>
           <li class="nav-item" v-if="user.role === 'Admin'">
             <router-link
-              class="nav-link me-2 font-weight-bold"
+              class="nav-link me-2"
               :to="{ path: '/admin/dashboard' }"
             >
               My Dashboard
             </router-link>
           </li>
-          <li :class="{ 'active': isActive('/doctors') }" class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: '/doctors' }">
+          <li class="nav-item">
+            <router-link
+              :class="{ 'text-primary font-weight-bold': isActive('/doctors') }"
+              class="nav-link me-2"
+              :to="{ path: '/doctors' }"
+            >
               Doctors
             </router-link>
           </li>
-          <li :class="{ 'active': isActive('/articles') }" class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: '/articles' }">
+          <li class="nav-item">
+            <router-link
+              class="nav-link me-2"
+              :to="{ path: '/articles' }"
+              :class="{
+                'text-primary font-weight-bold': isActive('/articles'),
+              }"
+            >
               Advices
             </router-link>
           </li>
 
           <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: '' }">
+            <router-link
+              class="nav-link me-2"
+              :to="{ path: '' }"
+              :class="{ 'text-primary font-weight-bold': isActive('/about') }"
+            >
               About us
             </router-link>
           </li>
 
           <li class="nav-item">
-            <router-link class="nav-link me-2" :to="{ path: '' }">
+            <router-link
+              class="nav-link me-2"
+              :to="{ path: '' }"
+              :class="{ 'text-primary font-weight-bold': isActive('/contact') }"
+            >
               Contact us
             </router-link>
           </li>
@@ -240,11 +198,78 @@ watch(
       </div>
     </div>
   </nav>
-  <!-- End Navbar -->
 </template>
 
 <script>
+import { useRoute } from "vue-router";
+import { ref, watch } from "vue";
+import { useWindowsWidth } from "@/assets/user/js/useWindowsWidth";
+import store from "@/store/index";
 export default {
+  props: {
+    action: {
+      type: Object,
+      default: () => ({
+        route: "https://www.creative-tim.com/product/vue-material-kit",
+        color: "bg-gradient-success",
+        label: "Free Download",
+      }),
+    },
+    transparent: {
+      type: Boolean,
+      default: false,
+    },
+    light: {
+      type: Boolean,
+      default: false,
+    },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+    sticky: {
+      type: Boolean,
+      default: false,
+    },
+    darkText: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup(props) {
+    const route = useRoute();
+    const type = useWindowsWidth().type;
+    const textDark = ref(props.darkText);
+
+    const isActive = (path) => {
+      return route.path === path;
+    };
+
+    watch(
+      () => type.value,
+      (newValue) => {
+        if (newValue === "mobile") {
+          textDark.value = true;
+        } else {
+          textDark.value = false;
+        }
+      }
+    );
+
+    if (type.value === "mobile") {
+      textDark.value = true;
+    } else if (type.value === "desktop" && textDark.value == false) {
+      textDark.value = false;
+    }
+
+    console.log("Current Route:", route.path);
+
+    return {
+      textDark,
+      route,
+      isActive,
+    };
+  },
   data() {
     return {
       user: {
@@ -270,17 +295,25 @@ export default {
     },
   },
   created() {
-    this.user.name = localStorage.getItem("name");
-    this.user.profile = localStorage.getItem("profile");
-    this.user.role = localStorage.getItem("role");
+    this.initializeUser();
   },
   methods: {
-    logoutUser() {
-      localStorage.clear();
-      window.location.reload();
+    async initializeUser() {
+      try {
+        await store.dispatch("fetchUserData");
+        const userData = store.getters.getUser;
+        if (userData) {
+          this.user.name = userData.name || "";
+          this.user.profile = userData.profile || this.user.profile;
+          this.user.role = userData.role || "";
+        }
+      } catch (error) {
+        console.error("Error initializing user data:", error);
+      }
     },
-    isActive(route) {
-      return this.$route.path.includes(route);
+    logoutUser() {
+      store.dispatch("logoutUser");
+      window.location.reload();
     },
   },
 };

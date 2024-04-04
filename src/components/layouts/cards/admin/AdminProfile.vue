@@ -151,6 +151,7 @@
 <script>
 import api from "@/services/api.js";
 import Swal from "sweetalert2";
+import store from "@/store/index"
 export default {
   name: "AdminProfile",
 
@@ -189,8 +190,8 @@ export default {
 
     async fetchAdminInfos() {
       try {
-        const userId = this.$route.params.id || localStorage.getItem("userId");
-        const response = await api.get(`/admin/dashboard/${userId}`);
+        const userData = store.getters.getUser;
+        const response = await api.get(`/admin/dashboard/${userData.userId}`);
         this.user = response.data.user;
         console.log(this.user);
       } catch (error) {

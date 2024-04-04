@@ -1,12 +1,3 @@
-<script setup>
-// example components
-import HeaderDetails from "@/components/layouts/bars/HeaderDetails.vue";
-import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
-// sections
-import DoctorDetails from "@/components/Sections/DoctorDetails.vue";
-import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
-
-</script>
 <template>
   <div class="bg-gray-200">
     <div class="container position-sticky z-index-sticky top-0">
@@ -33,3 +24,20 @@ import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
     <DefaultFooter />
   </div>
 </template>
+
+<script>
+import HeaderDetails from "@/components/layouts/bars/HeaderDetails.vue";
+import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
+import DoctorDetails from "@/components/Sections/DoctorDetails.vue";
+import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
+
+export default {
+  components : {
+    HeaderDetails,
+    NavbarDefault,
+    DoctorDetails,
+    DefaultFooter,
+  }
+}
+
+</script>

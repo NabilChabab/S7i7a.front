@@ -1,26 +1,3 @@
-<script setup>
-import { onMounted, onUnmounted } from "vue";
-import HeaderLayout from "@/components/layouts/bars/HeaderComponent.vue";
-import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
-import PresentationCounter from "@/components/Sections/PresentationCounter.vue";
-import BuiltByDevelopers from "@/components/layouts/cards/categories/CategoryCard.vue";
-import Categories from "@/components/layouts/cards/categories/CategoriesComponent.vue";
-import TopDoctors from "@/components/Sections/TopDoctors.vue";
-import Posts from "@/components/Sections/TopArticles.vue";
-import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
-
-
-const body = document.getElementsByTagName("body")[0];
-onMounted(() => {
-  body.classList.add("presentation-page");
-  body.classList.add("bg-gray-200");
-});
-onUnmounted(() => {
-  body.classList.remove("presentation-page");
-  body.classList.remove("bg-gray-200");
-});
-</script>
-
 <template>
   <div class="bg-gray-200">
     <div class="container position-sticky z-index-sticky top-0">
@@ -30,7 +7,7 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
-  <HeaderLayout/>
+  <HeaderLayout :image="imageUrl"/>
   <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
     <PresentationCounter/>
     <BuiltByDevelopers />
@@ -60,6 +37,44 @@ onUnmounted(() => {
   <DefaultFooter />
   </div>
 </template>
+
+<script>
+
+import HeaderLayout from "@/components/layouts/bars/HeaderComponent.vue";
+import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
+import PresentationCounter from "@/components/Sections/PresentationCounter.vue";
+import BuiltByDevelopers from "@/components/layouts/cards/categories/CategoryCard.vue";
+import Categories from "@/components/layouts/cards/categories/CategoriesComponent.vue";
+import TopDoctors from "@/components/Sections/TopDoctors.vue";
+import Posts from "@/components/Sections/TopArticles.vue";
+import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
+
+export default {
+  data() {
+    return {
+      imageUrl: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    };
+  },
+  mounted() {
+    document.body.classList.add("presentation-page");
+    document.body.classList.add("bg-gray-200");
+  },
+  beforeUnmount() {
+    document.body.classList.remove("presentation-page");
+    document.body.classList.remove("bg-gray-200");
+  },
+  components: {
+    HeaderLayout,
+    NavbarDefault,
+    PresentationCounter,
+    BuiltByDevelopers,
+    Categories,
+    TopDoctors,
+    Posts,
+    DefaultFooter
+  }
+};
+</script>
 
 <style>
 .page-header {

@@ -131,6 +131,7 @@
 
 <script>
 import api from "@/services/api";
+import store from "@/store/index"
 export default {
   name: "NavbarComponent",
 
@@ -140,19 +141,19 @@ export default {
     };
   },
   created() {
-    this.userName = localStorage.getItem("name");
-    this.userProfile = localStorage.getItem("profile")
+    this.userName = store.state.user.name;
+    this.userProfile = store.state.user.profile;
     this.fetchAuthenticate()
     
   },
   methods: {
     logoutUser() {
-      localStorage.clear();
+      store.dispatch('logoutUser');
       this.$router.push("/");
     },
     async fetchAuthenticate() {
       try {
-        const userId = localStorage.getItem("userId");
+        const userId = store.state.user.userId;
         const response = await api.get(`/admin/dashboard/${userId}`);
         this.user = response.data.user;
         console.log("the auth user"+this.user);

@@ -44,8 +44,16 @@
                       }}</span></span
                     >
                   </div>
+
                 </div>
+                  
                 <div class="d-flex">
+                  <div v-for="(status, index) in appointment_status[index]"
+                    :key="index" class="mt-2">
+                    <i class='bx bxs-circle text-success' v-if="status.status === 'inProgress'"></i>
+                    <i class='bx bxs-circle text-secondary' v-else></i>
+                    
+                  </div>
                   <button
                     class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"
                   >
@@ -139,12 +147,14 @@
 <script>
 import CardsComponent from "@/components/layouts/cards/admin/LatestComponent.vue";
 import api from "@/services/api";
+import store from "@/store/index"
 
 export default {
   data() {
     return {
       users: [],
       appointments: [],
+      appointment_status: [],
       selectedUser: null,
       messages: [],
       newMessage: "",
@@ -154,7 +164,7 @@ export default {
     };
   },
   created() {
-    const role = localStorage.getItem("role");
+    const role = this.authRole;
     if (role === "Patient") {
       this.fetchDoctors();
     } else if (role === "Doctor") {
@@ -190,37 +200,43 @@ export default {
         user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
+    authRole(){
+      const userData = store.getters.getUser;
+      return userData.role;
+    },
     authUserId() {
-      return localStorage.getItem("userId");
+      const userData = store.getters.getUser;
+      return userData.userId;
     },
     authDocId() {
-      return localStorage.getItem("doc");
+      const userData = store.getters.getUser;
+      return userData.doc;
     },
     profile() {
       return localStorage.getItem("profile");
     },
     isChatDisabled() {
-      if (!this.selectedUser) return true; // If no user is selected, disable the chat
-      if (!this.selectedUser.appointments) return true; // If no appointments, disable the chat
+      if (!this.selectedUser) return true; 
+      if (!this.selectedUser.appointments) return true; 
 
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const currentHour = now.getHours(); // Get the current hour
+      const currentHour = now.getHours(); 
 
       const todayAppointment = this.selectedUser.appointments.find(
         (appointment) => {
           const appointmentDate = new Date(appointment.appointment_date);
           const appointmentHour = parseInt(
             appointment.appointment_hour.split(":")[0]
-          ); // Extract hour from appointment time
+          ); 
           return (
-            appointmentDate.getTime() === today.getTime() && // Check if appointment date is today
-            appointmentHour === currentHour // Check if appointment hour matches the current hour
+            appointmentDate.getTime() === today.getTime() && 
+            appointmentHour === currentHour 
           );
         }
       );
 
-      return !todayAppointment; // Disable the chat if no appointment for today and current hour
+      return !todayAppointment;
     },
   },
   methods: {
@@ -233,6 +249,14 @@ export default {
             return {
               appointment_date: appointment.appointment_date,
               appointment_hour: appointment.appointment_hour,
+            };
+          });
+        });
+        this.appointment_status = response.data.doctors.map((doctor) => {
+          return doctor.appointment_status.map((appointment) => {
+            return {
+              status: appointment.status
+              
             };
           });
         });
@@ -268,7 +292,7 @@ export default {
     async fetchMessages() {
       try {
         let userId;
-        const role = localStorage.getItem("role");
+        const role = this.authRole;
         if (role === "Doctor") {
           userId = this.selectedUser.id;
         } else {
@@ -287,10 +311,10 @@ export default {
       try {
         let senderId;
         let receiverId;
-        const role = localStorage.getItem("role");
+        const role = this.authRole;
 
         if (role === "Doctor") {
-          const docId = localStorage.getItem("doc");
+          const docId = this.authDocId;
           senderId = docId;
           receiverId = this.selectedUser.id;
         } else {
@@ -322,10 +346,8 @@ export default {
           body: message,
         });
         
-        // Handle click on the notification (optional)
         notification.onclick = () => {
           console.log("Notification clicked");
-          // Add logic to handle click event (e.g., open a specific page)
         };
       } else {
         console.log("Notification permission denied");

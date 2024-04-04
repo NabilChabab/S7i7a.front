@@ -192,6 +192,7 @@
 <script>
 import api from "@/services/api.js";
 import Swal from "sweetalert2";
+import store from '@/store/index'
 export default {
   name: "AdminProfile",
 
@@ -241,8 +242,8 @@ export default {
 
     async fetchPatientInfos() {
       try {
-        const userId = this.$route.params.id || localStorage.getItem("userId");
-        const response = await api.get(`/index/${userId}`);
+        const userData = store.getters.getUser;
+        const response = await api.get(`/index/${userData.userId}`);
         this.patient = response.data.patient;
         console.log(this.patient);
       } catch (error) {

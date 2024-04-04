@@ -1,7 +1,46 @@
-<script setup>
-import { defineProps } from 'vue';
-defineProps({
-  image: {
+<template>
+  <header class="header-2">
+    <div
+      class="page-header"
+      :class="minHeight"
+      :style="`background-image: url(${image})`"
+      loading="lazy"
+      v-if="title"
+    >
+      <span :class="mask"></span>
+      <div :class="fullWidth ? 'w-100' : 'container'">
+        <div class="row">
+          <div
+            :class="`${$attrs.class ?? 'col-lg-7'} ${
+              center ? 'text-center mx-auto' : ''
+            }`"
+          >
+            <component
+              :is="title.variant ? title.variant : 'h1'"
+              class="text-white"
+              :class="title.class"
+            >
+              {{ typeof title == "object" ? title.text : title }}
+            </component>
+            <p class="lead text-white" :class="description.class">
+              {{
+                typeof description == "object" ? description.text : description
+              }}
+            </p>
+            <slot />
+          </div>
+        </div>
+      </div>
+    </div>
+    <slot v-else />
+  </header>
+</template>
+
+<script>
+
+export default {
+  props : {
+    image: {
     type: String,
     default: "",
   },
@@ -41,42 +80,7 @@ defineProps({
     type: Boolean,
     default: false,
   },
-});
+  }
+}
+
 </script>
-<template>
-  <header class="header-2">
-    <div
-      class="page-header"
-      :class="minHeight"
-      :style="`background-image: url(${image})`"
-      loading="lazy"
-      v-if="title"
-    >
-      <span :class="mask"></span>
-      <div :class="fullWidth ? 'w-100' : 'container'">
-        <div class="row">
-          <div
-            :class="`${$attrs.class ?? 'col-lg-7'} ${
-              center ? 'text-center mx-auto' : ''
-            }`"
-          >
-            <component
-              :is="title.variant ? title.variant : 'h1'"
-              class="text-white"
-              :class="title.class"
-            >
-              {{ typeof title == "object" ? title.text : title }}
-            </component>
-            <p class="lead text-white" :class="description.class">
-              {{
-                typeof description == "object" ? description.text : description
-              }}
-            </p>
-            <slot />
-          </div>
-        </div>
-      </div>
-    </div>
-    <slot v-else />
-  </header>
-</template>

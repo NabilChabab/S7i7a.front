@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from '@/store/index.js'
 
 
 import RegisterComponent from '@/views/Auth/RegisterComponent.vue';
@@ -24,6 +25,7 @@ import AppointmentsComponent from '@/views/admin/AppointmentComponent.vue';
 //Doctor
 import DoctorComponent from '@/views/doctor/DashboardComponent.vue';
 import ArticlesComponent from '@/views/doctor/ArticlesComponent.vue';
+import PrescriptionComponent from '@/views/doctor/PrescriptionComponent.vue';
 import AppointmentComponent from '@/views/doctor/AppointmentComponent.vue';
 import CreateArticleComponent from '@/views/doctor/create/CreateArticleComponent.vue';
 import UpdateArticleComponent from '@/views/doctor/update/UpdateArticleComponent.vue';
@@ -51,8 +53,8 @@ const isAuthenticated = () => {
 };
 
 const getUserRole = () => {
-
-  return localStorage.getItem('role');
+  const user = store.state.user;
+  return user ? user.role : null;
 };
 
 const routes = [
@@ -83,6 +85,7 @@ const routes = [
   { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles', component: ArticlesComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/appointments', component: AppointmentComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+  { path: '/doctor/prescriptions', component: PrescriptionComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/create', component: CreateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/edit/:id', name: 'edit_article' , component: UpdateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/profile', component: ProfileDoctor, meta: { requiresAuth: true, roles: ['Doctor'] }},
@@ -102,7 +105,7 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const isAuthenticatedd = localStorage.getItem('token') !== null;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const requiresGuest = to.matched.some(record => record.meta.requiresGuest);
@@ -113,8 +116,9 @@ router.beforeEach((to, from, next) => {
     if (!isAuthenticated()) {
       next('/login');
     } else {
+      await store.dispatch('fetchUserData');
       const userRole = getUserRole();
-      if (to.meta.roles && !to.meta.roles.includes(userRole)) {
+      if (!userRole || (to.meta.roles && !to.meta.roles.includes(userRole))) {
         next('/unauthorized');
       } else {
         next();
@@ -138,5 +142,4 @@ function getRedirectRoute() {
       return '/';
   }
 }
-
 export default router;

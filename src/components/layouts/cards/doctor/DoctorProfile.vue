@@ -210,6 +210,7 @@
 <script>
 import api from "@/services/api.js";
 import Swal from "sweetalert2";
+import store from "@/store/index"
 export default {
   name: "AdminProfile",
 
@@ -260,8 +261,8 @@ export default {
 
     async fetchDoctorInfos() {
       try {
-        const userId = this.$route.params.id || localStorage.getItem("userId");
-        const response = await api.get(`/doctor/home/${userId}`);
+        const userData = store.getters.getUser;
+        const response = await api.get(`/doctor/home/${userData.userId}`);
         this.doctor = response.data.doctor;
         console.log(this.doctor);
       } catch (error) {

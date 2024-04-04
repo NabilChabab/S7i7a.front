@@ -87,11 +87,11 @@
                     </select>
                     <p class="fname-error text-danger"></p>
                   </div>
-                  <div class="form-outline mb-4">
+                  <div class="form-outline mb-4 d-flex flex-column">
                     <label for="tagsSelect">Tags Name</label>
                     <select
                       id="tagsSelect"
-                      class="form-control text-dark fullname"
+                      class="form-control text-dark "
                       name="tags"
                       multiple
                       v-model="selectedTags"
@@ -125,6 +125,8 @@ import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 import api from "@/services/api";
+import $ from "jquery";
+import 'select2';
 export default {
   data() {
     return {
@@ -186,7 +188,11 @@ export default {
     this.fetchArticle(articleId);
     this.fetchCategories();
   },
-
+  mounted() {
+    $(document).ready(function() {
+      $('#tagsSelect').select2();
+    });
+  },
   methods: {
     handleImageChange(event) {
       this.image = event.target.files[0];

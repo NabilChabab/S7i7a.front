@@ -6,7 +6,7 @@
           <th
             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
-            Doctor
+            Patient
           </th>
           <th
             class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
@@ -28,7 +28,7 @@
           >
             Type
           </th>
-          
+
           <th
             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
@@ -39,28 +39,37 @@
       </thead>
 
       <div v-if="isLoading">Loading...</div>
-      <tbody v-else>
+      <tbody v-else-if="appointments">
         <tr v-for="appointment in appointments" :key="appointment.id">
           <td>
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  :src="appointment.doctor_img"
+                  :src="
+                    appointment.patient_img ||
+                    require('@/assets/img/avatar.png')
+                  "
                   class="avatar avatar-sm me-3"
                   style="object-fit: cover"
                   alt="user1"
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.doctor }}</h6>
+                <h6 class="mb-0 text-sm">{{ appointment.patient }}</h6>
                 <p class="text-xs text-success mb-0">
-                  {{ appointment.doctor_phone }}
+                  {{ appointment.patient_phone }}
                 </p>
               </div>
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0" :class="{ 'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(appointment) }">
+            <p
+              class="text-xs text-secondary mb-0"
+              :class="{
+                'badge badge-sm bg-gradient-primary text-white text-lowercase':
+                  isToday(appointment),
+              }"
+            >
               {{ isToday(appointment) ? "Today" : appointment.date }}
             </p>
           </td>
@@ -81,7 +90,8 @@
           </td>
           <td class="align-middle text-center text-sm">
             <span
-              class="badge badge-sm bg-gradient-success" style="width:60px"
+              class="badge badge-sm bg-gradient-success"
+              style="width: 60px"
               >{{ appointment.type }}</span
             >
           </td>
@@ -97,6 +107,13 @@
             </button>
           </td>
         </tr>
+      </tbody>
+      <tbody v-else>
+        <td class="align-middle text-center">
+          <p class="text-xs text-danger mb-0 text-center">
+            There is no Online Appointments Associated To You
+          </p>
+        </td>
       </tbody>
     </table>
   </div>
@@ -119,17 +136,17 @@ export default {
   },
   computed: {
     isToday() {
-    return appointment => {
-      const today = new Date().toISOString().slice(0, 10);
-      return appointment.date === today;
-    }
-  }
+      return (appointment) => {
+        const today = new Date().toISOString().slice(0, 10);
+        return appointment.date === today;
+      };
+    },
   },
   methods: {
     async fetchAppointment() {
       try {
-        const response = await api.get("/patient/appointment");
-        this.appointments = response.data.online_appointments
+        const response = await api.get("/doctor/appointments");
+        this.appointments = response.data.online_appointments;
         this.isLoading = false;
       } catch (error) {
         console.log(error);
@@ -137,8 +154,7 @@ export default {
     },
     async deleteAppointment(id) {
       try {
-        await api.delete(`/patient/appointment/${id}`);
-        await this.fetchAppointment()
+        await api.delete(`/doctor/appointments/${id}`);
         Swal.fire({
           icon: "success",
           title: "Success",
@@ -153,3 +169,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

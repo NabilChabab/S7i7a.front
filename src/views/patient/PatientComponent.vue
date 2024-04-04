@@ -51,8 +51,8 @@ export default {
 
       navigationLinks: [
         { url: "/patient/appointment", text: "My Appointments", iconClass: "bx bx-check-double text-info text-sm opacity-10" ,active:"nav-link active"},
-        { url: "/patient/articles", text: "Articles", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
-        { url: "/patient/articles", text: "Doctors", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
+        { url: "/articles", text: "Articles", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
+        { url: "/doctors", text: "Doctors", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
         { url: "/chat", text: "Chat", iconClass: "bx bx-message-rounded-dots text-success text-sm opacity-10" ,active:"nav-link "},
       ],
       accountLinks : [

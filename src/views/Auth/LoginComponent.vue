@@ -186,7 +186,7 @@
 import api from "@/services/api";
 import Swal from "sweetalert2";
 import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
-
+import store from "@/store/index";
 
 export default {
   data() {
@@ -203,24 +203,13 @@ export default {
   methods: {
     async loginUser() {
       try {
-        this.loading_log = true
+        this.loading_log = true;
         const response = await api.post("/login", {
           email: this.email,
           password: this.password,
         });
         console.log(response.data);
-        const {
-          message,
-          redirect,
-          token,
-          role,
-          name,
-          userId,
-          profile,
-          email,
-          phone,
-          doc
-        } = response.data;
+        const { message, redirect, token, ...userData } = response.data;
         if (
           [
             "Admin login successful",
@@ -228,24 +217,17 @@ export default {
             "Patient login successful",
           ].includes(message)
         ) {
-          localStorage.setItem("token", token);
-          localStorage.setItem("role", role);
-          localStorage.setItem("name", name);
-          localStorage.setItem("email", email);
-          localStorage.setItem("phone", phone);
-          localStorage.setItem("userId", userId);
-          localStorage.setItem("doc", doc);
-          localStorage.setItem("profile", profile);
+          store.dispatch("loginUser", { token, user: userData });
           Swal.fire({
             icon: "success",
             title: "Success",
             text: "Welcome " + response.data.role,
             timer: 1500,
             customClass: {
-              popup: "popup", // Define your custom class here
+              popup: "popup", 
             },
           });
-          this.loading_log = false
+          this.loading_log = false;
           this.$router.push(redirect);
         } else {
           alert("Unknown role.");
@@ -262,12 +244,13 @@ export default {
           for (const key in responseErrors) {
             this.errors[key] = responseErrors[key][0];
           }
-          this.loading_log = false
+          this.loading_log = false;
         } else {
           alert("Error occurred while logging in.");
         }
       }
     },
+
     async sendResetLink() {
       try {
         this.loading = true;

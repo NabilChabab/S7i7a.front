@@ -23,7 +23,8 @@
               class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto"
             >
               <div
-                class="d-flex justify-content-between align-items-center mb-2">
+                class="d-flex justify-content-between align-items-center mb-2"
+              >
                 <h3 class="mb-0">{{ doctor.name }}</h3>
                 <div class="d-block">
                   <a
@@ -39,8 +40,22 @@
                   </a>
                 </div>
               </div>
-                <p class="text-dark">Work Time <span class="text-danger font-weight-bold" style="font-size: 15px;">9:00 - 17:00</span> </p>
-                <p class="text-dark"><span class="text-success font-weight-bold" style="font-size: 15px;">{{doctor.category}}</span> <span class="text-success">{{ doctor.price }} DH</span></p>
+              <p class="text-dark">
+                Work Time
+                <span
+                  class="text-danger font-weight-bold"
+                  style="font-size: 15px"
+                  >9:00 - 17:00</span
+                >
+              </p>
+              <p class="text-dark">
+                <span
+                  class="text-success font-weight-bold"
+                  style="font-size: 15px"
+                  >{{ doctor.category }}</span
+                >
+                <span class="text-success">{{ doctor.price }} DH</span>
+              </p>
               <div class="row mb-4">
                 <div class="col-auto">
                   <span class="h6 me-1"
@@ -66,7 +81,10 @@
       </div>
     </div>
 
-    <div class="container booking" :style="{ display: formVisible ? 'block' : 'none' }">
+    <div
+      class="container booking"
+      :style="{ display: formVisible ? 'block' : 'none' }"
+    >
       <div class="row mb-5">
         <div class="col-md-8 text-center mb-5 w-100">
           <h3 class="text-dark z-index-1 position-relative">
@@ -80,12 +98,56 @@
       </div>
       <form @submit.prevent="submitAppointment">
         <div class="row pad">
+          <div class="col-xl-12 mb-xl-0 mb-5">
+            <div class="card bg-transparent shadow-xl">
+              <div
+                class="overflow-hidden position-relative border-radius-xl"
+                :style="{
+                  backgroundImage: `url(${require('@/assets/img/curved-images/curved14.jpg')})`,
+                }"
+              >
+                <!-- Content goes here -->
+
+                <span class="mask bg-gradient-dark"></span>
+                <div class="card-body position-relative z-index-1 p-3">
+                  <i class="fas fa-wifi text-white p-2"></i>
+                  <h5 class="text-white mt-4 mb-5 pb-2">
+                    4562&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;4252
+                  </h5>
+                  <div class="d-flex">
+                    <div class="d-flex">
+                      <div class="me-4">
+                        <p class="text-white text-sm opacity-8 mb-0">
+                          CVC
+                        </p>
+                        <h6 class="text-white mb-0">112</h6>
+                      </div>
+                      <div>
+                        <p class="text-white text-sm opacity-8 mb-0">Expires</p>
+                        <h6 class="text-white mb-0">11/22</h6>
+                      </div>
+                    </div>
+                    <div
+                      class="ms-auto w-20 d-flex align-items-end justify-content-end"
+                    >
+                      <img
+                        class="w-60 mt-2"
+                        src="@/assets/img/logos/mastercard.png"
+                        alt="logo"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <flat-pickr
             v-model="selectedDateTime"
             :config="dateTimeConfig"
-            class="form-control bg-white mb-4"
+            class="form-control bg-white mb-4 mt-5"
             placeholder="Select date and time"
           ></flat-pickr>
+          <div class="mb-4 form-control" id="card-element"></div>
           <div class="row mb-4 text-start">
             <div class="col-6">
               <div class="form-check radio-group">
@@ -112,9 +174,19 @@
               </div>
             </div>
           </div>
-          <PreLoader :loading="loading" :color="loaderColor" :size="loaderSize" class="mb-4"></PreLoader>
-          <button type="submit" class="btn btn-success">
-            Make Appointment
+          <PreLoader
+            :loading="loading"
+            :color="loaderColor"
+            :size="loaderSize"
+            class="mb-4"
+          ></PreLoader>
+
+          <button
+            type="submit"
+            class="btn btn-dark d-flex justify-content-between text-xxl"
+          >
+            <i class="bx bxs-credit-card" style="font-size: 20px"></i> Pay
+            <span class="text-xxl"> {{ doctor.price }} DH </span>
           </button>
         </div>
       </form>
@@ -126,8 +198,8 @@ import api from "@/services/api";
 import FlatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import Swal from "sweetalert2";
-import PreLoader from '@/components/icons/PreLoader.vue'
-
+import PreLoader from "@/components/icons/PreLoader.vue";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default {
   data() {
@@ -142,14 +214,20 @@ export default {
         description: "",
         profile: "",
         qualification: "",
-        price : ""
+        price: "",
       },
       loading: false,
-      loaderColor: '#6437e0', 
-      loaderSize: '10px', 
+      showCardElement: false,
+      loaderColor: "#6437e0",
+      loaderSize: "10px",
       formVisible: false,
       selectedType: "local",
+      stripe: null,
+      elements: null,
+      cardElement: null,
+      stripePromise: null,
       selectedDateTime: "",
+      clientSecret: "",
       dateTimeConfig: {
         enableTime: true,
         altFormat: "F j, Y h:i K",
@@ -157,20 +235,51 @@ export default {
         minDate: "today",
         maxDate: new Date().fp_incr(365),
         disable: [
-          function(date) {
+          function (date) {
             return date.getDay() === 0 || date.getDay() === 6;
-          }
+          },
         ],
         minTime: "09:00",
-        maxTime: "17:00"
-      }
+        maxTime: "17:00",
+      },
     };
   },
   created() {
     const docId = this.$route.params.id;
     this.fetchDoctorById(docId);
+    this.initializeStripe();
   },
+
   methods: {
+    toggleCardElement() {
+      this.showCardElement = !this.showCardElement;
+    },
+    async setupElements() {
+      try {
+        this.elements = this.stripe.elements();
+
+        const style = {
+          base: {
+            fontSize: "16px",
+            fontFamily: '"Open Sans", sans-serif',
+          },
+        };
+
+        const paymentElement = this.elements.create("card", { style });
+        paymentElement.mount("#card-element");
+
+        document.getElementById("card-element").style.opacity = "0";
+
+        setTimeout(() => {
+          document.getElementById("card-element").style.opacity = "1";
+        }, 500);
+
+        this.cardElement = paymentElement;
+      } catch (error) {
+        console.error("Error setting up elements:", error);
+      }
+    },
+
     toggleFormVisibility() {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -183,26 +292,39 @@ export default {
       const response = await api.get(`/doctor-details/${docId}`);
       this.doctor = response.data.doctor;
     },
+    async initializeStripe() {
+      try {
+        this.stripe = await loadStripe(
+          "pk_test_51OqEzbGfXVD9rRVHSlS9h9t4L9Pg5fhmoj28lUWK2ymkZtlEVJfHSHxNC5ZU20fmP57OUUDPvq5XPsWaXzt0czh700hJY54TiR" 
+        );
+        console.log("Stripe initialized successfully:", this.stripe);
+        this.setupElements();
+      } catch (error) {
+        console.error("Error initializing Stripe:", error);
+      }
+    },
+
     async submitAppointment() {
       this.loading = true;
       const selectedDate = this.selectedDateTime.split(" ")[0];
       const selectedTime = this.selectedDateTime.split(" ")[1];
 
-      const formData = {
-        doctor_id: this.doctor.id,
-        appointment_date: selectedDate,
-        appointment_hour: selectedTime,
-        type: this.selectedType,
-        user_id: localStorage.getItem("userId"),
-      };
-
       try {
-        await api.post("/patient/appointment", formData);
+        const response = await api.post("/patient/appointment", {
+          doctor_id: this.doctor.id,
+          appointment_date: selectedDate,
+          appointment_hour: selectedTime,
+          type: this.selectedType,
+          price: this.doctor.price,
+        });
+
+        this.clientSecret = response.data.clientSecret;
         this.loading = false;
         Swal.fire({
+          title: "Success!",
+          text: "Appointment has been made successfully!",
           icon: "success",
-          title: "Success",
-          text: "Appointments successfully",
+          confirmButtonText: "Ok",
           timer: 1500,
         });
       } catch (error) {
@@ -223,7 +345,7 @@ export default {
 </script>
 
 <style>
-.radio-group label{
+.radio-group label {
   min-width: 100px;
   min-height: auto;
   display: flex;
@@ -234,24 +356,47 @@ export default {
   border: 1px solid rgb(94, 114, 228);
 }
 
-.radio-group input:checked + .form-check-label{
+.radio-group input:checked + .form-check-label {
   background-color: rgb(94, 114, 228);
   color: white;
   font-weight: 600;
 }
 
-.radio-group input{
+.radio-group input {
   display: none;
 }
-.booking{
+.booking {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
-.pad{
+.pad {
   padding: 0px 30%;
 }
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.5s;
+}
 
+.slide-enter,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+#card-element input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+#card-element input:focus {
+  outline: none;
+  border-color: #007bff; /* Change color when focused */
+}
 </style>

@@ -80,11 +80,11 @@
                     </select>
                     <p class="fname-error text-danger"></p>
                   </div>
-                  <div class="form-outline mb-4">
+                  <div class="form-outline mb-4 d-flex flex-column">
                     <label for="tagsSelect">Tags Name</label>
                     <select
                       id="tagsSelect"
-                      class="form-control text-dark fullname"
+                      class="form-control text-dark "
                       name="tags"
                       multiple
                       v-model="tag_id"
@@ -113,6 +113,9 @@ import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 import api from "@/services/api";
+import $ from "jquery";
+import 'select2';
+import store from "@/store/index";
 export default {
   data() {
     return {
@@ -167,9 +170,20 @@ export default {
   },
   created() {
     this.fetchCategories();
+    
+  },
+
+  mounted() {
+    $(document).ready(function() {
+      $('#tagsSelect').select2();
+    });
   },
 
   methods: {
+    authUser() {
+      const userData = store.getters.getUser;
+      return userData.userId;
+    },
     handleImageChange(event) {
       this.image = event.target.files[0];
       if (this.image) {
@@ -179,7 +193,7 @@ export default {
         };
         reader.readAsDataURL(this.image);
       } else {
-        this.previewImage = ""; // Clear preview if no file selected
+        this.previewImage = "";
       }
     },
     async fetchCategories() {
@@ -189,44 +203,38 @@ export default {
       console.log(this.categories);
     },
     async addArticle() {
-  try {
-    const createdBy = localStorage.getItem("userId");
-    const formData = new FormData();
-    formData.append("title", this.title);
-    formData.append("content", this.content);
-    formData.append("category_id", this.category_id);
+      try {
+        const formData = new FormData();
+        formData.append("title", this.title);
+        formData.append("content", this.content);
+        formData.append("category_id", this.category_id);
 
-    // Append the array of tag IDs directly
-    this.tag_id.forEach((tag) => {
-      formData.append("tags[]", tag.id); // Use "tags[]" to indicate an array
-    });
+        this.tag_id.forEach((tag) => {
+          formData.append("tags[]", tag.id);
+        });
+        if (this.image) {
+          formData.append("image", this.image);
+        }
 
-    formData.append("createdBy", createdBy);
+        const response = await api.post("/doctor/articles", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log(response.data);
 
-    if (this.image) {
-      formData.append("image", this.image);
-    }
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Doctor Created Successfully",
+          timer: 1500,
+        });
 
-    const response = await api.post("/doctor/articles", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data", // Set Content-Type header
-      },
-    });
-    console.log(response.data);
-
-    Swal.fire({
-      icon: "success",
-      title: "Success",
-      text: "Doctor Created Successfully",
-      timer: 1500,
-    });
-
-    this.$router.push("/doctor/articles");
-  } catch (error) {
-    console.log(error);
-  }
-},
-
+        this.$router.push("/doctor/articles");
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   components: {
     NavbarComponent,
@@ -242,20 +250,11 @@ export default {
   height: 350px;
   border-radius: 10px;
 }
-.selected-tag {
-  display: inline-block;
-  margin: 5px;
-  padding: 5px 10px;
-  background-color: rgba(1, 3, 91, 0.9);
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
+
+#tagsSelect{
+  background-color: rgb(231, 231, 231);
+  border: none;
 }
 
-.select2 {
-  width: 700px;
-  border: none;
-  margin-bottom: 2%;
-  border-radius: 15px;
-}
+
 </style>

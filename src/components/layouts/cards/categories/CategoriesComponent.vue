@@ -78,11 +78,11 @@ export default {
   gap: 20px;
   border-radius: 5px;
   padding-left: 10px;
-  transition: all .4s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .iconbox:hover{
-  background-color: rgba(107, 78, 240, 0.829);
+  background-color: rgb(117, 101, 228);
   color: white;
 }
 
