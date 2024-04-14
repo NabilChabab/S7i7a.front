@@ -31,7 +31,7 @@ const store = createStore({
     },
     async fetchUserData({ commit }) {
       try {
-        const user = JSON.parse(localStorage.getItem('user')); 
+        const user = JSON.parse(localStorage.getItem('user'));
         commit('setUser', user);
       } catch (error) {
         console.error('Error fetching user data:', error);

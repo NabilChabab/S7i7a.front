@@ -10,7 +10,7 @@
             </div>
           </div>
           <div class="card-body p-3">
-            <div class="message-box mb-3">
+            <div class="message-boxs mb-3">
               <input
                 type="text"
                 class="message-input"
@@ -19,7 +19,11 @@
               />
               <i class="bx bx-search text-primary me-3"></i>
             </div>
-            <ul class="list-group" v-for="(user, index) in filteredUsers" :key="index">
+            <ul
+              class="list-group"
+              v-for="(user, index) in filteredUsers"
+              :key="index"
+            >
               <li
                 class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg cursor-pointer"
                 :class="{ active: user === selectedUser }"
@@ -44,15 +48,19 @@
                       }}</span></span
                     >
                   </div>
-
                 </div>
-                  
+
                 <div class="d-flex">
-                  <div v-for="(status, index) in appointment_status[index]"
-                    :key="index" class="mt-2">
-                    <i class='bx bxs-circle text-success' v-if="status.status === 'inProgress'"></i>
-                    <i class='bx bxs-circle text-secondary' v-else></i>
-                    
+                  <div
+                    v-for="(status, index) in appointment_status[index]"
+                    :key="index"
+                    class="mt-2"
+                  >
+                    <i
+                      class="bx bxs-circle text-success"
+                      v-if="status.status === 'inProgress'"
+                    ></i>
+                    <i class="bx bxs-circle text-secondary" v-else></i>
                   </div>
                   <button
                     class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"
@@ -124,14 +132,24 @@
                   date
                 </p>
               </div>
-              <div class="message-box" v-else>
+              <div class="message-boxs" v-else>
                 <input
                   type="text"
                   class="message-input"
                   v-model="newMessage"
                   placeholder="Type message..."
                 />
-                <i class="bx bxs-file-pdf text-primary me-3"></i>
+                <input
+                  type="file"
+                  ref="fileInput"
+                  accept="application/pdf"
+                  @change="handleFileUpload"
+                  class="d-none"
+                />
+                <i
+                  class="bx bxs-file-pdf text-primary me-3"
+                  @click="openFileInput"
+                ></i>
                 <i class="bx bxs-microphone text-primary"></i>
                 <button class="message-submit" @click="sendMessage">
                   Send
@@ -147,7 +165,7 @@
 <script>
 import CardsComponent from "@/components/layouts/cards/admin/LatestComponent.vue";
 import api from "@/services/api";
-import store from "@/store/index"
+import store from "@/store/index";
 
 export default {
   data() {
@@ -155,6 +173,7 @@ export default {
       users: [],
       appointments: [],
       appointment_status: [],
+      pdfFile: null,
       selectedUser: null,
       messages: [],
       newMessage: "",
@@ -165,7 +184,7 @@ export default {
   },
   created() {
     const role = this.authRole;
-    if (role === "Patient") {
+    if (role === "Patient" || role === "Admin") {
       this.fetchDoctors();
     } else if (role === "Doctor") {
       this.fetchPatients();
@@ -196,11 +215,11 @@ export default {
   },
   computed: {
     filteredUsers() {
-      return this.users.filter(user =>
+      return this.users.filter((user) =>
         user.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
-    authRole(){
+    authRole() {
       const userData = store.getters.getUser;
       return userData.role;
     },
@@ -210,28 +229,28 @@ export default {
     },
     authDocId() {
       const userData = store.getters.getUser;
-      return userData.doc;
+      return userData.doc ?? '';
     },
     profile() {
       return localStorage.getItem("profile");
     },
     isChatDisabled() {
-      if (!this.selectedUser) return true; 
-      if (!this.selectedUser.appointments) return true; 
+      if (!this.selectedUser) return true;
+      if (!this.selectedUser.appointments) return true;
 
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const currentHour = now.getHours(); 
+      const currentHour = now.getHours();
 
       const todayAppointment = this.selectedUser.appointments.find(
         (appointment) => {
           const appointmentDate = new Date(appointment.appointment_date);
           const appointmentHour = parseInt(
             appointment.appointment_hour.split(":")[0]
-          ); 
+          );
           return (
-            appointmentDate.getTime() === today.getTime() && 
-            appointmentHour === currentHour 
+            appointmentDate.getTime() === today.getTime() &&
+            appointmentHour === currentHour
           );
         }
       );
@@ -240,6 +259,15 @@ export default {
     },
   },
   methods: {
+    openFileInput() {
+      this.$refs.fileInput.click();
+    },
+    handleFileUpload(event) {
+      const files = event.target.files;
+      if (files.length > 0) {
+        this.pdfFile = files[0];
+      }
+    },
     async fetchDoctors() {
       try {
         const response = await api.get("/doctors");
@@ -255,8 +283,7 @@ export default {
         this.appointment_status = response.data.doctors.map((doctor) => {
           return doctor.appointment_status.map((appointment) => {
             return {
-              status: appointment.status
-              
+              status: appointment.status,
             };
           });
         });
@@ -322,39 +349,60 @@ export default {
           receiverId = this.selectedUser.user_id;
         }
 
-        await api.post("/messages", {
-          message: this.newMessage,
-          receiver_id: receiverId,
-          sender_id: senderId,
-        });
-        this.showNotification(this.newMessage);
+        const formData = new FormData();
 
-        this.newMessage = "";
+        if (this.pdfFile) {
+          // Append PDF file to FormData
+          formData.append("prescription", this.pdfFile);
+        } else {
+          // Append default text message to FormData
+          formData.append("message", this.newMessage);
+        }
+
+        // Append sender_id and receiver_id to FormData
+        formData.append("receiver_id", receiverId);
+        formData.append("sender_id", senderId);
+
+        // Send FormData using a POST request to the backend
+        await api.post("/messages", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        this.pdfFile = null;
+        this.$refs.fileInput.value = "";
+        this.newMessage = ""
 
         this.fetchMessages();
       } catch (error) {
         console.error("Error sending message:", error);
       }
     },
+
+    isPdfFile(file) {
+      return file && file.type === "application/pdf";
+    },
+
     showNotification(message) {
-  if (!("Notification" in window)) {
-    alert("This browser does not support desktop notification");
-  } else {
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        const notification = new Notification("New Message", {
-          body: message,
-        });
-        
-        notification.onclick = () => {
-          console.log("Notification clicked");
-        };
+      if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
       } else {
-        console.log("Notification permission denied");
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            const notification = new Notification("New Message", {
+              body: message,
+            });
+
+            notification.onclick = () => {
+              console.log("Notification clicked");
+            };
+          } else {
+            console.log("Notification permission denied");
+          }
+        });
       }
-    });
-  }
-}
+    },
   },
   components: {
     CardsComponent,
@@ -429,7 +477,7 @@ export default {
 }
 
 /* Style for message input box */
-.message-box {
+.message-boxs {
   display: flex; /* Arrange elements horizontally */
   align-items: center; /* Vertically align elements */
   border-radius: 25px; /* Add rounded corners */

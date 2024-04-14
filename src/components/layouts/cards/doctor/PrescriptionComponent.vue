@@ -9,24 +9,9 @@
             Patient
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-          >
-            Date
-          </th>
-          <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-          >
-            Time
-          </th>
-          <th
             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
-            Status
-          </th>
-          <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-          >
-            Type
+            Prescription
           </th>
 
           <th
@@ -63,38 +48,11 @@
             </div>
           </td>
           <td>
-            <p
-              class="text-xs text-secondary mb-0"
-              :class="{
-                'badge badge-sm bg-gradient-primary text-white text-lowercase':
-                  isToday(appointment),
-              }"
-            >
-              {{ isToday(appointment) ? "Today" : appointment.date }}
-            </p>
+            <div class="d-flex px-2 py-1">
+         
+            </div>
           </td>
-          <td>
-            <p class="text-xs text-secondary mb-0">{{ appointment.time }}</p>
-          </td>
-          <td class="align-middle text-center text-sm">
-            <span
-              :class="`badge badge-sm ${
-                appointment.status === 'pending'
-                  ? 'bg-gradient-warning'
-                  : appointment.status === 'accepted'
-                  ? 'bg-gradient-success'
-                  : 'bg-gradient-danger'
-              }`"
-              >{{ appointment.status }}</span
-            >
-          </td>
-          <td class="align-middle text-center text-sm">
-            <span
-              class="badge badge-sm bg-gradient-success"
-              style="width: 60px"
-              >{{ appointment.type }}</span
-            >
-          </td>
+
           <td class="align-middle text-center">
             <button
               class="text-danger font-weight-bold text-xs"

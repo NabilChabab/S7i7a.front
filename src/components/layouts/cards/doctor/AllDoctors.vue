@@ -5,10 +5,47 @@
     :size="loaderSize"
   ></PreLoader>
   <div
+    class="filter d-flex justify-content-between align-items-center gap-5 mb-5 mt-5"
+    v-if="loading == false"
+  >
+    <div class="message-box mb-3">
+      <input
+        type="text"
+        class="message-input"
+        v-model="searchQuery"
+        placeholder="Name"
+      />
+      <i class="bx bx-search text-primary me-3"></i>
+    </div>
+    <div class="message-box mb-3">
+      <select v-model="catQuery" class="message-input">
+        <option default>Categories</option>
+        <option
+          v-for="category in categories"
+          :key="category.id"
+          :value="category.name"
+        >
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="message-box mb-3">
+      <input
+        type="datetime-local"
+        class="message-input"
+        v-model="selectedDateTime"
+        placeholder="Date and Time"
+      />
+    </div>
+  </div>
+
+  <div
     class="col-lg-6 col-12 mt-5"
-    v-for="doctor in topDoctors"
+    v-for="doctor in filteredDoctors"
     :key="doctor.id"
-    data-aos="fade-left">
+    data-aos="fade-left"
+  >
     <div class="card card-profile">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-12 mt-n5">
@@ -65,13 +102,27 @@ export default {
   data() {
     return {
       topDoctors: [],
+      categories: [],
+      selectedDateTime: null,
       loading: false,
       loaderColor: "#6437e0",
       loaderSize: "15px",
+      searchQuery: "",
+      catQuery: "",
     };
   },
   created() {
     this.getDoctors();
+  },
+  computed: {
+    filteredDoctors() {
+      return this.topDoctors.filter(
+        (doctor) =>
+          doctor.name.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
+          (this.catQuery === "" ||
+            doctor.category.toLowerCase().includes(this.catQuery.toLowerCase()))
+      );
+    },
   },
   mounted() {
     AOS.init({
@@ -82,6 +133,7 @@ export default {
     async getDoctors() {
       this.loading = true;
       const response = await api.get("/index");
+      this.categories = response.data.all_categories;
       this.topDoctors = response.data.all_doctors.map((doctor) => {
         return {
           ...doctor,
@@ -97,11 +149,42 @@ export default {
 };
 </script>
 
-
 <style>
-
-.docs{
-    margin: 0;
+.docs {
+  margin: 0;
+}
+/* Style for icons in the message box */
+.box i {
+  font-size: 30px;
+  cursor: pointer;
 }
 
+.message-box {
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+  padding: 5px;
+  margin: 0;
+  width: 500px;
+  box-shadow: 0px 5px 5px rgba(63, 63, 63, 0.103);
+  border: 1px solid rgb(157, 175, 255);
+}
+
+.message-input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 5px;
+  width: 100%;
+}
+
+/* Style for send button */
+.message-submit {
+  background-color: transparent; /* Set button color */
+  color: rgb(77, 88, 247); /* Set button text color */
+  border: none; /* Remove default border */
+  padding: 10px 15px; /* Add padding */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer; /* Set cursor to pointer on hover */
+}
 </style>

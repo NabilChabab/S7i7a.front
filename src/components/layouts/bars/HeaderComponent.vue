@@ -8,7 +8,7 @@
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-8 text-center mx-auto my-auto">
+          <div class="col-lg-8 text-center mx-auto my-auto" data-aos="fade-down">
             <h1 class="text-white">
               Work with an amazing <span class="text-white" id="typed"></span>
             </h1>
@@ -17,14 +17,13 @@
               <h1>design</h1>
               <h1>tool</h1>
             </div>
-            <p class="lead mb-4 text-white opacity-8">
+            <p class="lead mb-4 text-white opacity-8" data-aos="fade-right">
               We’re constantly trying to express ourselves and actualize our
               dreams. If you have the opportunity to play this game
             </p>
             <router-link
               :to="{ path: '/register' }"
-              class="btn bg-white text-dark"
-            >
+              class="btn bg-white text-dark" data-aos="fade-left">
               Create Account
             </router-link>
             <h6 class="text-white mb-2 mt-5">Find us on</h6>
@@ -51,6 +50,7 @@
 
 <script>
 import Typed from "typed.js";
+import AOS from "aos";
 export default {
   props: {
     image: {
@@ -110,6 +110,9 @@ export default {
         loop: true,
       });
     }
+    AOS.init({
+      duration: 1000,
+    });
   },
   onMounted() {
     document.body.classList.remove("about-us");

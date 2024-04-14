@@ -1,8 +1,13 @@
 <template>
+  <PreLoader
+    :loading="d_loading"
+    :color="loaderColor"
+    :size="loaderSize"
+  ></PreLoader>
   <section class="py-sm-7 py-5 position-relative">
     <div class="container">
       <div class="row">
-        <div class="col-12 mx-auto">
+        <div class="col-12 mx-auto" v-show="!d_loading">
           <div class="mt-n8 mt-md-n9 text-center">
             <div class="blur-shadow-avatar">
               <img
@@ -50,7 +55,7 @@
               </p>
               <p class="text-dark">
                 <span
-                  class="text-success font-weight-bold"
+                  class="text-success font-weight-bold me-3"
                   style="font-size: 15px"
                   >{{ doctor.category }}</span
                 >
@@ -117,9 +122,7 @@
                   <div class="d-flex">
                     <div class="d-flex">
                       <div class="me-4">
-                        <p class="text-white text-sm opacity-8 mb-0">
-                          CVC
-                        </p>
+                        <p class="text-white text-sm opacity-8 mb-0">CVC</p>
                         <h6 class="text-white mb-0">112</h6>
                       </div>
                       <div>
@@ -217,6 +220,7 @@ export default {
         price: "",
       },
       loading: false,
+      d_loading: false,
       showCardElement: false,
       loaderColor: "#6437e0",
       loaderSize: "10px",
@@ -289,13 +293,15 @@ export default {
       }
     },
     async fetchDoctorById(docId) {
+      this.d_loading = true;
       const response = await api.get(`/doctor-details/${docId}`);
       this.doctor = response.data.doctor;
+      this.d_loading = false;
     },
     async initializeStripe() {
       try {
         this.stripe = await loadStripe(
-          "pk_test_51OqEzbGfXVD9rRVHSlS9h9t4L9Pg5fhmoj28lUWK2ymkZtlEVJfHSHxNC5ZU20fmP57OUUDPvq5XPsWaXzt0czh700hJY54TiR" 
+          "pk_test_51OqEzbGfXVD9rRVHSlS9h9t4L9Pg5fhmoj28lUWK2ymkZtlEVJfHSHxNC5ZU20fmP57OUUDPvq5XPsWaXzt0czh700hJY54TiR"
         );
         console.log("Stripe initialized successfully:", this.stripe);
         this.setupElements();

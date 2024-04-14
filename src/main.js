@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "@/router/router";
-import store from "@/store/index" ; 
+import store from "@/store/index" ;
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "boxicons/css/boxicons.min.css";
@@ -25,12 +25,12 @@ window.Pusher = Pusher;
 window.Echo = new Echo({
   broadcaster: "pusher",
   key: process.env.VUE_APP_PUSHER_APP_KEY,
-  cluster: process.env.VUE_APP_PUSHER_APP_CLUSTER, 
+  cluster: process.env.VUE_APP_PUSHER_APP_CLUSTER,
   wsHost: window.location.hostname,
-  wsPort: 6001, 
+  wsPort: 6001,
   forceTLS: false,
-  disableStats: true, 
-  enabledTransports: ["ws", "wss"], 
+  disableStats: true,
+  enabledTransports: ["ws", "wss"],
 });
 
 createApp(App)

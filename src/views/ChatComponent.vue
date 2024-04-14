@@ -69,7 +69,7 @@ export default {
           p_active: "nav-link ",
         },
       ];
-    } else {
+    } else if(this.authRole === "Doctor") {
       this.navigationLinks = [
         {
           url: "/doctor/dashboard",
@@ -89,6 +89,7 @@ export default {
           iconClass: "bx bx-check-double text-info text-sm opacity-10",
           active: "nav-link ",
         },
+        { url: "/doctor/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
         {
           url: "/chat",
           text: "Chat",
@@ -105,6 +106,67 @@ export default {
           p_active: "nav-link ",
         },
       ];
+    }else{
+      this.navigationLinks = [
+        {
+          url: "/admin/dashboard",
+          text: "Dashboard",
+          iconClass: "bx bx-home-alt text-primary text-sm opacity-10",
+          active: "nav-link",
+        },
+        {
+          url: "/admin/doctors",
+          text: "Doctors",
+          iconClass:
+            "bx bx-plus-medical calendar-grid-58 text-warning text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/patients",
+          text: "Patients",
+          iconClass: "bx bx-user text-success text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/appointments",
+          text: "Appointments",
+          iconClass: "bx bx-check-double text-info text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/categories",
+          text: "Categories",
+          iconClass: "bx bxs-category-alt text-success text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/articles",
+          text: "Articles",
+          iconClass: "bx bxs-notepad text-info text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/payments",
+          text: "Payments",
+          iconClass: "bx bxs-credit-card text-danger text-sm opacity-10",
+          active: "nav-link ",
+        },
+      ]
+      this.accountLinks = [
+        {
+          p_url: "/admin/profile",
+          p_text: "Profile",
+          p_iconClass: "bx bx-user text-success text-sm opacity-10",
+          p_active: "nav-link ",
+        },
+        {
+          p_url: "/chat",
+          p_text: "Chat",
+          p_iconClass: "bx bx-message text-success text-sm opacity-10",
+          p_active: "nav-link active",
+        },
+      ]
+        
     }
   },
   components: {

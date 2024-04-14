@@ -52,11 +52,10 @@
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a
-              href="javascript:;"
-              class="nav-link text-white p-0"
-              id="iconNavbarSidenav"
+              class="nav-link text-white p-0 cursor-pointer"
+              id="iconNavbarSidenav" @click="toggleSidenav"
             >
-              <div class="sidenav-toggler-inner" @click="$emit('toggle-sidenav')">
+              <div class="sidenav-toggler-inner">
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
@@ -141,19 +140,24 @@ export default {
     };
   },
   created() {
-    this.userName = store.state.user.name;
-    this.userProfile = store.state.user.profile;
+    const userData = store.getters.getUser;
+    this.userName = userData.name;
+    this.userProfile = userData.profile;
     this.fetchAuthenticate()
-    
+
   },
   methods: {
+    toggleSidenav() {
+      console.log("Toggle sidebar clicked");
+      this.$emit("toggle-sidenav");
+    },
     logoutUser() {
       store.dispatch('logoutUser');
       this.$router.push("/");
     },
     async fetchAuthenticate() {
       try {
-        const userId = store.state.user.userId;
+        const userId = this.userData.userId;
         const response = await api.get(`/admin/dashboard/${userId}`);
         this.user = response.data.user;
         console.log("the auth user"+this.user);

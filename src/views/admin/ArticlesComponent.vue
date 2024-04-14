@@ -89,6 +89,12 @@ export default {
           p_iconClass: "bx bx-user text-success text-sm opacity-10",
           p_active: "nav-link ",
         },
+        {
+          p_url: "/chat",
+          p_text: "Chat",
+          p_iconClass: "bx bx-message text-success text-sm opacity-10",
+          p_active: "nav-link ",
+        },
       ],
     };
   },

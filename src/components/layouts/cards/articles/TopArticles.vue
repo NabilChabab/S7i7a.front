@@ -1,63 +1,42 @@
-<script setup>
-import { defineProps } from "vue";
-defineProps({
-  image: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  action: {
-    type: Object,
-    route: String,
-    color: String,
-    label: String,
-    default: () => ({
-      route: "javascript:;",
-      color: "success",
-      label: "Read more",
-    }),
-  },
-});
-</script>
 <template>
   <PreLoader
     :loading="loading"
     :color="loaderColor"
     :size="loaderSize"
   ></PreLoader>
-  <div class="col-lg-3 col-sm-6" v-for="article in articles" :key="article.id" data-aos="fade-right">
-    <div class="card card-plain">
-      <div class="card-header p-0 position-relative">
-        <a class="d-block blur-shadow-image">
-          <img
-            :src="article.image"
-            class="img-fluid shadow border-radius-lg"
-            loading="lazy"
-            style="width: 100%; height: 200px; object-fit: cover"
-          />
-        </a>
-      </div>
-      <div class="card-body px-0">
-        <h5>
-          <a class="text-dark font-weight-bold">{{ article.title }}</a>
-        </h5>
-        <p>
-          {{
-            article.content ? article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
-            (article.content.trim().split(/\s+/).length > 5 ? " ..." : "") : "..........."
-          }}
-        </p>
-        <a class="text-sm icon-move-right text-primary"
-          >Explore more
-          <i class="fas fa-arrow-right text-xs ms-1"></i>
-        </a>
+  <div
+    class="col-lg-4 col-sm-6"
+    v-for="article in articles"
+    :key="article.id"
+    data-aos="fade-right">
+    <div class="card card-blog card-background cursor-pointer">
+      <div
+        class="full-background"
+        :style="{
+          backgroundImage: `url(${article.image})`,
+        }"
+        loading="lazy"
+      ></div>
+      <div class="card-body">
+        <div class="content-left text-start my-auto py-4">
+          <h2 class="card-title text-white">{{ article.title }}</h2>
+          <p class="card-description text-white">
+            {{
+              article.content
+                ? article.content.trim().split(/\s+/).slice(0, 20).join(" ") +
+                  (article.content.trim().split(/\s+/).length > 20
+                    ? " ..."
+                    : "")
+                : "..........."
+            }}
+          </p>
+          <a
+            href="javascript:;"
+            class="text-sm icon-move-right text-success mt-5 cursor-pointer"
+            >Explore more
+            <i class="fas fa-arrow-right text-xs ms-1"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -66,8 +45,7 @@ defineProps({
 <script>
 import api from "@/services/api";
 import PreLoader from "@/components/icons/PreLoader.vue";
-import AOS from 'aos';
-
+import AOS from "aos";
 
 export default {
   data() {
@@ -88,10 +66,10 @@ export default {
   },
   methods: {
     async getArticles() {
-      this.loading = true
+      this.loading = true;
       const response = await api.get("/index");
       this.articles = response.data.articles;
-      this.loading = false
+      this.loading = false;
     },
   },
   components: {
@@ -99,3 +77,8 @@ export default {
   },
 };
 </script>
+
+<style>
+
+</style>
+

@@ -206,9 +206,9 @@ export default {
         console.error(error);
         if (error.response && error.response.status === 422 && error.response.data.errors) {
           const { message, errors: responseErrors } = error.response.data;
-          this.errors.message = message; // Assign the message directly
+          this.errors.message = message; 
           for (const key in responseErrors) {
-            this.errors[key] = responseErrors[key][0]; // Assign each error to corresponding key
+            this.errors[key] = responseErrors[key][0];
           }
         } else {
           alert("Error occurred while resetting password.");

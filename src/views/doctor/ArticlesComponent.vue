@@ -61,6 +61,7 @@ export default {
           iconClass: "bx bx-check-double text-info text-sm opacity-10",
           active: "nav-link",
         },
+        { url: "/doctor/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
         {
           url: "/chat",
           text: "Chat",

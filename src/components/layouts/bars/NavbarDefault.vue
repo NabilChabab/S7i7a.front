@@ -78,23 +78,21 @@
           </li>
 
           <li class="nav-item">
-            <router-link
+            <a href="#about"
               class="nav-link me-2"
-              :to="{ path: '' }"
               :class="{ 'text-primary font-weight-bold': isActive('/about') }"
             >
               About us
-            </router-link>
+            </a>
           </li>
 
           <li class="nav-item">
-            <router-link
+            <a href="#contact"
               class="nav-link me-2"
-              :to="{ path: '' }"
               :class="{ 'text-primary font-weight-bold': isActive('/contact') }"
             >
               Contact us
-            </router-link>
+            </a>
           </li>
         </ul>
         <ul class="navbar-nav d-lg-block d-none">
