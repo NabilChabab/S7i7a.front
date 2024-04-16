@@ -42,7 +42,7 @@ const store = createStore({
   getters: {
     getUser(state) {
       return state.user;
-    }
+    },
   }
 });
 

@@ -13,13 +13,13 @@
         type="text"
         class="message-input"
         v-model="searchQuery"
-        placeholder="Name"
+        placeholder="Search"
       />
       <i class="bx bx-search text-primary me-3"></i>
     </div>
     <div class="message-box mb-3">
       <select v-model="catQuery" class="message-input">
-        <option default>Categories</option>
+        <option value="" disabled selected>Select a category</option>
         <option
           v-for="category in categories"
           :key="category.id"
@@ -28,15 +28,6 @@
           {{ category.name }}
         </option>
       </select>
-    </div>
-
-    <div class="message-box mb-3">
-      <input
-        type="datetime-local"
-        class="message-input"
-        v-model="selectedDateTime"
-        placeholder="Date and Time"
-      />
     </div>
   </div>
 
@@ -165,7 +156,7 @@ export default {
   border-radius: 25px;
   padding: 5px;
   margin: 0;
-  width: 500px;
+  width: 400px;
   box-shadow: 0px 5px 5px rgba(63, 63, 63, 0.103);
   border: 1px solid rgb(157, 175, 255);
 }

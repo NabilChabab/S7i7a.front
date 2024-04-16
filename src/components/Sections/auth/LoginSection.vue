@@ -91,6 +91,9 @@ export default {
         });
         console.log(response.data);
         const { message, redirect, token, ...userData } = response.data;
+        localStorage.setItem('userId' , userData.userId)
+        localStorage.setItem('doc' , userData.doc)
+        localStorage.setItem('role' , userData.role)
         if (
           [
             "Admin login successful",

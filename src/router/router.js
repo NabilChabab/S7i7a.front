@@ -48,8 +48,8 @@ import ErrorComponent from '@/views/error/ErrorComponent.vue';
 
 
 const isAuthenticated = () => {
-
-  return localStorage.getItem('token') !== null;
+  const token = localStorage.getItem('token');
+  return token !== null;
 };
 
 const getUserRole = () => {
@@ -80,7 +80,6 @@ const routes = [
   { path: '/admin/profile', component: ProfileComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/articles', component: AdminArticles, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/appointments', component: AppointmentsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
-  
   //Doctor
   { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles', component: ArticlesComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
@@ -89,7 +88,6 @@ const routes = [
   { path: '/doctor/articles/create', component: CreateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/edit/:id', name: 'edit_article' , component: UpdateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/profile', component: ProfileDoctor, meta: { requiresAuth: true, roles: ['Doctor'] }},
-  
   //Patients
   { path: '/patient/appointment', component: PatientComponent, meta: { requiresAuth: true, roles: ['Patient'] }},
   { path: '/patient/profile', component: PatientProfile, meta: { requiresAuth: true, roles: ['Patient'] }},
@@ -106,11 +104,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const isAuthenticatedd = localStorage.getItem('token') !== null;
+  const token = localStorage.getItem('token');
+  const isAuthenticate = token !== null;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   const requiresGuest = to.matched.some(record => record.meta.requiresGuest);
 
-  if (requiresGuest && isAuthenticatedd) {
+  if (requiresGuest && isAuthenticate) {
     next(getRedirectRoute());
   } else if (requiresAuth) {
     if (!isAuthenticated()) {
@@ -142,4 +141,7 @@ function getRedirectRoute() {
       return '/';
   }
 }
+
+
+
 export default router;

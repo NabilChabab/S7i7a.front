@@ -149,6 +149,7 @@ export default {
     async deleteAppointment(id) {
       try {
         await api.delete(`/doctor/appointments/${id}`);
+        this.fetchAppointment()
         Swal.fire({
           icon: "success",
           title: "Success",

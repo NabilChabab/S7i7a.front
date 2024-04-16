@@ -192,13 +192,13 @@ export default {
           password_confirmation: this.confirmPassword,
           token: this.token,
         });
+        this.$router.push('/login');
         if (response.status === 200) {
           Swal.fire({
             icon: 'success',
             title: 'Success',
             text: 'Password reset link sent successfully! Check Your Email',
           });
-          this.$router.push('/login');
         } else {
           alert("Failed to reset password");
         }

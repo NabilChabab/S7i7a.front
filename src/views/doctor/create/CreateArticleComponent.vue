@@ -45,20 +45,16 @@
                     <label for="">Title</label>
                     <input
                       type="text"
-                      id="fullname"
                       class="form-control text-dark fullname"
                       placeholder="Company Name"
-                      name="title"
                       v-model="title"
                     />
-                    <p class="fname-error text-danger"></p>
                   </div>
                   <div class="form-outline mb-4">
                     <label for="">Content</label>
                     <textarea
                       class="form-control text-dark fullname"
                       placeholder="Description"
-                      name="content"
                       v-model="content"
                     />
                     <p class="fname-error text-danger"></p>
@@ -67,9 +63,9 @@
                     <label for="">Category Name</label>
                     <select
                       class="form-control text-dark fullname"
-                      name="category"
                       v-model="category_id"
                     >
+                    <option value="" disabled selected>Select a category</option>
                       <option
                         v-for="category in categories"
                         :key="category.id"
@@ -85,7 +81,6 @@
                     <select
                       id="tagsSelect"
                       class="form-control text-dark "
-                      name="tags"
                       multiple
                       v-model="tag_id"
                     >
@@ -109,6 +104,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import { required } from 'vuelidate/lib/validators';
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
@@ -167,6 +163,9 @@ export default {
       tag_id: [],
       tags: [],
     };
+  },
+  validations: {
+    title: { required }
   },
   created() {
     this.fetchCategories();
@@ -240,6 +239,7 @@ export default {
     NavbarComponent,
     SideNav,
     FooterComponent,
+    
   },
 };
 </script>

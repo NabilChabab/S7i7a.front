@@ -139,7 +139,7 @@ export default {
     async deleteAppointment(id) {
       try {
         const response = await api.delete(`/doctor/appointments/${id}`);
-        this.fetchArticles();
+        this.fetchAppointment()
         Swal.fire({
           icon: "success",
           title: "Success",

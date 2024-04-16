@@ -92,6 +92,7 @@
                       class="form-control text-dark fullname"
                       name="category"
                       v-model="category_id">
+                      <option value="" disabled selected>Select a category</option>
                       <option
                         v-for="category in categories"
                         :key="category.id"
