@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
 import { required } from 'vuelidate/lib/validators';
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
@@ -221,13 +220,6 @@ export default {
           },
         });
         console.log(response.data);
-
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Doctor Created Successfully",
-          timer: 1500,
-        });
 
         this.$router.push("/doctor/articles");
       } catch (error) {

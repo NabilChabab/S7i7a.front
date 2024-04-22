@@ -200,9 +200,9 @@
 import api from "@/services/api";
 import FlatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
-import Swal from "sweetalert2";
 import PreLoader from "@/components/icons/PreLoader.vue";
 import { loadStripe } from "@stripe/stripe-js";
+import { useToast } from "vue-toast-notification";
 
 export default {
   data() {
@@ -258,6 +258,7 @@ export default {
     toggleCardElement() {
       this.showCardElement = !this.showCardElement;
     },
+
     async setupElements() {
       try {
         this.elements = this.stripe.elements();
@@ -304,7 +305,15 @@ export default {
           "pk_test_51OqEzbGfXVD9rRVHSlS9h9t4L9Pg5fhmoj28lUWK2ymkZtlEVJfHSHxNC5ZU20fmP57OUUDPvq5XPsWaXzt0czh700hJY54TiR"
         );
         console.log("Stripe initialized successfully:", this.stripe);
-        this.setupElements();
+
+        // Create an instance of Elements.
+        const elements = this.stripe.elements();
+
+        // Create an instance of the card Element.
+        this.cardElement = elements.create("card");
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        this.cardElement.mount("#card-element");
       } catch (error) {
         console.error("Error initializing Stripe:", error);
       }
@@ -312,6 +321,13 @@ export default {
 
     async submitAppointment() {
       this.loading = true;
+      if (this.cardElement.empty) {
+        useToast().error("Please fill the card element", {
+          position: "bottom",
+        });
+        this.loading = false;
+        return;
+      }
       const selectedDate = this.selectedDateTime.split(" ")[0];
       const selectedTime = this.selectedDateTime.split(" ")[1];
 
@@ -326,19 +342,13 @@ export default {
 
         this.clientSecret = response.data.clientSecret;
         this.loading = false;
-        Swal.fire({
-          title: "Success!",
-          text: "Appointment has been made successfully!",
-          icon: "success",
-          confirmButtonText: "Ok",
-          timer: 1500,
+        useToast().success("Appointment created successfully", {
+          position: "bottom",
         });
       } catch (error) {
         this.loading = false;
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.response.data.error,
+        useToast().error(error.response.data.error, {
+          position: "bottom",
         });
       }
     },

@@ -142,7 +142,6 @@ import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 import api from "@/services/api";
-import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -219,7 +218,7 @@ export default {
         };
         reader.readAsDataURL(this.profile);
       } else {
-        this.previewImage = ""; 
+        this.previewImage = "";
       }
     },
     async fetchCategories() {
@@ -236,9 +235,7 @@ export default {
         formData.append("CIN", this.cin);
         formData.append("category_id", this.category_id);
         formData.append("password", this.password);
-        
 
-        // Ensure profile is included only if a file is selected
         if (this.profile) {
           formData.append("profile", this.profile);
         }
@@ -246,13 +243,6 @@ export default {
         const response = await api.post("admin/doctors", formData);
 
         console.log(response.data);
-
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Doctor Created Successfully",
-          timer: 1500
-        });
 
         this.$router.push("/admin/doctors");
       } catch (error) {

@@ -87,12 +87,12 @@
           </li>
 
           <li class="nav-item">
-            <a href="#contact"
-              class="nav-link me-2"
+            <router-link :to="{ path: '/contact' }"
+              class="nav-link me-2 cursor-pointer"
               :class="{ 'text-primary font-weight-bold': isActive('/contact') }"
             >
               Contact us
-            </a>
+            </router-link>
           </li>
         </ul>
         <ul class="navbar-nav d-lg-block d-none">

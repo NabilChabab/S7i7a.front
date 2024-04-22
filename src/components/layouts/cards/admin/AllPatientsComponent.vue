@@ -18,7 +18,7 @@
           >
             Joined_at
           </th>
-         
+
           <th
             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
@@ -55,9 +55,8 @@
             <span class="text-secondary text-xs font-weight-bold">{{
               getFormattedDate(patient.created_at)
             }}</span>
-            
           </td>
-      
+
           <td class="align-middle text-center">
             <button
               class="text-danger font-weight-bold text-xs"
@@ -77,7 +76,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import moment from "moment";
 import "moment-timezone";
 
@@ -112,18 +110,8 @@ export default {
       try {
         await api.delete(`admin/patients/${patientId}`);
         this.getPatients();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Patient deleted successfully!",
-        });
       } catch (error) {
         console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to delete doctor",
-        });
       }
     },
   },

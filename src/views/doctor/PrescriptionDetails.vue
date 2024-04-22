@@ -5,25 +5,28 @@
     :accountLinks="accountLinks"
     style="z-index: 999"
   />
-
   <main class="main-content position-relative border-radius-lg">
-    <!-- Navbar -->
     <NavbarComponent />
-    <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row mt-4">
-        <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3 mb-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Local Appointments</h6>
+      <div class="row">
+        <div class="col-12">
+          <form enctype="multipart/form-data" @submit.prevent="addArticle">
+            <div class="card mb-4">
+              <div
+                class="card-header pb-0 d-flex justify-content-between align-items-center"
+              >
+                <h6>Download Prescription</h6>
+                <button class="btn btn-primary" type="submit">
+                  Download Prescription
+                </button>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                  <PrescriptionDetails />
+                </div>
               </div>
             </div>
-            <CreatePrescription />
-          </div>
-        </div>
-        <div class="col-lg-6 mb-lg-0 mb-4">
-            <PrescriptionComponent />
+          </form>
         </div>
       </div>
       <FooterComponent />
@@ -32,16 +35,15 @@
 </template>
 
 <script>
-import SideNav from "@/components/layouts/bars/Aside.vue";
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
+import SideNav from "@/components/layouts/bars/Aside.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
+import PrescriptionDetails from "@/components/layouts/cards/doctor/PrescriptionDetails.vue";
 
-import CreatePrescription from "@/components/layouts/cards/doctor/CreatePrescription.vue";
-import PrescriptionComponent from "@/components/layouts/cards/doctor/PrescriptionComponent.vue";
 export default {
   data() {
     return {
-      navigationLinks: [
+        navigationLinks: [
         {
           url: "/doctor/dashboard",
           text: "Dashboard",
@@ -79,20 +81,25 @@ export default {
       ],
     };
   },
-  computed: {
-    allLinks() {
-      return this.navigationLinks.concat(this.accountLinks);
-    },
-  },
-  methods: {},
+
   components: {
-    SideNav,
     NavbarComponent,
-    CreatePrescription,
-    PrescriptionComponent,
+    SideNav,
     FooterComponent,
+    PrescriptionDetails,
   },
 };
 </script>
 
-<style></style>
+<style>
+.cards .img {
+  width: 700px;
+  height: 350px;
+  border-radius: 10px;
+}
+
+#tagsSelect {
+  background-color: rgb(231, 231, 231);
+  border: none;
+}
+</style>

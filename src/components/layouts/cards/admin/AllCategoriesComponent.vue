@@ -250,7 +250,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import moment from "moment";
 import "moment-timezone";
 
@@ -284,7 +283,7 @@ export default {
         if (!token) {
           throw new Error("Token not found in local storage");
         }
-        
+
         const response = await fetch(
           "http://127.0.0.1:8000/api/admin/categories/" +
             this.selectedCategory.id,
@@ -303,25 +302,14 @@ export default {
         }
 
         const responseData = await response.json();
-
+        this.closeModal();
         this.loading = false;
         console.log(responseData);
-        await this.getCategories()
-
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Category Updated successfully!",
-        });
+        await this.getCategories();
       } catch (error) {
         console.error("Error updating category:", error);
+      } finally {
         this.loading = false;
-
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to update Category",
-        });
       }
     },
 
@@ -351,11 +339,7 @@ export default {
           },
         });
         this.allCategories.push(response.data.category);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Category Added successfully!",
-        });
+        this.closeModal();
         this.$router.push("/admin/categories");
       } catch (error) {
         this.errorMessage = error.response.data.message;
@@ -365,23 +349,25 @@ export default {
     async deleteCategory(categoryId) {
       try {
         await api.delete(`admin/categories/${categoryId}`);
-        await this.getCategories()
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Category deleted successfully!",
-        });
+        await this.getCategories();
       } catch (error) {
         console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to delete Category",
-        });
+      }
+    },
+    closeModal() {
+      const modal = document.getElementById("statusUpdateModal");
+      if (modal) {
+        modal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+        const backdrop = document.getElementsByClassName("modal-backdrop")[0];
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop);
+        }
+        modal.dispatchEvent(new Event("hidden.bs.modal"));
       }
     },
     handleImageChange(event) {
-      this.icon = event.target.files[0]; // Store the selected file
+      this.icon = event.target.files[0];
       if (this.icon) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -389,7 +375,7 @@ export default {
         };
         reader.readAsDataURL(this.icon);
       } else {
-        this.previewImage = ""; // Clear preview if no file selected
+        this.previewImage = "";
       }
     },
   },

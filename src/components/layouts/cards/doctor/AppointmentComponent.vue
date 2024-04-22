@@ -28,7 +28,7 @@
           >
             Type
           </th>
-          
+
           <th
             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
           >
@@ -45,7 +45,10 @@
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  :src="appointment.patient_img || require('@/assets/img/avatar.png')"
+                  :src="
+                    appointment.patient_img ||
+                    require('@/assets/img/avatar.png')
+                  "
                   class="avatar avatar-sm me-3"
                   style="object-fit: cover"
                   alt="user1"
@@ -60,7 +63,13 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0" :class="{ 'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(appointment) }">
+            <p
+              class="text-xs text-secondary mb-0"
+              :class="{
+                'badge badge-sm bg-gradient-primary text-white text-lowercase':
+                  isToday(appointment),
+              }"
+            >
               {{ isToday(appointment) ? "Today" : appointment.date }}
             </p>
           </td>
@@ -81,7 +90,8 @@
           </td>
           <td class="align-middle text-center text-sm">
             <span
-              class="badge badge-sm bg-gradient-primary" style="width:60px"
+              class="badge badge-sm bg-gradient-primary"
+              style="width: 60px"
               >{{ appointment.type }}</span
             >
           </td>
@@ -105,7 +115,6 @@
 <script>
 import api from "@/services/api";
 import "moment-timezone";
-import Swal from "sweetalert2";
 export default {
   name: "AllArticlesComponent",
   data() {
@@ -119,18 +128,17 @@ export default {
   },
   computed: {
     isToday() {
-    return appointment => {
-      const today = new Date().toISOString().slice(0, 10);
-      return appointment.date === today;
-    }
-  }
+      return (appointment) => {
+        const today = new Date().toISOString().slice(0, 10);
+        return appointment.date === today;
+      };
+    },
   },
   methods: {
-
     async fetchAppointment() {
       try {
         const response = await api.get("/doctor/appointments");
-        this.appointments = response.data.local_appointments
+        this.appointments = response.data.local_appointments;
         this.isLoading = false;
       } catch (error) {
         console.log(error);
@@ -139,13 +147,8 @@ export default {
     async deleteAppointment(id) {
       try {
         const response = await api.delete(`/doctor/appointments/${id}`);
-        this.fetchAppointment()
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: response.data.message,
-          timer: 1500,
-        });
+        this.fetchAppointment();
+        console.log(response.data);
       } catch (error) {
         console.log(error);
       }

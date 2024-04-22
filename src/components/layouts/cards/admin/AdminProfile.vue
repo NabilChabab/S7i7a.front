@@ -150,7 +150,6 @@
 
 <script>
 import api from "@/services/api.js";
-import Swal from "sweetalert2";
 import store from "@/store/index"
 export default {
   name: "AdminProfile",
@@ -225,12 +224,7 @@ export default {
     );
         this.user = response.data.user;
         localStorage.setItem("name", this.user.name)
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Profile Updated Successfully",
-          timer: 1500
-        });
+
         this.$router.push("/admin/profile");
       } catch (error) {
         console.error("Error updating user:", error);

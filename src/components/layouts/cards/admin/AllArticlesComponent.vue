@@ -53,10 +53,12 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
-                (article.content.trim().split(/\s+/).length > 5
-                  ? " ..."
-                  : "")}}</p>
+            <p class="text-xs text-secondary mb-0">
+              {{
+                article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
+                (article.content.trim().split(/\s+/).length > 5 ? " ..." : "")
+              }}
+            </p>
           </td>
           <td>
             <p class="text-xs text-secondary mb-0">{{ article.createdBy }}</p>
@@ -135,7 +137,6 @@
 import api from "@/services/api";
 import moment from "moment";
 import "moment-timezone";
-import Swal from "sweetalert2";
 
 export default {
   name: "AllArticlesComponent",
@@ -182,34 +183,30 @@ export default {
         formData.append("status", this.clickedStatus);
         formData.append("_method", "PATCH");
         await api.post(`/admin/article/${this.articleId}`, formData);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Article status updated successfully",
-          timer: 1500,
-        });
         await this.fetchArticles();
+        this.closeModal();
       } catch (error) {
         console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "An error occurred while updating article status",
-        });
       }
     },
     async deleteArticles(id) {
       try {
         await api.delete(`/doctor/articles/${id}`);
         this.fetchArticles();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Article deleted successfully",
-          timer: 1500,
-        });
       } catch (error) {
         console.log(error);
+      }
+    },
+    closeModal() {
+      const modal = document.getElementById("statusUpdateModal");
+      if (modal) {
+        modal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+        const backdrop = document.getElementsByClassName("modal-backdrop")[0];
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop);
+        }
+        modal.dispatchEvent(new Event("hidden.bs.modal"));
       }
     },
   },

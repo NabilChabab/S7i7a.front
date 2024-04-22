@@ -67,7 +67,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import store from "@/store/index";
 export default {
   data() {
@@ -89,11 +88,10 @@ export default {
           email: this.email,
           password: this.password,
         });
-        console.log(response.data);
         const { message, redirect, token, ...userData } = response.data;
-        localStorage.setItem('userId' , userData.userId)
-        localStorage.setItem('doc' , userData.doc)
-        localStorage.setItem('role' , userData.role)
+        localStorage.setItem("userId", userData.userId);
+        localStorage.setItem("doc", userData.doc);
+        localStorage.setItem("role", userData.role);
         if (
           [
             "Admin login successful",
@@ -102,36 +100,14 @@ export default {
           ].includes(message)
         ) {
           store.dispatch("loginUser", { token, user: userData });
-          Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Welcome " + response.data.role,
-            timer: 1500,
-            customClass: {
-              popup: "popup",
-            },
-          });
-          this.loading_log = false;
           this.$router.push(redirect);
         } else {
           alert("Unknown role.");
         }
       } catch (error) {
         console.error(error);
-        if (
-          error.response &&
-          error.response.status === 422 &&
-          error.response.data.errors
-        ) {
-          const { message, errors: responseErrors } = error.response.data;
-          this.errors.message = message;
-          for (const key in responseErrors) {
-            this.errors[key] = responseErrors[key][0];
-          }
-          this.loading_log = false;
-        } else {
-          alert("Error occurred while logging in.");
-        }
+      } finally {
+        this.loading_log = false;
       }
     },
   },

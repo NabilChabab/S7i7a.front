@@ -7,7 +7,9 @@ import LoginComponent from '@/views/Auth/LoginComponent.vue';
 import ResetPasswordComponent from '@/views/Auth/ResetPasswordComponent.vue';
 import TheWelcomeVue from '@/views/TheWelcome.vue';
 import DoctorDetails from '@/views/DoctorDetails.vue';
+import ArticleDetails from '@/views/ArticleDetails.vue';
 import ChatComponent from '@/views/ChatComponent.vue';
+import ContactSection from '@/views/ContactComponent.vue';
 
 //Admin
 import DashboardComponent from '@/views/admin/DashboardComponent.vue';
@@ -26,6 +28,7 @@ import AppointmentsComponent from '@/views/admin/AppointmentComponent.vue';
 import DoctorComponent from '@/views/doctor/DashboardComponent.vue';
 import ArticlesComponent from '@/views/doctor/ArticlesComponent.vue';
 import PrescriptionComponent from '@/views/doctor/PrescriptionComponent.vue';
+import PrescriptionDetails from '@/views/doctor/PrescriptionDetails.vue';
 import AppointmentComponent from '@/views/doctor/AppointmentComponent.vue';
 import CreateArticleComponent from '@/views/doctor/create/CreateArticleComponent.vue';
 import UpdateArticleComponent from '@/views/doctor/update/UpdateArticleComponent.vue';
@@ -66,8 +69,10 @@ const routes = [
   { path: '/doctor-details/:id', name: 'doctor-details',  component: DoctorDetails },
   { path: '/doctor-category/:id', name: 'doctor-byCategory',  component: DoctorsByCategory },
   { path: '/chat',  component: ChatComponent , meta: { requiresAuth: true } },
+  { path: '/contact',  component: ContactSection , meta: { requiresAuth: true } },
   { path: '/doctors',  component: AllDoctorsComponent , meta: { requiresAuth: true } },
   { path: '/articles',  component: AllArticlesComponent , meta: { requiresAuth: true } },
+  { path: '/article-details/:id', name: 'article-details',  component: ArticleDetails },
 
 
   //Admin
@@ -85,6 +90,7 @@ const routes = [
   { path: '/doctor/articles', component: ArticlesComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/appointments', component: AppointmentComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/prescriptions', component: PrescriptionComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
+  { path: '/doctor/prescriptions/pdf/:id', name: 'show-prescription' , component: PrescriptionDetails, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/create', component: CreateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles/edit/:id', name: 'edit_article' , component: UpdateArticleComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/profile', component: ProfileDoctor, meta: { requiresAuth: true, roles: ['Doctor'] }},

@@ -29,7 +29,6 @@
                     />
                   </div>
                 </div>
-               
               </div>
               <p class="text-uppercase text-sm">User Information</p>
               <div class="row">
@@ -130,15 +129,12 @@
                       placeholder="Enter Your Description"
                       v-model="doctor.description"
                     />
-                    <span
-                      v-if="errors.description"
-                      class="text-danger"
-                      >{{ errors.description }}</span
-                    >
+                    <span v-if="errors.description" class="text-danger">{{
+                      errors.description
+                    }}</span>
                   </div>
                 </div>
               </div>
-              
             </div>
           </div>
         </div>
@@ -209,8 +205,7 @@
 
 <script>
 import api from "@/services/api.js";
-import Swal from "sweetalert2";
-import store from "@/store/index"
+import store from "@/store/index";
 export default {
   name: "AdminProfile",
 
@@ -296,28 +291,8 @@ export default {
         );
         this.doctor = response.data.doctor;
         localStorage.setItem("name", this.doctor.name);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: response.data.message,
-          timer: 1500,
-        });
       } catch (error) {
         console.error(error);
-        if (
-          error.response &&
-          error.response.status === 422 &&
-          error.response.data.errors
-        ) {
-          const { message, errors: responseErrors } = error.response.data;
-          this.errors.message = message;
-          for (const key in responseErrors) {
-            this.errors[key] = responseErrors[key][0];
-          }
-          this.loading_log = false
-        } else {
-          alert("Error occurred while logging in.");
-        }
       }
     },
   },

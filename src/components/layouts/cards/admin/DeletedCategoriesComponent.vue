@@ -76,7 +76,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import moment from "moment";
 import "moment-timezone";
 
@@ -102,28 +101,19 @@ export default {
       try {
         const response = await api.get("/admin/categories");
         this.allCategories = response.data.deletedCat;
-        this.isLoading = false;
         console.log(this.allCategories);
       } catch (error) {
         console.log(error);
+      } finally {
+        this.isLoading = false;
       }
     },
     async restoreCategory(CatId) {
       try {
         await api.put(`admin/categories/${CatId}/restore`);
-        this.getDeletedCategories(); 
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Patient restored successfully!",
-        });
+        this.getDeletedCategories();
       } catch (error) {
         console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to restore patient",
-        });
       }
     },
   },

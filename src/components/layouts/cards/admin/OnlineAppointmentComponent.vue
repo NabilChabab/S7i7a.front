@@ -3,9 +3,7 @@
     <table class="table align-items-center">
       <thead>
         <tr>
-          <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-          >
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
             Patient
           </th>
           <th
@@ -13,9 +11,7 @@
           >
             Date
           </th>
-          <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-          >
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
             Time
           </th>
           <th
@@ -45,10 +41,7 @@
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  :src="
-                    appointment.patient_img ||
-                    require('@/assets/img/avatar.png')
-                  "
+                  :src="appointment.patient_img || require('@/assets/img/avatar.png')"
                   class="avatar avatar-sm me-3"
                   style="object-fit: cover"
                   alt="user1"
@@ -63,7 +56,14 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0" :class="{ 'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(appointment) }">
+            <p
+              class="text-xs text-secondary mb-0"
+              :class="{
+                'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(
+                  appointment
+                ),
+              }"
+            >
               {{ isToday(appointment) ? "Today" : appointment.date }}
             </p>
           </td>
@@ -83,11 +83,9 @@
             >
           </td>
           <td class="align-middle text-center text-sm">
-            <span
-              class="badge badge-sm bg-gradient-success"
-              style="width: 60px"
-              >{{ appointment.type }}</span
-            >
+            <span class="badge badge-sm bg-gradient-success" style="width: 60px">{{
+              appointment.type
+            }}</span>
           </td>
           <td class="align-middle text-center">
             <button
@@ -116,7 +114,6 @@
 <script>
 import api from "@/services/api";
 import "moment-timezone";
-import Swal from "sweetalert2";
 export default {
   name: "AllArticlesComponent",
   data() {
@@ -130,11 +127,11 @@ export default {
   },
   computed: {
     isToday() {
-    return appointment => {
-      const today = new Date().toISOString().slice(0, 10);
-      return appointment.date === today;
-    }
-  }
+      return (appointment) => {
+        const today = new Date().toISOString().slice(0, 10);
+        return appointment.date === today;
+      };
+    },
   },
   methods: {
     async fetchAppointment() {
@@ -149,12 +146,7 @@ export default {
     async deleteAppointment(id) {
       try {
         await api.delete(`/admin/appointment/${id}`);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Appointment canceled successfully",
-          timer: 1500,
-        });
+
         await this.fetchArticles();
       } catch (error) {
         console.log(error);
@@ -164,6 +156,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

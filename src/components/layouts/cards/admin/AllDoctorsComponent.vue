@@ -42,6 +42,7 @@
                   :src="doctor.profile"
                   class="avatar avatar-sm me-3"
                   alt="user1"
+                  style="object-fit: cover"
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
@@ -53,11 +54,14 @@
             </div>
           </td>
           <td>
-            <p class="text-xs font-weight-bold mb-0">- - - - -</p>
-            <p class="text-xs text-secondary mb-0">- - - - - - - - - - -</p>
+            <p class="text-xs text-secondary mb-0">
+              {{ doctor.qualification ?? "- - - - - - - - - - - -" }}
+            </p>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="badge badge-sm bg-gradient-success">Null</span>
+            <span class="badge badge-sm bg-gradient-success">{{
+              doctor.category
+            }}</span>
           </td>
           <td class="align-middle text-center">
             <span class="text-secondary text-xs font-weight-bold">{{
@@ -86,12 +90,12 @@
         </tr>
       </tbody>
     </table>
+
   </div>
 </template>
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import moment from "moment";
 import "moment-timezone";
 export default {
@@ -100,6 +104,8 @@ export default {
     return {
       allDocs: [],
       isLoading: true,
+      currentPage: 1,
+      itemsPerPage: 10,
     };
   },
   created() {
@@ -107,8 +113,9 @@ export default {
   },
   methods: {
     getFormattedDate(date) {
-      return moment(date).fromNow(); // Uses relative time formatting
+      return moment(date).fromNow();
     },
+
     async fetchDoctors() {
       try {
         const response = await api.get("/admin/doctors");
@@ -119,30 +126,23 @@ export default {
             role: doctor.role.map((role) => role.name),
           };
         });
-        this.isLoading = false;
       } catch (error) {
         console.error(error.message);
+      } finally {
+        this.isLoading = false;
       }
     },
+
     async deleteDoctor(doctorId) {
       try {
         await api.delete(`admin/doctors/${doctorId}`);
         this.fetchDoctors();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Doctor deleted successfully!",
-          timer: 1500,
-        });
       } catch (error) {
         console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to delete doctor",
-        });
       }
     },
+  },
+  components: {
   },
 };
 </script>

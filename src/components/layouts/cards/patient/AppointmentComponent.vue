@@ -105,7 +105,6 @@
 <script>
 import api from "@/services/api";
 import "moment-timezone";
-import Swal from "sweetalert2";
 export default {
   name: "AllArticlesComponent",
   data() {
@@ -137,14 +136,8 @@ export default {
     },
     async deleteAppointment(id) {
       try {
-        const response = await api.delete(`/patient/appointment/${id}`);
-        this.fetchArticles();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: response.data.message,
-          timer: 1500,
-        });
+        await api.delete(`/patient/appointment/${id}`);
+        this.fetchAppointment();
       } catch (error) {
         console.log(error);
       }

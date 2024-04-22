@@ -1,6 +1,5 @@
 <template>
   <div class="container-fluid py-4">
-    <CardsComponent />
     <div class="row mt-4">
       <div class="col-lg-3 mb-lg-0 mb-4">
         <div class="card" v-if="users && users.length > 0" style="height: 80vh">
@@ -163,7 +162,6 @@
   </div>
 </template>
 <script>
-import CardsComponent from "@/components/layouts/cards/admin/LatestComponent.vue";
 import api from "@/services/api";
 import store from "@/store/index";
 
@@ -229,14 +227,15 @@ export default {
     },
     authDocId() {
       const userData = store.getters.getUser;
-      return userData.doc ?? '';
+      return userData.doc ?? "";
     },
     profile() {
       return localStorage.getItem("profile");
     },
     isChatDisabled() {
-      if (!this.selectedUser) return true;
-      if (!this.selectedUser.appointments) return true;
+      if (!this.selectedUser || !this.selectedUser.appointments) {
+        return true;
+      }
 
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -249,7 +248,9 @@ export default {
             appointment.appointment_hour.split(":")[0]
           );
           return (
-            appointmentDate.getTime() === today.getTime() &&
+            appointmentDate.getFullYear() === today.getFullYear() &&
+            appointmentDate.getMonth() === today.getMonth() &&
+            appointmentDate.getDate() === today.getDate() &&
             appointmentHour === currentHour
           );
         }
@@ -351,19 +352,11 @@ export default {
 
         const formData = new FormData();
 
-        if (this.pdfFile) {
-          // Append PDF file to FormData
-          formData.append("prescription", this.pdfFile);
-        } else {
-          // Append default text message to FormData
-          formData.append("message", this.newMessage);
-        }
+        formData.append("message", this.newMessage);
 
-        // Append sender_id and receiver_id to FormData
         formData.append("receiver_id", receiverId);
         formData.append("sender_id", senderId);
 
-        // Send FormData using a POST request to the backend
         await api.post("/messages", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -372,16 +365,12 @@ export default {
 
         this.pdfFile = null;
         this.$refs.fileInput.value = "";
-        this.newMessage = ""
+        this.newMessage = "";
 
         this.fetchMessages();
       } catch (error) {
         console.error("Error sending message:", error);
       }
-    },
-
-    isPdfFile(file) {
-      return file && file.type === "application/pdf";
     },
 
     showNotification(message) {
@@ -404,9 +393,7 @@ export default {
       }
     },
   },
-  components: {
-    CardsComponent,
-  },
+  components: {},
 };
 </script>
 

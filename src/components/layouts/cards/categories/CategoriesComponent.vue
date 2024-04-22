@@ -50,14 +50,14 @@ export default {
   },
   methods: {
     async fetchCategories() {
-      this.loading = true; // Set loading to true before fetching
+      this.loading = true;
       try {
         const response = await api.get("/index");
         this.categories = response.data.categories;
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
-      this.loading = false; // Set loading back to false after fetching
+      this.loading = false; 
     },
   },
   components: {
