@@ -9,9 +9,9 @@
                 © , made with <i class="fa fa-heart"></i> by
                 <a
                   href="https://www.creative-tim.com"
-                  class="font-weight-bold"
+                  class="font-weight-bold text-primary"
                   target="_blank"
-                  >Creative Tim</a
+                  >S7I7A.ma</a
                 >
                 for a better web.
               </div>
@@ -25,7 +25,7 @@
                     href="https://www.creative-tim.com"
                     class="nav-link text-muted"
                     target="_blank"
-                    >Creative Tim</a
+                    >S7I7A.ma</a
                   >
                 </li>
                 <li class="nav-item">

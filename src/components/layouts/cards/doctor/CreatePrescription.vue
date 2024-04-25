@@ -1,10 +1,10 @@
 <template>
   <form enctype="multipart/form-data" @submit.prevent="addPrescription">
-    <div class="card mb-4">
+    <div class="card mb-4 bg-dark">
       <div
-        class="card-header pb-0 d-flex justify-content-between align-items-center"
+        class="card-header pb-0 d-flex justify-content-between align-items-center bg-dark"
       >
-        <h6>Add New Prescription</h6>
+        <h6 class="text-white">Add New Prescription</h6>
         <button class="btn btn-primary" type="submit">Add Prescription</button>
       </div>
       <div class="card-body px-0 pt-0 pb-2">
@@ -13,7 +13,7 @@
             <label for="">Medication</label>
             <input
               type="text"
-              class="form-control text-dark fullname"
+              class="form-control text-white bg-secondary border-dark fullname"
               placeholder="Medication"
               v-model="medication"
             />
@@ -21,7 +21,7 @@
           <div class="form-outline mb-4">
             <label for="">Dosage</label>
             <textarea
-              class="form-control text-dark fullname"
+              class="form-control text-white bg-secondary border-dark fullname"
               placeholder="Dosage"
               v-model="dosage"
             />
@@ -29,7 +29,7 @@
           <div class="form-outline mb-4">
             <label for="">Instructions</label>
             <textarea
-              class="form-control text-dark fullname"
+              class="form-control text-white bg-secondary border-dark fullname"
               placeholder="Instructions"
               v-model="instructions"
             />
@@ -37,7 +37,7 @@
           </div>
           <div class="form-outline mb-4">
             <select
-              class="form-control text-dark fullname"
+              class="form-control text-white bg-secondary border-dark fullname"
               v-model="appointment_id"
             >
               <option value="" disabled selected>Select a Patient</option>
@@ -80,7 +80,7 @@ export default {
         formData.append("dosage", this.dosage);
         formData.append("instructions", this.instructions);
         formData.append("appointment_id", this.appointment_id);
-        await api.post("doctor/prescriptions", formData);
+        await api.post("/prescriptions", formData);
         this.medication = "";
         this.dosage = "";
         this.instructions = "";

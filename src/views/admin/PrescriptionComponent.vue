@@ -13,19 +13,7 @@
     <div class="container-fluid py-4">
       <div class="row mt-4">
         <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card bg-dark">
-            <div class="card-header pb-0 p-3 mb-3 bg-dark">
-              <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2 text-white">Latest Articles</h6>
-                <router-link
-                  class="btn btn-primary"
-                  :to="{ path: '/doctor/articles/create' }"
-                  >Add a new Article</router-link
-                >
-              </div>
-            </div>
-            <AllArticlesComponent />
-          </div>
+            <PrescriptionComponent />
         </div>
       </div>
       <FooterComponent />
@@ -38,43 +26,62 @@ import SideNav from "@/components/layouts/bars/Aside.vue";
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 
-import AllArticlesComponent from "@/components/layouts/cards/doctor/AllArticlesComponent.vue";
+import PrescriptionComponent from "@/components/layouts/cards/admin/PrescriptionComponent.vue";
 export default {
   data() {
     return {
       navigationLinks: [
         {
-          url: "/doctor/dashboard",
+          url: "/admin/dashboard",
           text: "Dashboard",
           iconClass: "bx bx-home-alt text-primary text-sm opacity-10",
-          active: "nav-link",
-        },
-        {
-          url: "/doctor/articles",
-          text: "Articles",
-          iconClass: "bx bxs-notepad text-info text-sm opacity-10",
-          active: "nav-link active",
-        },
-        {
-          url: "/doctor/appointments",
-          text: "Appointments",
-          iconClass: "bx bx-check-double text-info text-sm opacity-10",
-          active: "nav-link",
-        },
-        { url: "/doctor/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
-        {
-          url: "/chat",
-          text: "Chat",
-          iconClass:
-            "bx bx-message-rounded-dots text-success text-sm opacity-10",
           active: "nav-link ",
         },
+        {
+          url: "/admin/doctors",
+          text: "Doctors",
+          iconClass:
+            "bx bx-plus-medical calendar-grid-58 text-warning text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/patients",
+          text: "Patients",
+          iconClass: "bx bx-user text-success text-sm opacity-10",
+          active: "nav-link",
+        },
+        {
+          url: "/admin/appointments",
+          text: "Appointments",
+          iconClass: "bx bx-check-double text-info text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/categories",
+          text: "Categories",
+          iconClass: "bx bxs-category-alt text-success text-sm opacity-10",
+          active: "nav-link ",
+        },
+        {
+          url: "/admin/articles",
+          text: "Articles",
+          iconClass: "bx bxs-notepad text-info text-sm opacity-10",
+          active: "nav-link",
+        },
+        { url: "/admin/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link active"},
+
       ],
       accountLinks: [
         {
-          p_url: "/doctor/profile",
+          p_url: "/admin/profile",
           p_text: "Profile",
           p_iconClass: "bx bx-user text-success text-sm opacity-10",
+          p_active: "nav-link ",
+        },
+        {
+          p_url: "/chat",
+          p_text: "Chat",
+          p_iconClass: "bx bx-message text-success text-sm opacity-10",
           p_active: "nav-link ",
         },
       ],
@@ -89,7 +96,7 @@ export default {
   components: {
     SideNav,
     NavbarComponent,
-    AllArticlesComponent,
+    PrescriptionComponent,
     FooterComponent,
   },
 };

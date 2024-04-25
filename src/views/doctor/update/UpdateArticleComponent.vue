@@ -13,11 +13,11 @@
       <div class="row">
         <div class="col-12">
           <form enctype="multipart/form-data" @submit.prevent="updateArticle">
-            <div class="card mb-4">
+            <div class="card mb-4 bg-dark">
               <div
-                class="card-header pb-0 d-flex justify-content-between align-items-center"
+                class="card-header pb-0 d-flex justify-content-between align-items-center bg-dark"
               >
-                <h6>Update Article</h6>
+                <h6 class="text-white">Update Article</h6>
                 <button class="btn btn-primary" type="submit">
                   Save Changes
                 </button>
@@ -31,7 +31,7 @@
                       class="img"
                       alt="Preview Image"
                     />
-                    <label for="input-file">Upload image</label>
+                    <label for="input-file" class="text-white">Upload image</label>
                     <p class="fname-error text-danger">{{ errorMessage }}</p>
                     <input
                       type="file"
@@ -48,7 +48,7 @@
                     <input
                       type="text"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white bg-secondary border-dark fullname"
                       placeholder="Company Name"
                       name="title"
                       v-model="article.title"
@@ -58,7 +58,7 @@
                   <div class="form-outline mb-4">
                     <label for="">Content</label>
                     <textarea
-                      class="form-control text-dark fullname"
+                      class="form-control text-white bg-secondary border-dark fullname"
                       placeholder="Description"
                       name="content"
                       v-model="article.content"
@@ -69,7 +69,7 @@
                     <label for="">Category Name</label>
                     <select
                       id="categorySelect"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white bg-secondary border-dark fullname"
                       name="category"
                       v-model="selectedCategory"
                     >
@@ -149,6 +149,8 @@ export default {
           iconClass: "bx bx-check-double text-info text-sm opacity-10",
           active: "nav-link",
         },
+        { url: "/doctor/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
+
         {
           url: "/doctor/chat",
           text: "Chat",

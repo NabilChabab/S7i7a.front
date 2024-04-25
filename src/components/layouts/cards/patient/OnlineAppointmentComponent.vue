@@ -52,7 +52,7 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.doctor }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ appointment.doctor }}</h6>
                 <p class="text-xs text-success mb-0">
                   {{ appointment.doctor_phone }}
                 </p>

@@ -9,11 +9,11 @@
       <div class="row">
         <div class="col-12">
           <form @submit.prevent="addDoctor" enctype="multipart/form-data">
-            <div class="card mb-4">
+            <div class="card mb-4 bg-dark">
               <div
-                class="card-header pb-0 d-flex justify-content-between align-items-center"
+                class="card-header pb-0 d-flex justify-content-between align-items-center bg-dark"
               >
-                <h6>Add New Doctors</h6>
+                <h6 class="text-white">Add New Doctors</h6>
                 <button class="btn btn-primary" type="submit">
                   Add Doctor
                 </button>
@@ -26,7 +26,7 @@
                       id="image"
                       alt="Preview Image"
                     />
-                    <label for="input-file">Upload image</label>
+                    <label for="input-file" class="text-white">Upload image</label>
                     <p class="fname-error text-danger">{{ errorMessage }}</p>
                     <input
                       type="file"
@@ -42,7 +42,7 @@
                     <input
                       type="text"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="Company Name"
                       name="name"
                       v-model="name"
@@ -54,7 +54,7 @@
                     <input
                       type="email"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="Company Name"
                       name="name"
                       v-model="email"
@@ -66,7 +66,7 @@
                     <input
                       type="text"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="Phone Number"
                       name="name"
                       v-model="phone"
@@ -79,7 +79,7 @@
                     <input
                       type="text"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="CIN"
                       name="name"
                       v-model="cin"
@@ -89,7 +89,7 @@
                   <div class="form-outline mb-4">
                     <label for="">Category Name</label>
                     <select
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       name="category"
                       v-model="category_id">
                       <option value="" disabled selected>Select a category</option>
@@ -108,7 +108,7 @@
                     <input
                       type="password"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="Password"
                       name="name"
                       v-model="password"
@@ -120,7 +120,7 @@
                     <input
                       type="password"
                       id="fullname"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="Confirm Password"
                       name="name"
                     />

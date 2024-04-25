@@ -53,6 +53,8 @@ export default {
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link ",
         },
+        { url: "/patient/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
+
         {
           url: "/chat",
           text: "Chat",
@@ -145,12 +147,8 @@ export default {
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link ",
         },
-        {
-          url: "/admin/payments",
-          text: "Payments",
-          iconClass: "bx bxs-credit-card text-danger text-sm opacity-10",
-          active: "nav-link ",
-        },
+        { url: "/admin/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
+
       ]
       this.accountLinks = [
         {

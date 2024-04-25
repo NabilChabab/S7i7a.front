@@ -2,17 +2,20 @@
   <div class="container-fluid py-4">
     <div class="row mt-4">
       <div class="col-lg-3 mb-lg-0 mb-4">
-        <div class="card" v-if="users && users.length > 0" style="height: 80vh">
-          <div class="card-header pb-0 p-3">
+        <div
+          class="card bg-dark users"
+          v-if="users && users.length > 0"
+        >
+          <div class="card-header pb-0 p-3 bg-dark">
             <div class="d-flex justify-content-between">
-              <h6 class="mb-2">Your consultations</h6>
+              <h6 class="mb-2 text-white">Your consultations</h6>
             </div>
           </div>
-          <div class="card-body p-3">
+          <div class="card-body p-3 bg-dark">
             <div class="message-boxs mb-3">
               <input
                 type="text"
-                class="message-input"
+                class="message-input bg-dark text-white"
                 v-model="searchQuery"
                 placeholder="Search"
               />
@@ -25,13 +28,14 @@
             >
               <li
                 class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg cursor-pointer"
-                :class="{ active: user === selectedUser }"
+                style="background-color: transparent;"
+                :class="{ 'bg-primary': user === selectedUser }"
                 @click="startChat(user)"
               >
                 <div class="d-flex align-items-center">
                   <img
                     :src="user.profile || require('@/assets/img/avatar.png')"
-                    class="rounded-circle icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center"
+                    class="rounded-circle icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center ms-3"
                     style="width: 45px; height: 45px"
                   />
                   <div
@@ -39,10 +43,10 @@
                     v-for="(app, index) in appointments[index]"
                     :key="index"
                   >
-                    <h6 class="mb-1 text-dark text-sm">{{ user.name }}</h6>
-                    <span class="text-xs"
+                    <h6 class="mb-1 text-white text-sm">{{ user.name }}</h6>
+                    <span class="text-xs text-light"
                       >{{ app.appointment_date }} /
-                      <span class="font-weight-bold">{{
+                      <span class="font-weight-bold text-light">{{
                         app.appointment_hour
                       }}</span></span
                     >
@@ -75,20 +79,20 @@
             </ul>
           </div>
         </div>
-        <div v-else class="card">
-          <div class="card-header pb-0 p-3">
+        <div v-else class="card bg-dark">
+          <div class="card-header pb-0 p-3 bg-dark">
             <div class="d-flex justify-content-between">
               <h6 class="mb-2">Your consultations</h6>
             </div>
           </div>
-          <div class="card-body p-3">
-            <ul class="list-group">
+          <div class="card-body p-3 bg-dark">
+            <ul class="list-group bg-dark">
               <li
-                class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg"
+                class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg bg-dark"
               >
-                <div class="d-flex align-items-center">
-                  <div class="d-flex flex-column">
-                    <h6 class="mb-1 text-secondary text-sm">
+                <div class="d-flex align-items-center bg-dark">
+                  <div class="d-flex flex-column bg-dark">
+                    <h6 class="mb-1 text-light text-sm">
                       You have no online consultations with anyone
                     </h6>
                   </div>
@@ -99,9 +103,11 @@
         </div>
       </div>
       <div class="col-lg-9">
-        <div class="card" style="height: 80vh">
-          <div class="card-header pb-0 p-3" v-if="selectedUser">
-            <h6 class="mb-0">Chatting with {{ selectedUser.name }}</h6>
+        <div class="card bg-dark" style="height: 80vh">
+          <div class="card-header pb-0 p-3 bg-dark" v-if="selectedUser">
+            <h6 class="mb-0 text-white">
+              Chatting with {{ selectedUser.name }}
+            </h6>
           </div>
           <div class="card-body p-3 chat">
             <div class="message-container">
@@ -111,7 +117,8 @@
                 class="message d-flex gap-3"
               >
                 <p
-                  class="mb-3"
+                  class="mb-3 text-white"
+                  style="background-color: #8392ab"
                   :class="{
                     'align-self-end right bg-primary text-white mb-3':
                       message.sender_id === parseInt(authDocId) ||
@@ -134,7 +141,7 @@
               <div class="message-boxs" v-else>
                 <input
                   type="text"
-                  class="message-input"
+                  class="message-input bg-dark text-white"
                   v-model="newMessage"
                   placeholder="Type message..."
                 />
@@ -495,5 +502,28 @@ export default {
 /* Style to align authenticated user's message to the right */
 .align-self-end {
   align-self: flex-end; /* Align message to the end of the container */
+}
+.users {
+  height: 80vh;
+}
+
+@media screen and (max-width: 950px) {
+  .message-container .right {
+    text-align: start;
+    right: 10px;
+    width: 200px;
+    float: right;
+    margin-left: 85%;
+  }
+  .message-input {
+    border: none; /* Remove default border */
+    outline: none; /* Remove default outline */
+    font-size: 16px; /* Set font size */
+    padding: 5px;
+    width: 680px;
+  }
+  .users{
+    height: auto;
+  }
 }
 </style>

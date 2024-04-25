@@ -16,10 +16,10 @@
             <div
               class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto"
             >
-              <div class="card card-plain">
-                <div class="card-header pb-0 text-start">
-                  <h4 class="font-weight-bolder">Sign In</h4>
-                  <p class="mb-0">Enter your email and password to sign in</p>
+              <div class="card card-plain bg-dark">
+                <div class="card-header pb-0 text-start bg-dark">
+                  <h4 class="font-weight-bolder text-white">Sign In</h4>
+                  <p class="mb-0 text-light">Enter your email and password to sign in</p>
                 </div>
                 <LoginSection/>
                 

@@ -4,37 +4,36 @@
       <thead>
         <tr>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Patient
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Date
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Time
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Status
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Type
           </th>
 
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -55,7 +54,7 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.patient }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ appointment.patient }}</h6>
                 <p class="text-xs text-success mb-0">
                   {{ appointment.patient_phone }}
                 </p>
@@ -64,7 +63,7 @@
           </td>
           <td>
             <p
-              class="text-xs text-secondary mb-0"
+              class="text-xs text-light mb-0"
               :class="{
                 'badge badge-sm bg-gradient-primary text-white text-lowercase':
                   isToday(appointment),
@@ -74,7 +73,7 @@
             </p>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ appointment.time }}</p>
+            <p class="text-xs text-light mb-0">{{ appointment.time }}</p>
           </td>
           <td class="align-middle text-center text-sm">
             <span

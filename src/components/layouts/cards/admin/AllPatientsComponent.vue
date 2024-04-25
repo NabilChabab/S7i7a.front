@@ -1,30 +1,29 @@
 <template>
   <div class="table-responsive">
-    <table class="table align-items-center">
+    <table class="table align-items-center bg-dark">
       <thead>
         <tr>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Patient
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Phone
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Joined_at
           </th>
 
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -35,13 +34,13 @@
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  src="@/assets/img/avatar.png"
+                  :src="require('@/assets/img/avatar.png') || patient.profile"
                   class="avatar avatar-sm me-3"
                   alt="user1"
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ patient.name }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ patient.name }}</h6>
                 <p class="text-xs text-secondary mb-0">
                   {{ patient.email }}
                 </p>
@@ -49,10 +48,10 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ patient.phone }}</p>
+            <p class="text-xs text-light mb-0">{{ patient.phone }}</p>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="text-secondary text-xs font-weight-bold">{{
+            <span class="text-light text-xs font-weight-bold">{{
               getFormattedDate(patient.created_at)
             }}</span>
           </td>

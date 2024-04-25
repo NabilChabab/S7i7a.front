@@ -128,7 +128,7 @@ export default {
     async fetchPrescriptionById() {
       const id = this.$route.params.id;
       try {
-        const response = await api.get(`/doctor/prescriptions/${id}`);
+        const response = await api.get(`/prescriptions/${id}`);
         this.prescription = response.data.prescription;
         this.isLoading = false;
       } catch (error) {

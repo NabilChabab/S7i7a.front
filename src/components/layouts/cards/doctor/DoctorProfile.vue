@@ -4,10 +4,10 @@
       <input type="hidden" name="_method" value="PATCH" />
       <div class="row">
         <div class="col-md-8">
-          <div class="card">
-            <div class="card-header pb-0">
+          <div class="card bg-dark">
+            <div class="card-header pb-0 bg-dark">
               <div class="d-flex align-items-center">
-                <p class="mb-0">Edit Profile</p>
+                <p class="mb-0 text-white">Edit Profile</p>
                 <button class="btn btn-primary btn-sm ms-auto">
                   Save Changes
                 </button>
@@ -22,7 +22,7 @@
                       >Price ( DH )</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="text"
                       placeholder="250.00 DH"
                       v-model="doctor.price"
@@ -38,7 +38,7 @@
                       >Username</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control  text-white bg-secondary border-dark"
                       type="text"
                       v-model="doctor.name"
                     />
@@ -50,7 +50,7 @@
                       >Email address</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="email"
                       v-model="doctor.email"
                     />
@@ -66,7 +66,7 @@
                       >Phone Number</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="text"
                       v-model="doctor.phone"
                     />
@@ -78,7 +78,7 @@
                       >Address</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="text"
                       placeholder="Morocco Casablanca 04 25"
                       v-model="doctor.address"
@@ -95,7 +95,7 @@
                       >Experience</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="text"
                       placeholder="Enter Your Experience"
                       v-model="doctor.experience"
@@ -108,7 +108,7 @@
                       >Qualification</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="text"
                       placeholder="Enter Your Qualification"
                       v-model="doctor.qualification"
@@ -124,7 +124,7 @@
                       >Description</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control text-white bg-secondary border-dark"
                       type="text"
                       placeholder="Enter Your Description"
                       v-model="doctor.description"
@@ -139,7 +139,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card card-profile">
+          <div class="card card-profile bg-dark">
             <img
               src="@/assets/img/bg-profile.jpg"
               alt="Image placeholder"
@@ -159,12 +159,12 @@
               </div>
             </div>
             <div
-              class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3"
+              class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3 bg-dark"
             >
               <div class="d-flex justify-content-center">
                 <label
                   for="input-file"
-                  class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block mt-3"
+                  class="btn btn-sm btn-primary float-right mb-0 d-none d-lg-block mt-3"
                   style="cursor: pointer"
                   >Upload image</label
                 >
@@ -181,14 +181,14 @@
             </div>
             <div class="card-body pt-0">
               <div class="text-center mt-4">
-                <h5>
-                  {{ doctor.name }}<span class="font-weight-light"></span>
+                <h5 class="text-white">
+                  {{ doctor.name }}<span class="font-weight-light text-white"></span>
                 </h5>
-                <div class="h6 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>{{ doctor.email }}
+                <div class="h6 font-weight-300 text-white">
+                  <i class="ni location_pin mr-2 text-light"></i>{{ doctor.email }}
                 </div>
-                <div class="h6 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Doctor At -
+                <div class="h6 mt-4 text-white">
+                  <i class="ni business_briefcase-24 mr-2 "></i>Doctor At -
                   S7I7A.ma
                 </div>
                 <div>

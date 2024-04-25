@@ -4,7 +4,7 @@
       <div class="mb-3 form-outline" :class="{ error: errors.email }">
         <input
           type="email"
-          class="form-control form-control-lg"
+          class="form-control form-control-lg bg-secondary border-dark text-white"
           placeholder="Email"
           aria-label="Email"
           aria-describedby="emailHelp"
@@ -15,7 +15,7 @@
       <div class="mb-3" :class="{ error: errors.password }">
         <input
           type="password"
-          class="form-control form-control-lg"
+          class="form-control form-control-lg bg-secondary border-dark text-white"
           placeholder="Password"
           aria-label="Password"
           v-model="password"
@@ -27,11 +27,11 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="rememberMe" />
-          <label class="form-check-label" for="rememberMe">Remember me</label>
+          <label class="form-check-label text-light" for="rememberMe">Remember me</label>
         </div>
         <router-link
           to="#forgotPasswordModal"
-          class="btn btn-link text-dark mt-3"
+          class="btn btn-link text-white mt-3"
           data-bs-toggle="modal"
           data-bs-target="#forgotPasswordModal"
           >Forgot Password?</router-link
@@ -58,7 +58,7 @@
       Don't have an account?
       <router-link
         :to="{ path: '/register' }"
-        class="text-dark text-gradient font-weight-bold"
+        class="text-primary font-weight-bold"
         >Sign up</router-link
       >
     </p>

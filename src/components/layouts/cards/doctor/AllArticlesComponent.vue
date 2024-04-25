@@ -4,36 +4,35 @@
       <thead>
         <tr>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Article
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Content
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             CreatedBy
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Status
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Created_at
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -51,15 +50,15 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ article.title }}</h6>
-                <p class="text-xs text-secondary mb-0">
+                <h6 class="mb-0 text-sm text-white">{{ article.title }}</h6>
+                <p class="text-xs text-light mb-0">
                   {{ article.category }}
                 </p>
               </div>
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">
+            <p class="text-xs text-light mb-0">
               {{
                 article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
                 (article.content.trim().split(/\s+/).length > 5 ? " ..." : "")
@@ -67,7 +66,7 @@
             </p>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ article.createdBy }}</p>
+            <p class="text-xs text-light mb-0">{{ article.createdBy }}</p>
           </td>
           <td class="align-middle text-center text-sm">
             <span
@@ -82,7 +81,7 @@
             >
           </td>
           <td class="align-middle text-center">
-            <span class="text-secondary text-xs font-weight-bold">{{
+            <span class="text-light text-xs font-weight-bold">{{
               getFormattedDate(article.created_at)
             }}</span>
           </td>

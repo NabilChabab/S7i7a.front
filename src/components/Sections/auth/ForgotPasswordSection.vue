@@ -60,7 +60,6 @@
 <script>
 
 import api from "@/services/api";
-import Swal from "sweetalert2";
 
 
 export default {
@@ -79,23 +78,10 @@ export default {
     async sendResetLink() {
       try {
         this.loading = true;
-        const response = await api.post("/forgot-password", {
+        await api.post("/forgot-password", {
           email: this.forgotPasswordEmail,
         });
         this.forgotPasswordErrors.email = "";
-        if (response.status === 200) {
-          Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Password reset link sent successfully! Check Your Email",
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Failed to send password reset link",
-          });
-        }
       } catch (error) {
         console.error("Error sending reset link:", error);
         this.loading = false;

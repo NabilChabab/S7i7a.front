@@ -14,19 +14,19 @@
       <CardsComponent />
       <div class="row mt-4">
         <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3">
+          <div class="card bg-dark text-white">
+            <div class="card-header pb-0 p-3 bg-dark text-white">
               <div class="d-flex justify-content-between">
-                <h6 class="mb-2">Sales by Country</h6>
+                <h6 class="mb-2 text-white">Statistic</h6>
               </div>
             </div>
-            <div ref="chart"></div>
+            <div ref="chart" class="text-white"></div>
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header pb-0 p-3">
-              <h6 class="mb-0">Categories</h6>
+          <div class="card bg-dark text-white">
+            <div class="card-header pb-0 p-3 bg-dark text-white">
+              <h6 class="mb-0">Test Statistic</h6>
             </div>
             <div class="card-body p-3">
               <div ref="chart2"></div>
@@ -90,12 +90,8 @@ export default {
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link ",
         },
-        {
-          url: "/admin/payments",
-          text: "Payments",
-          iconClass: "bx bxs-credit-card text-danger text-sm opacity-10",
-          active: "nav-link ",
-        },
+        { url: "/admin/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
+
       ],
       accountLinks: [
         {

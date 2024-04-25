@@ -25,7 +25,7 @@ export default {
         { url: "/admin/appointments", text: "Appointments", iconClass: "bx bx-check-double text-info text-sm opacity-10" ,active:"nav-link "},
         { url: "/admin/categories", text: "Categories", iconClass: "bx bxs-category-alt text-success text-sm opacity-10" ,active:"nav-link "},
         { url: "/admin/articles", text: "Articles", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
-        { url: "/admin/payments", text: "Payments", iconClass: "bx bxs-credit-card text-danger text-sm opacity-10" ,active:"nav-link "},
+        { url: "/admin/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
       ],
       accountLinks : [
         { p_url: "/admin/profile", p_text: "Profile", p_iconClass: "bx bx-user text-success text-sm opacity-10" ,p_active:"nav-link active"},

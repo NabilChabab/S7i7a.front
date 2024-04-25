@@ -6,13 +6,13 @@
       v-for="user in latestDocs"
       :key="user.id"
     >
-      <div class="card">
+      <div class="card bg-dark">
         <div class="card-body p-3">
           <div class="row">
             <div class="col-8">
               <div class="numbers">
                 <p class="text-sm mb-0 font-weight-bold">{{ user.email }}</p>
-                <h5 class="font-weight-bolder">{{ user.name }}</h5>
+                <h5 class="font-weight-bolder text-white">{{ user.name }}</h5>
                 <p class="mb-0">
                   <span
                     v-for="role in user.role"
@@ -28,7 +28,7 @@
             <div class="col-4 text-end">
             
                 <img
-                  src="@/assets/img/avatar.png"
+                  :src="require('@/assets/img/avatar.png') || user.profile"
                   class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle"
                   style="width: 50px; height: 50px"
                 />

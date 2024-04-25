@@ -4,31 +4,30 @@
       <thead>
         <tr>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Doctor
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Qualification
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Speciality
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Joined_at
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -46,15 +45,15 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ doctor.name }}</h6>
-                <p class="text-xs text-secondary mb-0">
+                <h6 class="mb-0 text-sm text-white">{{ doctor.name }}</h6>
+                <p class="text-xs text-secondary mb-0 ">
                   {{ doctor.email }}
                 </p>
               </div>
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">
+            <p class="text-xs text-light mb-0">
               {{ doctor.qualification ?? "- - - - - - - - - - - -" }}
             </p>
           </td>
@@ -64,7 +63,7 @@
             }}</span>
           </td>
           <td class="align-middle text-center">
-            <span class="text-secondary text-xs font-weight-bold">{{
+            <span class="text-light text-xs font-weight-bold">{{
               getFormattedDate(doctor.created_at)
             }}</span>
           </td>

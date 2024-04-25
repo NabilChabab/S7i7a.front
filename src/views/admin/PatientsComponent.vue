@@ -9,20 +9,20 @@
     <div class="container-fluid py-4">
       <div class="row mt-4">
         <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3 mb-3">
+          <div class="card bg-dark">
+            <div class="card-header pb-0 p-3 mb-3 bg-dark">
               <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Latest Patients</h6>
+                <h6 class="mb-2 text-white">Latest Patients</h6>
               </div>
             </div>
             <AllPatientsComponent />
           </div>
         </div>
         <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3 mb-3">
+          <div class="card bg-dark">
+            <div class="card-header pb-0 p-3 mb-3 bg-dark">
               <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Deleted Patients</h6>
+                <h6 class="mb-2 text-white">Deleted Patients</h6>
               </div>
             </div>
             <DeletedPatientsComponent />
@@ -195,16 +195,10 @@ export default {
         { url: "/admin/appointments", text: "Appointments", iconClass: "bx bx-check-double text-info text-sm opacity-10" ,active:"nav-link "},
         { url: "/admin/categories", text: "Categories", iconClass: "bx bxs-category-alt text-success text-sm opacity-10" ,active:"nav-link "},
         { url: "/admin/articles", text: "Articles", iconClass: "bx bxs-notepad text-info text-sm opacity-10" ,active:"nav-link "},
-        { url: "/admin/payments", text: "Payments", iconClass: "bx bxs-credit-card text-danger text-sm opacity-10" ,active:"nav-link "},
+        { url: "/admin/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
       ],
       accountLinks : [
         { p_url: "/admin/profile", p_text: "Profile", p_iconClass: "bx bx-user text-success text-sm opacity-10" ,p_active:"nav-link "},
-        {
-          p_url: "/chat",
-          p_text: "Chat",
-          p_iconClass: "bx bx-message text-success text-sm opacity-10",
-          p_active: "nav-link ",
-        },
         {
           p_url: "/chat",
           p_text: "Chat",
