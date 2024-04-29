@@ -1,38 +1,103 @@
 <template>
-  <div class="table-responsive">
-    <main id="sample">
-    <Editor
-      api-key="f9ggt3dqixvgwwjjoxp3xio6hgf0r72qnuvll71z6g0sckld"
-      :init="{
-        toolbar_mode: 'sliding',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-      }"
-      initial-value="Welcome to TinyMCE!"
-      
-    />
-  </main>
-  </div>
+  <form enctype="multipart/form-data" @submit.prevent="addPrescription">
+    <div class="card mb-4 bg-dark">
+      <div
+        class="card-header pb-0 d-flex justify-content-between align-items-center bg-dark"
+      >
+        <h6 class="text-white">Add New Prescription</h6>
+        <button class="btn btn-primary" type="submit">Add Prescription</button>
+      </div>
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+          <div class="form-outline mb-4">
+            <label for="">Medication</label>
+            <input
+              type="text"
+              class="form-control text-white bg-secondary border-dark fullname"
+              placeholder="Medication"
+              v-model="medication"
+            />
+          </div>
+          <div class="form-outline mb-4">
+            <label for="">Dosage</label>
+            <textarea
+              class="form-control text-white bg-secondary border-dark fullname"
+              placeholder="Dosage"
+              v-model="dosage"
+            />
+          </div>
+          <div class="form-outline mb-4">
+            <label for="">Instructions</label>
+            <textarea
+              class="form-control text-white bg-secondary border-dark fullname"
+              placeholder="Instructions"
+              v-model="instructions"
+            />
+            <p class="fname-error text-danger"></p>
+          </div>
+          <div class="form-outline mb-4">
+            <select
+              class="form-control text-white bg-secondary border-dark fullname"
+              v-model="appointment_id"
+            >
+              <option value="" disabled selected>Select a Patient</option>
+              <option
+                v-for="appointment in appointments"
+                :key="appointment.id"
+                :value="appointment.id"
+              >
+                {{ appointment.patient }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </template>
 
 <script>
-// import api from "@/services/api";
-import "moment-timezone";
-import Editor from '@tinymce/tinymce-vue'
-// import Swal from "sweetalert2";
+import api from "@/services/api";
+
 export default {
-  components:{
-    Editor
-  }
+  data() {
+    return {
+      medication: "",
+      dosage: "",
+      instructions: "",
+      appointment_id: "",
+      appointments: [],
+    };
+  },
+  created() {
+    this.fetchOnlineAppointments();
+  },
+  methods: {
+    async addPrescription() {
+      try {
+        const formData = new FormData();
+        formData.append("medication", this.medication);
+        formData.append("dosage", this.dosage);
+        formData.append("instructions", this.instructions);
+        formData.append("appointment_id", this.appointment_id);
+        await api.post("/prescriptions", formData);
+        this.medication = "";
+        this.dosage = "";
+        this.instructions = "";
+        this.appointment_id = "";
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async fetchOnlineAppointments() {
+      try {
+        const response = await api.get("/doctor/appointments");
+        this.appointments = response.data.online_appointments;
+        this.isLoading = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
-<style scoped>
-@media (min-width: 1024px) {
-  #sample {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    width: 100%;
-  }
-}
-</style>

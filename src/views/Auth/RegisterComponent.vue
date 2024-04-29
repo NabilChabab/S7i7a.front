@@ -171,7 +171,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
 
 
@@ -199,26 +198,12 @@ export default {
           acceptTerms: this.acceptTerms,
         });
         console.log(response.data);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text:
-            "Your account has been created successfully! Welcome " + this.name,
-            timer: 1500
-        });
+
         localStorage.clear();
         this.$router.push(response.data.redirect);
       } catch (error) {
         console.error(error);
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.errors
-        ) {
-          this.errors = error.response.data.errors;
-        } else {
-          alert("Error occurred while registering user.");
-        }
+      
       }
     },
   },

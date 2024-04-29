@@ -52,7 +52,7 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.doctor }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ appointment.doctor }}</h6>
                 <p class="text-xs text-success mb-0">
                   {{ appointment.doctor_phone }}
                 </p>
@@ -105,7 +105,6 @@
 <script>
 import api from "@/services/api";
 import "moment-timezone";
-import Swal from "sweetalert2";
 export default {
   name: "AllArticlesComponent",
   data() {
@@ -139,13 +138,6 @@ export default {
       try {
         await api.delete(`/patient/appointment/${id}`);
         await this.fetchAppointment()
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Appointment canceled successfully",
-          timer: 1500,
-        });
-        await this.fetchArticles();
       } catch (error) {
         console.log(error);
       }

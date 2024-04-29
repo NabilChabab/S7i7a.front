@@ -13,10 +13,10 @@
     <div class="container-fluid py-4">
       <div class="row mt-4">
         <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3 mb-3">
+          <div class="card bg-dark">
+            <div class="card-header pb-0 p-3 mb-3 bg-dark">
               <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Latest Articles</h6>
+                <h6 class="mb-2 text-white">Latest Articles</h6>
               </div>
             </div>
             <AllArticlesComponent />
@@ -75,12 +75,8 @@ export default {
           iconClass: "bx bxs-notepad text-info text-sm opacity-10",
           active: "nav-link active",
         },
-        {
-          url: "/admin/payments",
-          text: "Payments",
-          iconClass: "bx bxs-credit-card text-danger text-sm opacity-10",
-          active: "nav-link ",
-        },
+        { url: "/admin/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
+
       ],
       accountLinks: [
         {

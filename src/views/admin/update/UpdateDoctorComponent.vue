@@ -9,11 +9,11 @@
         <div class="col-12">
           <form @submit.prevent="updateDoctor" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PATCH" />
-            <div class="card mb-4">
+            <div class="card mb-4 bg-dark">
               <div
-                class="card-header pb-0 d-flex justify-content-between align-items-center"
+                class="card-header pb-0 d-flex justify-content-between align-items-center bg-dark"
               >
-                <h6>Edit Doctor</h6>
+                <h6 class="text-white">Edit Doctor</h6>
                 <button class="btn btn-primary" type="submit">
                   Save Changes
                 </button>
@@ -44,7 +44,7 @@
                       v-model="doctor.name"
                       type="text"
                       id="name"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       :disabled="isLoading || !doctor"
                     />
                     <p class="fname-error text-danger">
@@ -57,7 +57,7 @@
                       v-model="doctor.email"
                       type="email"
                       id="email"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       :disabled="isLoading"
                     />
                     <p class="fname-error text-danger">
@@ -70,7 +70,7 @@
                       v-model="doctor.phone"
                       type="text"
                       id="phone"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="Phone Number"
                       :disabled="isLoading"
                     />
@@ -84,7 +84,7 @@
                       v-model="doctor.cin"
                       type="text"
                       id="cin"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white fullname bg-secondary border-dark"
                       placeholder="CIN"
                       name="cin"
                       :disabled="isLoading"
@@ -109,7 +109,6 @@ import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
 import FooterComponent from "@/components/layouts/footer/FooterComponent.vue";
 import api from "@/services/api";
-import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -167,6 +166,7 @@ export default {
         phone: "",
         cin: "",
       },
+      profile: null,
       previewImage: "",
       defaultImage: require("@/assets/img/team-1.jpg"),
       errors: {},
@@ -211,12 +211,6 @@ export default {
 
         this.doctor = response.data.doctor;
         console.log("Doctor updated successfully!");
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Doctor Updated Successfully",
-          timer: 1500
-        });
         this.$router.push("/admin/doctors");
       } catch (error) {
         console.error("Error updating doctor:", error);

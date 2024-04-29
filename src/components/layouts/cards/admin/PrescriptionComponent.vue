@@ -61,7 +61,7 @@
             </td>
             <td>
               <div class="px-2 py-1 text-center">
-                <p class="text-light text-xs ">{{ prescription.medication }}</p>
+                <p class="text-light text-xs">{{ prescription.medication }}</p>
               </div>
             </td>
 
@@ -116,7 +116,7 @@ export default {
   methods: {
     async fetchPrescriptions() {
       try {
-        const response = await api.get("/prescriptions");
+        const response = await api.get("/patient/prescriptions");
         this.prescriptions = response.data.prescriptions;
         this.isLoading = false;
       } catch (error) {
@@ -125,7 +125,7 @@ export default {
     },
     async deletePrescription(id) {
       try {
-        await api.delete(`/prescriptions/${id}`);
+        await api.delete(`/patient/prescriptions/${id}`);
         await this.fetchPrescriptions();
       } catch (error) {
         console.log(error);

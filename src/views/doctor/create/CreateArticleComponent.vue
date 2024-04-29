@@ -13,11 +13,11 @@
       <div class="row">
         <div class="col-12">
           <form enctype="multipart/form-data" @submit.prevent="addArticle">
-            <div class="card mb-4">
+            <div class="card mb-4 bg-dark">
               <div
-                class="card-header pb-0 d-flex justify-content-between align-items-center"
+                class="card-header pb-0 d-flex justify-content-between align-items-center bg-dark"
               >
-                <h6>Add New Article</h6>
+                <h6 class="text-white">Add New Article</h6>
                 <button class="btn btn-primary" type="submit">
                   Add Article
                 </button>
@@ -30,7 +30,7 @@
                       class="img"
                       alt="Preview Image"
                     />
-                    <label for="input-file">Upload image</label>
+                    <label for="input-file" class="text-white">Upload image</label>
                     <p class="fname-error text-danger">{{ errorMessage }}</p>
                     <input
                       type="file"
@@ -45,7 +45,7 @@
                     <label for="">Title</label>
                     <input
                       type="text"
-                      class="form-control text-dark fullname"
+                      class="form-control text-white bg-secondary border-dark fullname"
                       placeholder="Company Name"
                       v-model="title"
                     />
@@ -53,7 +53,7 @@
                   <div class="form-outline mb-4">
                     <label for="">Content</label>
                     <textarea
-                      class="form-control text-dark fullname"
+                      class="form-control text-white bg-secondary border-dark fullname"
                       placeholder="Description"
                       v-model="content"
                     />
@@ -62,7 +62,7 @@
                   <div class="form-outline mb-4">
                     <label for="">Category Name</label>
                     <select
-                      class="form-control text-dark fullname"
+                      class="form-control text-white bg-secondary border-dark fullname"
                       v-model="category_id"
                     >
                     <option value="" disabled selected>Select a category</option>
@@ -80,10 +80,11 @@
                     <label for="tagsSelect">Tags Name</label>
                     <select
                       id="tagsSelect"
-                      class="form-control text-dark "
+                      class="form-control text-white bg-secondary border-dark "
                       multiple
                       v-model="tag_id"
                     >
+                    <option value="" disabled selected>Select a category</option>
                       <option v-for="tag in tags" :key="tag.id" :value="tag">
                         {{ tag.name }}
                       </option>
@@ -103,7 +104,6 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
 import { required } from 'vuelidate/lib/validators';
 import NavbarComponent from "@/components/layouts/bars/Navbar.vue";
 import SideNav from "@/components/layouts/bars/Aside.vue";
@@ -134,6 +134,7 @@ export default {
           iconClass: "bx bx-check-double text-info text-sm opacity-10",
           active: "nav-link",
         },
+        { url: "/doctor/prescriptions", text: "Prescriptions", iconClass: "bx bxs-file-pdf text-danger text-sm opacity-10" ,active:"nav-link "},
         {
           url: "/doctor/chat",
           text: "Chat",
@@ -221,13 +222,6 @@ export default {
           },
         });
         console.log(response.data);
-
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Doctor Created Successfully",
-          timer: 1500,
-        });
 
         this.$router.push("/doctor/articles");
       } catch (error) {

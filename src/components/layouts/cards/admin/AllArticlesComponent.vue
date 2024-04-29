@@ -4,27 +4,27 @@
       <thead>
         <tr>
           <th
-            class="text-start text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-start text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Article
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Content
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             CreatedBy
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Status
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Created_at
           </th>
@@ -45,7 +45,7 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ article.title }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ article.title }}</h6>
                 <p class="text-xs text-secondary mb-0">
                   {{ article.category }}
                 </p>
@@ -53,13 +53,15 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
-                (article.content.trim().split(/\s+/).length > 5
-                  ? " ..."
-                  : "")}}</p>
+            <p class="text-xs text-light mb-0">
+              {{
+                article.content.trim().split(/\s+/).slice(0, 5).join(" ") +
+                (article.content.trim().split(/\s+/).length > 5 ? " ..." : "")
+              }}
+            </p>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ article.createdBy }}</p>
+            <p class="text-xs text-light mb-0">{{ article.createdBy }}</p>
           </td>
           <td
             class="align-middle text-center text-sm"
@@ -83,7 +85,7 @@
           </td>
 
           <td class="align-middle text-center">
-            <span class="text-secondary text-xs font-weight-bold">{{
+            <span class="text-light text-xs font-weight-bold">{{
               getFormattedDate(article.created_at)
             }}</span>
           </td>
@@ -100,13 +102,13 @@
     aria-hidden="true"
   >
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="statusUpdateModalLabel">
+      <div class="modal-content bg-dark">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title text-white" id="statusUpdateModalLabel">
             Update Article Status
           </h5>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-dark">
           <!-- Form for updating status -->
           <form @submit.prevent="updateStatus">
             <div class="form-group">
@@ -114,7 +116,7 @@
               <input type="hidden" v-model="articleId" />
               <label for="statusSelect">Select Status</label>
               <select
-                class="form-control"
+                class="form-control bg-secondary text-white"
                 id="statusSelect"
                 v-model="clickedStatus"
               >
@@ -135,7 +137,6 @@
 import api from "@/services/api";
 import moment from "moment";
 import "moment-timezone";
-import Swal from "sweetalert2";
 
 export default {
   name: "AllArticlesComponent",
@@ -182,34 +183,30 @@ export default {
         formData.append("status", this.clickedStatus);
         formData.append("_method", "PATCH");
         await api.post(`/admin/article/${this.articleId}`, formData);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Article status updated successfully",
-          timer: 1500,
-        });
         await this.fetchArticles();
+        this.closeModal();
       } catch (error) {
         console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "An error occurred while updating article status",
-        });
       }
     },
     async deleteArticles(id) {
       try {
         await api.delete(`/doctor/articles/${id}`);
         this.fetchArticles();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Article deleted successfully",
-          timer: 1500,
-        });
       } catch (error) {
         console.log(error);
+      }
+    },
+    closeModal() {
+      const modal = document.getElementById("statusUpdateModal");
+      if (modal) {
+        modal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+        const backdrop = document.getElementsByClassName("modal-backdrop")[0];
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop);
+        }
+        modal.dispatchEvent(new Event("hidden.bs.modal"));
       }
     },
   },

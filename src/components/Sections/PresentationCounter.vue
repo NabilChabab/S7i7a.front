@@ -14,7 +14,7 @@ import DefaultCounterCard from "@/components/layouts/cards/DefaultCounterCard.vu
                 title="Total Doctors"
                 description="From buttons, to inputs, navbars, alerts or cards, you are
                   covered"
-                :count="350"
+                :count="counts.doctors"
                 suffix="+"
                 :duration="3000"
                 divider="vertical"
@@ -22,11 +22,11 @@ import DefaultCounterCard from "@/components/layouts/cards/DefaultCounterCard.vu
             </div>
             <div class="col-md-4 position-relative">
               <DefaultCounterCard
-              color="primary"
+                color="primary"
                 title="Total Patients"
                 description="Mix the sections, change the colors and unleash your
                   creativity"
-                :count="250"
+                :count="counts.patients"
                 suffix="+"
                 :duration="3000"
                 divider="vertical"
@@ -34,11 +34,11 @@ import DefaultCounterCard from "@/components/layouts/cards/DefaultCounterCard.vu
             </div>
             <div class="col-md-4">
               <DefaultCounterCard
-              color="primary"
+                color="primary"
                 title="Happy Patients"
                 description="Save 3-4 weeks of work when you use our pre-made pages for
                   your website"
-                :count="210"
+                :count="15"
                 suffix="+"
                 :duration="3000"
               />
@@ -49,3 +49,28 @@ import DefaultCounterCard from "@/components/layouts/cards/DefaultCounterCard.vu
     </div>
   </section>
 </template>
+
+<script>
+import api from '@/services/api';
+export default {
+  data() {
+    return {
+      counts: {
+        doctors: 0,
+        patients: 0,
+        happyPatients: 0,
+      }
+    };
+  },
+  created(){
+    this.fetchCounts();
+  },
+  methods:{
+    async fetchCounts(){
+      const response = await api.get('/counts');
+      this.counts.doctors = response.data.doctors;
+      this.counts.patients = response.data.patients;
+    }
+  }
+};
+</script>

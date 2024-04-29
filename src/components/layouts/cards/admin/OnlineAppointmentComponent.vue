@@ -3,38 +3,33 @@
     <table class="table align-items-center">
       <thead>
         <tr>
-          <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-          >
+          <th class="text-uppercase text-light text-xxs font-weight-bolder opacity-7">
             Patient
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Date
           </th>
-          <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-          >
+          <th class="text-uppercase text-light text-xxs font-weight-bolder opacity-7">
             Time
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Status
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Type
           </th>
 
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -45,17 +40,14 @@
             <div class="d-flex px-2 py-1">
               <div>
                 <img
-                  :src="
-                    appointment.patient_img ||
-                    require('@/assets/img/avatar.png')
-                  "
+                  :src="appointment.patient_img || require('@/assets/img/avatar.png')"
                   class="avatar avatar-sm me-3"
                   style="object-fit: cover"
                   alt="user1"
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.patient }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ appointment.patient }}</h6>
                 <p class="text-xs text-success mb-0">
                   {{ appointment.patient_phone }}
                 </p>
@@ -63,12 +55,19 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0" :class="{ 'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(appointment) }">
+            <p
+              class="text-xs text-light mb-0"
+              :class="{
+                'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(
+                  appointment
+                ),
+              }"
+            >
               {{ isToday(appointment) ? "Today" : appointment.date }}
             </p>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ appointment.time }}</p>
+            <p class="text-xs text-light mb-0">{{ appointment.time }}</p>
           </td>
           <td class="align-middle text-center text-sm">
             <span
@@ -83,11 +82,9 @@
             >
           </td>
           <td class="align-middle text-center text-sm">
-            <span
-              class="badge badge-sm bg-gradient-success"
-              style="width: 60px"
-              >{{ appointment.type }}</span
-            >
+            <span class="badge badge-sm bg-gradient-success" style="width: 60px">{{
+              appointment.type
+            }}</span>
           </td>
           <td class="align-middle text-center">
             <button
@@ -116,7 +113,6 @@
 <script>
 import api from "@/services/api";
 import "moment-timezone";
-import Swal from "sweetalert2";
 export default {
   name: "AllArticlesComponent",
   data() {
@@ -130,11 +126,11 @@ export default {
   },
   computed: {
     isToday() {
-    return appointment => {
-      const today = new Date().toISOString().slice(0, 10);
-      return appointment.date === today;
-    }
-  }
+      return (appointment) => {
+        const today = new Date().toISOString().slice(0, 10);
+        return appointment.date === today;
+      };
+    },
   },
   methods: {
     async fetchAppointment() {
@@ -149,13 +145,8 @@ export default {
     async deleteAppointment(id) {
       try {
         await api.delete(`/admin/appointment/${id}`);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Appointment canceled successfully",
-          timer: 1500,
-        });
-        await this.fetchArticles();
+
+        await this.fetchAppointment();
       } catch (error) {
         console.log(error);
       }
@@ -164,6 +155,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -13,24 +13,14 @@
     <div class="container-fluid py-4">
       <div class="row mt-4">
         <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3 mb-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Local Appointments</h6>
-              </div>
-            </div>
+          <div class="card bg-dark">
+            <div class="card-header pb-0 p-3 mb-3 bg-dark">
             <CreatePrescription />
+            </div>
           </div>
         </div>
         <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0 p-3 mb-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-2">Online Appointments</h6>
-              </div>
-            </div>
             <PrescriptionComponent />
-          </div>
         </div>
       </div>
       <FooterComponent />

@@ -7,7 +7,9 @@ import LoginComponent from '@/views/Auth/LoginComponent.vue';
 import ResetPasswordComponent from '@/views/Auth/ResetPasswordComponent.vue';
 import TheWelcomeVue from '@/views/TheWelcome.vue';
 import DoctorDetails from '@/views/DoctorDetails.vue';
+import ArticleDetails from '@/views/ArticleDetails.vue';
 import ChatComponent from '@/views/ChatComponent.vue';
+import ContactSection from '@/views/ContactComponent.vue';
 
 //Admin
 import DashboardComponent from '@/views/admin/DashboardComponent.vue';
@@ -19,6 +21,7 @@ import ProfileComponent from '@/views/admin/ProfileComponent.vue';
 import CategoryComponent from '@/views/admin/CategoryComponent.vue';
 import AdminArticles from '@/views/admin/ArticlesComponent.vue';
 import AppointmentsComponent from '@/views/admin/AppointmentComponent.vue';
+import PrescriptionComponents from '@/views/admin/PrescriptionComponent.vue';
 
 
 
@@ -26,6 +29,7 @@ import AppointmentsComponent from '@/views/admin/AppointmentComponent.vue';
 import DoctorComponent from '@/views/doctor/DashboardComponent.vue';
 import ArticlesComponent from '@/views/doctor/ArticlesComponent.vue';
 import PrescriptionComponent from '@/views/doctor/PrescriptionComponent.vue';
+import PrescriptionDetails from '@/views/doctor/PrescriptionDetails.vue';
 import AppointmentComponent from '@/views/doctor/AppointmentComponent.vue';
 import CreateArticleComponent from '@/views/doctor/create/CreateArticleComponent.vue';
 import UpdateArticleComponent from '@/views/doctor/update/UpdateArticleComponent.vue';
@@ -38,6 +42,7 @@ import PatientProfile from '@/views/patient/ProfileComponent.vue';
 import AllDoctorsComponent from '@/views/patient/DoctorsComponent.vue';
 import DoctorsByCategory from '@/views/patient/DoctorsByCategory.vue';
 import AllArticlesComponent from '@/views/patient/ArticlesComponent.vue';
+import PrescriptionComponentss from '@/views/patient/PrescriptionComponent.vue';
 
 
 //unauthorized
@@ -66,8 +71,11 @@ const routes = [
   { path: '/doctor-details/:id', name: 'doctor-details',  component: DoctorDetails },
   { path: '/doctor-category/:id', name: 'doctor-byCategory',  component: DoctorsByCategory },
   { path: '/chat',  component: ChatComponent , meta: { requiresAuth: true } },
+  { path: '/contact',  component: ContactSection , meta: { requiresAuth: true } },
   { path: '/doctors',  component: AllDoctorsComponent , meta: { requiresAuth: true } },
   { path: '/articles',  component: AllArticlesComponent , meta: { requiresAuth: true } },
+  { path: '/article-details/:id', name: 'article-details',  component: ArticleDetails },
+  { path: '/prescriptions/pdf/:id', name: 'show-prescription' , component: PrescriptionDetails, meta: { requiresAuth: true}},
 
 
   //Admin
@@ -80,6 +88,8 @@ const routes = [
   { path: '/admin/profile', component: ProfileComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/articles', component: AdminArticles, meta: { requiresAuth: true, roles: ['Admin'] }},
   { path: '/admin/appointments', component: AppointmentsComponent, meta: { requiresAuth: true, roles: ['Admin'] }},
+  { path: '/admin/prescriptions', component: PrescriptionComponents, meta: { requiresAuth: true, roles: ['Admin'] }},
+
   //Doctor
   { path: '/doctor/dashboard', component: DoctorComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
   { path: '/doctor/articles', component: ArticlesComponent, meta: { requiresAuth: true, roles: ['Doctor'] }},
@@ -91,6 +101,8 @@ const routes = [
   //Patients
   { path: '/patient/appointment', component: PatientComponent, meta: { requiresAuth: true, roles: ['Patient'] }},
   { path: '/patient/profile', component: PatientProfile, meta: { requiresAuth: true, roles: ['Patient'] }},
+  { path: '/patient/prescriptions', component: PrescriptionComponentss, meta: { requiresAuth: true, roles: ['Patient'] }},
+
 
 
   //unauthorized

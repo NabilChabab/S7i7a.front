@@ -4,37 +4,36 @@
       <thead>
         <tr>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Doctor
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Date
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Time
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Status
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Type
           </th>
           
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -52,7 +51,7 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ appointment.doctor }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ appointment.doctor }}</h6>
                 <p class="text-xs text-success mb-0">
                   {{ appointment.doctor_phone }}
                 </p>
@@ -60,12 +59,12 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0" :class="{ 'badge badge-sm bg-gradient-primary text-white text-lowercase': isToday(appointment) }">
+            <p class="text-xs text-light mb-0" :class="{ 'badge badge-sm bg-gradient-success text-white text-lowercase': isToday(appointment) }">
               {{ isToday(appointment) ? "Today" : appointment.date }}
             </p>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">{{ appointment.time }}</p>
+            <p class="text-xs text-light mb-0">{{ appointment.time }}</p>
           </td>
           <td class="align-middle text-center text-sm">
             <span
@@ -105,7 +104,6 @@
 <script>
 import api from "@/services/api";
 import "moment-timezone";
-import Swal from "sweetalert2";
 export default {
   name: "AllArticlesComponent",
   data() {
@@ -137,14 +135,8 @@ export default {
     },
     async deleteAppointment(id) {
       try {
-        const response = await api.delete(`/patient/appointment/${id}`);
-        this.fetchArticles();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: response.data.message,
-          timer: 1500,
-        });
+        await api.delete(`/patient/appointment/${id}`);
+        this.fetchAppointment();
       } catch (error) {
         console.log(error);
       }

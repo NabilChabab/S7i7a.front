@@ -8,6 +8,8 @@ import "boxicons/css/boxicons.min.css";
 import "@/assets/css/argon-dashboard.css";
 import "@/assets/js/argon-dashboard.js";
 import "vue-spinner/src/PulseLoader.vue";
+import ToastPlugin from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-bootstrap.css';
 
 //user
 import "@/assets/user/css/nucleo-icons.css";
@@ -36,6 +38,7 @@ window.Echo = new Echo({
 createApp(App)
   .use(router)
   .use(store)
+  .use(ToastPlugin)
   .use(VueStripeElementsPlus, {
     publishableKey: 'YOUR_STRIPE_PUBLISHABLE_KEY'
   })

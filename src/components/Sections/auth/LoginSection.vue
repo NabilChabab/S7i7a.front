@@ -4,7 +4,7 @@
       <div class="mb-3 form-outline" :class="{ error: errors.email }">
         <input
           type="email"
-          class="form-control form-control-lg"
+          class="form-control form-control-lg bg-secondary border-dark text-white"
           placeholder="Email"
           aria-label="Email"
           aria-describedby="emailHelp"
@@ -15,7 +15,7 @@
       <div class="mb-3" :class="{ error: errors.password }">
         <input
           type="password"
-          class="form-control form-control-lg"
+          class="form-control form-control-lg bg-secondary border-dark text-white"
           placeholder="Password"
           aria-label="Password"
           v-model="password"
@@ -27,11 +27,11 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="rememberMe" />
-          <label class="form-check-label" for="rememberMe">Remember me</label>
+          <label class="form-check-label text-light" for="rememberMe">Remember me</label>
         </div>
         <router-link
           to="#forgotPasswordModal"
-          class="btn btn-link text-dark mt-3"
+          class="btn btn-link text-white mt-3"
           data-bs-toggle="modal"
           data-bs-target="#forgotPasswordModal"
           >Forgot Password?</router-link
@@ -58,7 +58,7 @@
       Don't have an account?
       <router-link
         :to="{ path: '/register' }"
-        class="text-dark text-gradient font-weight-bold"
+        class="text-primary font-weight-bold"
         >Sign up</router-link
       >
     </p>
@@ -67,7 +67,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import store from "@/store/index";
 export default {
   data() {
@@ -89,11 +88,10 @@ export default {
           email: this.email,
           password: this.password,
         });
-        console.log(response.data);
         const { message, redirect, token, ...userData } = response.data;
-        localStorage.setItem('userId' , userData.userId)
-        localStorage.setItem('doc' , userData.doc)
-        localStorage.setItem('role' , userData.role)
+        localStorage.setItem("userId", userData.userId);
+        localStorage.setItem("doc", userData.doc);
+        localStorage.setItem("role", userData.role);
         if (
           [
             "Admin login successful",
@@ -102,36 +100,14 @@ export default {
           ].includes(message)
         ) {
           store.dispatch("loginUser", { token, user: userData });
-          Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Welcome " + response.data.role,
-            timer: 1500,
-            customClass: {
-              popup: "popup",
-            },
-          });
-          this.loading_log = false;
           this.$router.push(redirect);
         } else {
           alert("Unknown role.");
         }
       } catch (error) {
         console.error(error);
-        if (
-          error.response &&
-          error.response.status === 422 &&
-          error.response.data.errors
-        ) {
-          const { message, errors: responseErrors } = error.response.data;
-          this.errors.message = message;
-          for (const key in responseErrors) {
-            this.errors[key] = responseErrors[key][0];
-          }
-          this.loading_log = false;
-        } else {
-          alert("Error occurred while logging in.");
-        }
+      } finally {
+        this.loading_log = false;
       }
     },
   },

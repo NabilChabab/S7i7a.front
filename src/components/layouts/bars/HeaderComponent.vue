@@ -10,12 +10,12 @@
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto" data-aos="fade-down">
             <h1 class="text-white">
-              Work with an amazing <span class="text-white" id="typed"></span>
+              Consult with an amazing <span class="text-white" id="typed"></span>
             </h1>
             <div id="typed-strings">
-              <h1>team</h1>
-              <h1>design</h1>
-              <h1>tool</h1>
+              <h1>Doctors</h1>
+              <h1>Team</h1>
+              <h1>Chats</h1>
             </div>
             <p class="lead mb-4 text-white opacity-8" data-aos="fade-right">
               We’re constantly trying to express ourselves and actualize our

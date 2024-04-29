@@ -8,7 +8,8 @@
     class="col-lg-4 col-sm-6"
     v-for="article in articles"
     :key="article.id"
-    data-aos="fade-right">
+    data-aos="fade-right"
+  >
     <div class="card card-blog card-background cursor-pointer">
       <div
         class="full-background"
@@ -30,12 +31,12 @@
                 : "..........."
             }}
           </p>
-          <a
-            href="javascript:;"
+          <router-link
+            :to="{ name: 'article-details', params: { id: article.id } }"
             class="text-sm icon-move-right text-success mt-5 cursor-pointer"
             >Explore more
             <i class="fas fa-arrow-right text-xs ms-1"></i>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -78,7 +79,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
-
+<style></style>

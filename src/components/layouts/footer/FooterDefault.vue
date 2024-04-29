@@ -172,9 +172,9 @@ defineProps({
             <p class="text-dark my-4 text-sm font-weight-normal">
               All rights reserved. Copyright ©
               {{ new Date().getFullYear() }}
-              Material Kit by
+               by
               <a href="https://www.creative-tim.com" target="_blank"
-                >Creative Tim</a
+                >S7I7A.ma</a
               >.
             </p>
           </div>

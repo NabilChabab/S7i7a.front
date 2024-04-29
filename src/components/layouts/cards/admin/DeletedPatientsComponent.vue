@@ -1,30 +1,29 @@
 <template>
   <div class="table-responsive">
-    <table class="table align-items-center">
+    <table class="table align-items-center bg-dark">
       <thead>
         <tr>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Patient
           </th>
           <th
-            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+            class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
           >
             Phone
           </th>
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Deleted_at
           </th>
 
           <th
-            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+            class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
           >
             Actions
           </th>
-          <th class="text-secondary opacity-7"></th>
         </tr>
       </thead>
 
@@ -44,7 +43,7 @@
                 />
               </div>
               <div class="d-flex flex-column justify-content-center">
-                <h6 class="mb-0 text-sm">{{ deleted_patients.name }}</h6>
+                <h6 class="mb-0 text-sm text-white">{{ deleted_patients.name }}</h6>
                 <p class="text-xs text-secondary mb-0">
                   {{ deleted_patients.email }}
                 </p>
@@ -52,12 +51,12 @@
             </div>
           </td>
           <td>
-            <p class="text-xs text-secondary mb-0">
+            <p class="text-xs text-light mb-0">
               {{ deleted_patients.phone }}
             </p>
           </td>
           <td class="align-middle text-center text-sm">
-            <span class="text-secondary text-xs font-weight-bold">{{
+            <span class="text-light text-xs font-weight-bold">{{
               getFormattedDate(deleted_patients.deleted_at)
             }}</span>
           </td>
@@ -81,7 +80,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import moment from "moment";
 import "moment-timezone";
 
@@ -107,28 +105,19 @@ export default {
       try {
         const response = await api.get("/admin/patients");
         this.allPatients = response.data;
-        this.isLoading = false;
         console.log(this.allPatients);
       } catch (error) {
         console.log(error);
+      } finally {
+        this.isLoading = false;
       }
     },
     async restorePatient(patientId) {
       try {
         await api.put(`admin/patients/${patientId}/restore`);
-        this.getPatients(); 
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Patient restored successfully!",
-        });
+        this.getPatients();
       } catch (error) {
         console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to restore patient",
-        });
       }
     },
   },

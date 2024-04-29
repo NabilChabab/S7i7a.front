@@ -1,9 +1,9 @@
 <template>
   <div class="col-lg-6 mb-lg-0 mb-4">
-    <div class="card">
-      <div class="card-header pb-0 p-3 mb-3">
+    <div class="card bg-dark">
+      <div class="card-header pb-0 p-3 mb-3 bg-dark">
         <div class="d-flex justify-content-between align-items-center">
-          <h6 class="mb-2">Latest Patients</h6>
+          <h6 class="mb-2 text-white">Latest Patients</h6>
           <a
             href="#"
             class="btn btn-primary"
@@ -22,9 +22,9 @@
         aria-hidden="true"
       >
         <div class="modal-dialog">
-          <div class="modal-content bg-glass">
-            <div class="modal-header">
-              <h5 class="modal-title" id="forgotPasswordModalLabel">
+          <div class="modal-content bg-dark">
+            <div class="modal-header bg-dark">
+              <h5 class="modal-title text-white" id="forgotPasswordModalLabel">
                 Add a new Category
               </h5>
               <button
@@ -42,7 +42,7 @@
                     id="image"
                     alt="Preview Image"
                   />
-                  <label for="input-file">Category Icon</label>
+                  <label for="input-file" class="text-white">Category Icon</label>
                   <p class="fname-error text-danger">{{ errorMessage }}</p>
                   <input
                     type="file"
@@ -89,27 +89,26 @@
           <thead>
             <tr>
               <th
-                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="text-uppercase text-light text-xxs font-weight-bolder opacity-7"
               >
                 Category
               </th>
               <th
-                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                class="text-uppercase text-light text-xxs font-weight-bolder opacity-7 ps-2"
               >
                 Created_at
               </th>
               <th
-                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
               >
                 Updated_at
               </th>
 
               <th
-                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="text-center text-uppercase text-light text-xxs font-weight-bolder opacity-7"
               >
                 Actions
               </th>
-              <th class="text-secondary opacity-7"></th>
             </tr>
           </thead>
 
@@ -126,18 +125,18 @@
                     />
                   </div>
                   <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ categories.name }}</h6>
-                    <p class="text-xs text-secondary mb-0">test</p>
+                    <h6 class="mb-0 text-sm text-white">{{ categories.name }}</h6>
+                    <p class="text-xs text-light mb-0">test</p>
                   </div>
                 </div>
               </td>
               <td>
-                <p class="text-xs text-secondary mb-0">
+                <p class="text-xs text-light mb-0">
                   {{ getFormattedDate(categories.created_at) }}
                 </p>
               </td>
               <td class="align-middle text-center text-sm">
-                <span class="text-secondary text-xs font-weight-bold">{{
+                <span class="text-light text-xs font-weight-bold">{{
                   getFormattedDate(categories.updated_at)
                 }}</span>
               </td>
@@ -180,9 +179,9 @@
           aria-hidden="true"
         >
           <div class="modal-dialog">
-            <div class="modal-content bg-glass">
-              <div class="modal-header">
-                <h5 class="modal-title" id="forgotPasswordModalLabel">
+            <div class="modal-content bg-dark">
+              <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="forgotPasswordModalLabel">
                   Update Category
                 </h5>
                 <button
@@ -200,7 +199,7 @@
                       id="image"
                       alt="Preview Image"
                     />
-                    <label for="input-file">Category Icon</label>
+                    <label for="input-file" class="text-white">Category Icon</label>
                     <p class="fname-error text-danger">{{ errorMessage }}</p>
                     <input
                       type="file"
@@ -250,7 +249,6 @@
 
 <script>
 import api from "@/services/api";
-import Swal from "sweetalert2";
 import moment from "moment";
 import "moment-timezone";
 
@@ -284,7 +282,7 @@ export default {
         if (!token) {
           throw new Error("Token not found in local storage");
         }
-        
+
         const response = await fetch(
           "http://127.0.0.1:8000/api/admin/categories/" +
             this.selectedCategory.id,
@@ -303,25 +301,14 @@ export default {
         }
 
         const responseData = await response.json();
-
+        this.closeModal();
         this.loading = false;
         console.log(responseData);
-        await this.getCategories()
-
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Category Updated successfully!",
-        });
+        await this.getCategories();
       } catch (error) {
         console.error("Error updating category:", error);
+      } finally {
         this.loading = false;
-
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to update Category",
-        });
       }
     },
 
@@ -351,11 +338,7 @@ export default {
           },
         });
         this.allCategories.push(response.data.category);
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Category Added successfully!",
-        });
+        this.closeModal();
         this.$router.push("/admin/categories");
       } catch (error) {
         this.errorMessage = error.response.data.message;
@@ -365,23 +348,25 @@ export default {
     async deleteCategory(categoryId) {
       try {
         await api.delete(`admin/categories/${categoryId}`);
-        await this.getCategories()
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Category deleted successfully!",
-        });
+        await this.getCategories();
       } catch (error) {
         console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to delete Category",
-        });
+      }
+    },
+    closeModal() {
+      const modal = document.getElementById("statusUpdateModal");
+      if (modal) {
+        modal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+        const backdrop = document.getElementsByClassName("modal-backdrop")[0];
+        if (backdrop) {
+          backdrop.parentNode.removeChild(backdrop);
+        }
+        modal.dispatchEvent(new Event("hidden.bs.modal"));
       }
     },
     handleImageChange(event) {
-      this.icon = event.target.files[0]; // Store the selected file
+      this.icon = event.target.files[0];
       if (this.icon) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -389,7 +374,7 @@ export default {
         };
         reader.readAsDataURL(this.icon);
       } else {
-        this.previewImage = ""; // Clear preview if no file selected
+        this.previewImage = "";
       }
     },
   },

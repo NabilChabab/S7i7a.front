@@ -55,6 +55,20 @@
         </div>
         <Information />
       </div>
+      <div id="about" class="mt-5">
+        <div class="row mb-5">
+          <div class="col-md-8 text-center mb-5 mt-5 w-100">
+            <h3 class="text-dark z-index-1 position-relative">
+              Frequenty Asked Questions
+            </h3>
+            <p class="text-dark opacity-8 mb-0">
+              There’s nothing I really wanted to do in life that I wasn’t able
+              to get good at. That’s my skill.
+            </p>
+          </div>
+        </div>
+        <FAQ />
+      </div>
     </div>
     <DefaultFooter />
   </div>
@@ -70,6 +84,7 @@ import TopDoctors from "@/components/Sections/TopDoctors.vue";
 import Posts from "@/components/Sections/TopArticles.vue";
 import DefaultFooter from "@/components/layouts/footer/FooterDefault.vue";
 import Information from "@/components/Sections/AboutSection.vue";
+import FAQ from "@/components/Sections/FAQSection.vue";
 
 import PreLoader from "@/components/icons/PreLoader.vue";
 
@@ -107,6 +122,7 @@ export default {
     DefaultFooter,
     PreLoader,
     Information,
+    FAQ,
   },
 };
 </script>

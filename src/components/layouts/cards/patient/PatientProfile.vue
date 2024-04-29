@@ -4,10 +4,10 @@
       <input type="hidden" name="_method" value="PATCH" />
       <div class="row">
         <div class="col-md-8">
-          <div class="card">
-            <div class="card-header pb-0">
+          <div class="card bg-dark bg-dark">
+            <div class="card-header pb-0 bg-dark">
               <div class="d-flex align-items-center">
-                <p class="mb-0">Edit Profile</p>
+                <p class="mb-0 text-white">Edit Profile</p>
                 <button class="btn btn-primary btn-sm ms-auto">
                   Save Changes
                 </button>
@@ -22,7 +22,7 @@
                       >Username</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="text"
                       v-model="patient.name"
                     />
@@ -34,7 +34,7 @@
                       >Email address</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="email"
                       v-model="patient.email"
                     />
@@ -50,7 +50,7 @@
                       >Phone Number</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="text"
                       v-model="patient.phone"
                     />
@@ -62,7 +62,7 @@
                       >Address</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="text"
                       placeholder="Morocco Casablanca 04 25"
                       v-model="patient.address"
@@ -79,7 +79,7 @@
                       >Experience</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="text"
                       placeholder="Enter Your Experience"
                       v-model="patient.experience"
@@ -92,7 +92,7 @@
                       >Qualification</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="text"
                       placeholder="Enter Your Qualification"
                       v-model="patient.qualification"
@@ -104,11 +104,11 @@
                     class="form-group"
                     :class="{ error: errors.description }"
                   >
-                    <label for="example-text-input" class="form-control-label"
+                    <label for="example-text-input" class="form-control-label text-secondary text-uppercase"
                       >Description</label
                     >
                     <input
-                      class="form-control"
+                      class="form-control bg-secondary text-white border-dark"
                       type="text"
                       placeholder="Enter Your Description"
                       v-model="patient.description"
@@ -125,14 +125,14 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card card-profile">
+          <div class="card card-profile bg-dark">
             <img
               src="@/assets/img/bg-profile.jpg"
               alt="Image placeholder"
               class="card-img-top"
             />
             <div class="row justify-content-center">
-              <div class="col-4 col-lg-4 order-lg-2">
+              <div class="col-4 col-lg-4 order-lg-2 bg-dark">
                 <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                   <a href="javascript:;">
                     <img
@@ -145,12 +145,12 @@
               </div>
             </div>
             <div
-              class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3"
+              class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3 bg-dark"
             >
               <div class="d-flex justify-content-center">
                 <label
                   for="input-file"
-                  class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block mt-3"
+                  class="btn btn-sm btn-primary float-right mb-0 d-none d-lg-block mt-3"
                   style="cursor: pointer"
                   >Upload image</label
                 >
@@ -167,13 +167,13 @@
             </div>
             <div class="card-body pt-0">
               <div class="text-center mt-4">
-                <h5>
+                <h5 class="text-white">
                   {{ patient.name }}<span class="font-weight-light"></span>
                 </h5>
-                <div class="h6 font-weight-300">
+                <div class="h6 font-weight-300 text-white">
                   <i class="ni location_pin mr-2"></i>{{ patient.email }}
                 </div>
-                <div class="h6 mt-4">
+                <div class="h6 mt-4 text-white">
                   <i class="ni business_briefcase-24 mr-2"></i>Doctor At -
                   S7I7A.ma
                 </div>

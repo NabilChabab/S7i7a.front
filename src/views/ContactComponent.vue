@@ -14,50 +14,34 @@
         <div class="container">
           <div class="row">
             <div
-              class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto"
-            >
-              <div class="card card-plain bg-dark">
-                <div class="card-header pb-0 text-start bg-dark">
-                  <h4 class="font-weight-bolder text-white">Sign In</h4>
-                  <p class="mb-0 text-light">Enter your email and password to sign in</p>
-                </div>
-                <LoginSection/>
-                
-              </div>
-            </div>
-            <div
-              class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column"
+              class="col-12 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column"
             >
               <div
                 class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
               >
-                <span class="mask bg-gradient-primary opacity-6"></span>
+                <img src="https://images.pexels.com/photos/4021775/pexels-photo-4021775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="mask bg-gradient-primary opacity-3" style="object-fit: cover;"/>
 
                 <h4
-                  class="mt-5 text-white font-weight-bolder position-relative"
-                >
+                  class="text-white font-weight-bolder position-relative" style="margin-top: 15%;">
                   "Attention is the new currency"
                 </h4>
-                <p class="text-white position-relative">
+                <p class="text-white position-relative mb-5">
                   The more effortless the writing looks, the more effort the
                   writer actually put into the process.
                 </p>
+                <ContactSection />
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <ForgotSection/>
   </main>
-  
 </template>
 
 <script>
-
 import NavbarDefault from "@/components/layouts/bars/NavbarDefault.vue";
-import LoginSection from "@/components/Sections/auth/LoginSection.vue"
-import ForgotSection from "@/components/Sections/auth/ForgotPasswordSection.vue"
+import ContactSection from "@/components/Sections/ContactSection.vue";
 
 export default {
   data() {
@@ -73,8 +57,7 @@ export default {
   },
   components: {
     NavbarDefault,
-    LoginSection,
-    ForgotSection,
+    ContactSection,
   },
 };
 </script>
